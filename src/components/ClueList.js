@@ -23,18 +23,28 @@ class ClueList extends Component {
 
     render() {
         return ( 
-            <div className="cluelist-container">
+            <>
+                <input type="checkbox" id="menu" />
+                <label for="menu" class="icon">
+                        <div class="menu"></div>
+                </label>
+                <div className="cluelist-container">
                 This is the ClueList div!
                 <>
                 <ul>
-                {this.props.clueItems.map(item => {
+                    {this.props.clueItems ? 
+                    <>
+                    {this.props.clueItems.map(item => {
                     return <li key={item.id + Math.random()}>{item.name}
                             <button onClick={(event) => this.handleRemoveFromNotepad(item)} >Remove from Notepad</button>
                         </li>
                 })}
+                </>
+                : null}
                 </ul>
                 </>
             </div>
+            </>
          );
     }
 }

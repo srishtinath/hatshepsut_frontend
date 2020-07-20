@@ -18,7 +18,7 @@ class Home extends Component {
 
     logoutUser = (e) => {
         // e.preventDefault()
-        localStorage.token = {}
+        localStorage.token = ""
         this.props.history.push('/login')
       }
 

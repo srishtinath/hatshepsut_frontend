@@ -5,11 +5,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595266147/Hatshepsut/382913-PCI5F6-854_pkszsk.jpg");
+  background-repeat: no-repeat;
+  background-size: 150%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.login-form {
+  position: relative;
+  width: 70%;
+  margin: auto;
+  top: 5%;
+  text-align: center;
+}
+
+.intro-box {
+  background-color: rgba(255,255,255, 0.4);
+  width: 70%;
+  margin: 3% auto;
+  text-align: center;
+  padding: 2%;
+}
+
+.intro-image {
+  position: absolute;
+  left: 5%;
+  height: 30%;
+  z-index: 4;
 }
 
 .progress-tracker-div {
@@ -23,13 +49,90 @@ code {
   text-align: center;
 }
 
+input#menu {
+  display: none;
+}
+
+.icon {
+  background: #FFF;
+  cursor: pointer;
+  display: block;
+  height: 24px;
+  padding: 16px;
+  width: 24px;
+}
+
+label.icon {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 200;
+}
+
+.icon .menu,
+.icon .menu::before,
+.icon .menu::after {
+    background: #9FB1BD;
+    content: '';
+    /* display: block; */
+    height: 2px;
+    position: absolute;
+    transition: background ease .3s, top ease .3s .3s, transform ease .3s;
+    width: 20px;
+}
+
+.icon:hover .menu,
+.icon:hover .menu::before,
+.icon:hover .menu::after {
+    background: rgb(181, 111, 102);
+}
+
+.icon .menu {
+    left: 18px;
+    top: 27px;
+}
+
+.icon .menu::before {
+    top: -6px;
+}
+
+.icon .menu::after {
+    top: 6px;
+}
+
+#menu:checked + .icon .menu {
+    background: transparent;
+}
+
+#menu:checked + .icon .menu::before {
+    transform: rotate(45deg);
+}
+
+#menu:checked + .icon .menu::after {
+    transform: rotate(-45deg);
+}
+
+#menu:checked + .icon .menu::before,
+#menu:checked + .icon .menu::after {
+    top: 0;
+    transition: top ease .3s, transform ease .3s .3s;
+}
+
+#menu:checked ~ .cluelist-container {
+  height: 100%;
+  right: 0;
+  /* transition: width ease .6s; */
+}
+
+
 .cluelist-container {
   position: fixed;
-  right: 0;
+  top: 0;
+  right: -20%;
+  transition: height ease 1s;
   width: 20%;
-  height: 100%;
+  height: 0%;
   background-color: rgba(181, 111, 102, 0.6);
-  /* display: none; */
   z-index: 10;
 }
 
@@ -69,6 +172,7 @@ code {
   text-align: left;
   padding: 3%;
 }
+
 .room-background {
   position: absolute;
   max-width: 100%;
@@ -83,10 +187,56 @@ code {
   grid-template-rows: auto;
 }
 
+.item-div {
+  width: 30%;
+  padding: 1%;
+  display: grid;
+}
+
+.item-div:hover .item-overlay {
+  opacity: 0.9;
+}
 .item-image {
-  max-width: 10%;
+  width: 100px;
+}
+
+.item-overlay {
+  grid-column: 1;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  z-index: 3;
+  text-align: center;
+  align-items: center;
+}
+
+.item-underlay {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  text-align: center;
+}
+
+.go-back-btn {
+  position: absolute;
+  bottom: 5%;
+  transition: .5s ease;
 }
 
 .location-image {
   max-width: 20%;
+}
+
+.location-items {
+  background-color: rgba(255,255,255, 0.4);
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 70%;
+  margin: auto;
+}
+
+.room-content-ul {
+  list-style-type: none;
 }

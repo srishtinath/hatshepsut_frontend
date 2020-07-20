@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Location from './Location'
+import CurrentLocation from './CurrentLocation'
 
 import { connect } from 'react-redux'
 import { setCurrentRoom } from '../actions/room'
@@ -7,6 +8,10 @@ import { setCurrentLocation } from '../actions/room'
 
 
 class FirstRoom extends Component {
+
+    state = {
+        showZoomedLocation: false
+    }
 
     // this will be set in a component above
     componentDidMount(){
@@ -24,6 +29,21 @@ class FirstRoom extends Component {
         .then(locationInfo =>{
             this.props.setCurrentLocation(locationInfo)
         })
+        this.setState({
+            showZoomedLocation: !this.state.showZoomedLocation
+        })
+    }
+
+    onClick = (e) => {
+        this.setState({
+            showZoomedLocation: true
+        })
+    }
+
+    goToRoomDetails = (e) => {
+        this.setState({
+            showZoomedLocation: !this.state.showZoomedLocation
+        })
     }
 
     render() 
@@ -33,17 +53,22 @@ class FirstRoom extends Component {
         return ( 
             <div>
             <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`}}>
-                <h1> Welcome to {room.name }!</h1>
+                <h1> Welcome to {room.name}!</h1>
                     {console.log(room.locations)}
-                { room.locations ? 
-                <ul>
-                    { room.locations.map(loc => 
-                        <li id={loc.id} onClick={this.setCurrentLocation}>
-                            <Location location={loc} key={loc.id} items={loc.items}/>
-                        </li>
-                    )}
-                </ul>
+                { this.state.showZoomedLocation ? 
+                <CurrentLocation currentLocation={this.props.location} goToRoomDetails={this.goToRoomDetails}/>
+
+                : <ul className="room-content-ul">
+                {room.locations ? 
+                <>
+                { room.locations.map(loc => {
+                    return (<li id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
+                        <Location location={loc} items={loc.items} />
+                    </li>)
+                })}
+                </>
                 : null}
+            </ul>}
             </div> 
             </div>);
     }

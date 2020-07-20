@@ -87,7 +87,7 @@ class App extends Component {
     if (localStorage.token) {
       return (
         <div className="body-content">
-          <Home />
+          <Home logoutUser={this.logoutUser}/>
         </div>
     )
     } else {
@@ -95,7 +95,6 @@ class App extends Component {
       console.log("boo")
     }
   }
-
 
 
   // //will change in Redux
@@ -128,8 +127,13 @@ renderSetting = () => {
   render() { 
           return (
             <>
+            { localStorage.token ? 
+            <>
             <ProgressTracker />
             <ClueList />
+            </>
+          : null}
+            
 
           <Switch>
               <Route path="/home" exact render={this.renderHome}/>
@@ -137,6 +141,7 @@ renderSetting = () => {
               <Route path="/register" exact render={this.renderForm} />
               <Route path="/setting" render={ this.renderSetting } />
               <Route path="/firstroom" render = {this.firstRoom} />
+              <Route render={this.renderHome} />
           </Switch>
           </>
       )

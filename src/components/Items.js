@@ -30,7 +30,8 @@ class Items extends Component {
         })
         .then(r => r.json())
         .then(fetchedItem => {
-            this.props.addItemToClueList(item)
+            console.log(fetchedItem)
+            this.props.addItemToClueList(fetchedItem)
         })
         // this.props.addItemToClueList(item, this.props.location)
     }
@@ -39,18 +40,24 @@ class Items extends Component {
         console.log(this.props)
         return ( 
             <>
-            {this.state.items ? 
-            this.state.items.map(item => {
+            {this.props.items ? 
+            <>
+            {this.props.items.map(item => {
                 return (
-                <div key={item.id}>
-                    <img src={item.image_url} alt={item.name} className="item-image"/>
+                <div key={item.id} className="item-div">
+                    <div className="item-underlay">
+                        <img src={item.image_url} alt={item.name} className="item-image"/>
+                    </div>
+                    <div className="item-overlay">
                     <p>{item.description}</p>
                     <button onClick={(event) => this.handleAddToNotepad(item)} className="add-notepad-btn" >Add to Notepad!</button>
+                    </div>
                 </div>
                 )}
-                )
-            
+                )}
+            </>
             : null}
+            <button onClick={this.props.goToRoomDetails} className="go-back-btn"><p>Go back</p></button>
             </>
          );
     }
@@ -58,7 +65,8 @@ class Items extends Component {
 
 let mapStateToProps = (state) => {
     return ({
-        cluelist: state.cluelist
+        cluelist: state.cluelist,
+        clueItems: state.clueItems
     })
 }
 
