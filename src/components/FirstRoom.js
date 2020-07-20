@@ -15,7 +15,7 @@ class FirstRoom extends Component {
 
     // this will be set in a component above
     componentDidMount(){
-        fetch("http://localhost:3000/rooms/16")
+        fetch("http://localhost:3000/rooms/21")
         .then(r => r.json())
         .then(fetchedRoom => {
             this.props.setCurrentRoom(fetchedRoom)

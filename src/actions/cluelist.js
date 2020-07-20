@@ -1,9 +1,14 @@
-export let setClueList = (cluelistObj, cluelistItems = []) => {
+export let setClueList = (cluelistObj) => {
     return {
       type: "SET_CLUELIST",
-      payload: {
-        cluelistObj,
-        cluelistItems}
+      payload: cluelistObj
+    }
+  }
+
+  export let setClueItems = (clueListItems) => {
+    return {
+      type: "SET_CLUELIST_ITEMS",
+      payload: clueListItems
     }
   }
 

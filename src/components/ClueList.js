@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { removeItemFromClueList } from '../actions/cluelist'
+import { setClueList, setClueItems } from '../actions/cluelist'
 
 
 class ClueList extends Component {
+
+    componentWillMount(){
+        let entryId = this.props.cluelist.id
+        fetch(`http://localhost:3000/clue_lists/${entryId}`)
+        .then(r => r.json())
+        .then(resp => {
+            console.log(resp)
+        // this.props.setClueList(resp)
+            if (resp.items){
+                this.props.setClueItems(resp.items)
+            }
+            }
+        )}
 
     handleRemoveFromNotepad = (item) => {
     let entryId = this.props.cluelist.id
@@ -25,8 +39,8 @@ class ClueList extends Component {
         return ( 
             <>
                 <input type="checkbox" id="menu" />
-                <label for="menu" class="icon">
-                        <div class="menu"></div>
+                <label for="menu" className="icon">
+                        <div className="menu"></div>
                 </label>
                 <div className="cluelist-container">
                 This is the ClueList div!
@@ -52,12 +66,15 @@ class ClueList extends Component {
 let mapStateToProps = (state) => {
     return ({
         cluelist: state.cluelist,
-        clueItems: state.clueItems
+        clueItems: state.clueItems,
+        currentUser: state.currentUser
         })
 }
 
 let mapDispatchToProps = {
-    removeItemFromClueList
+    removeItemFromClueList,
+    setClueList,
+    setClueItems
 }
  
 export default connect(mapStateToProps, mapDispatchToProps)(ClueList);

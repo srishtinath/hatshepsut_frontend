@@ -31,6 +31,7 @@ class Items extends Component {
         .then(r => r.json())
         .then(fetchedItem => {
             console.log(fetchedItem)
+            localStorage.items = [...localStorage.items, fetchedItem]
             this.props.addItemToClueList(fetchedItem)
         })
         // this.props.addItemToClueList(item, this.props.location)

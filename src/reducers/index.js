@@ -19,8 +19,13 @@ export const rootReducer = (state = initialState, action) => {
     case "SET_CLUELIST":
       return {
         ...state,
-        cluelist: action.payload.cluelistObj,
-        clueItems: action.payload.cluelistItems
+        cluelist: action.payload,
+      }
+
+    case "SET_CLUELIST_ITEMS":
+      return {
+        ...state,
+        clueItems: action.payload
       }
     
     case "ADD_ITEM":

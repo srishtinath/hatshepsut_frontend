@@ -22,7 +22,6 @@ class App extends Component {
 
   componentDidMount(){
     if (localStorage.token){
-
       fetch("http://localhost:3000/users/stay_logged_in", {
         headers: {
           "Authorization": localStorage.token
@@ -30,8 +29,9 @@ class App extends Component {
       })
       .then(r => r.json())
       .then(this.handleResponse)
+    }
 
-  }}
+}
 
   handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
@@ -64,13 +64,17 @@ class App extends Component {
     if (resp.message){
       console.log(resp.message)
     } else {
-      this.props.setUserInfo(resp.user)
       localStorage.token = resp.token
       this.setState({
         token: resp.token
-      })
+      }, this.handleInitialInfo(resp.user))
       this.props.history.push("/home")
     }
+  }
+
+  handleInitialInfo = (user) => {
+      this.props.setUserInfo(user)
+      this.props.setClueList(user.clue_list)
   }
 
   renderForm = (routerProps) => {
@@ -91,13 +95,13 @@ class App extends Component {
         </div>
     )
     } else {
-      // this.props.history.push("/login")
+      this.props.history.push("/login")
       console.log("boo")
     }
   }
 
 
-  // //will change in Redux
+  // user for registration - when new user created
   handleCluelist = (LocationObject) => {
     fetch("http://localhost:3000/item_clue_lists", {
       method: "POST",
@@ -118,31 +122,29 @@ class App extends Component {
 
   firstRoom = () => {
     return <FirstRoom />
-}
+  }
 
-renderSetting = () => {
-    return <Setting />
-}
+  renderSetting = () => {
+      return <Setting />
+  }
 
   render() { 
           return (
-            <>
-            { localStorage.token ? 
-            <>
-            <ProgressTracker />
-            <ClueList />
-            </>
-          : null}
-            
-
+           <>
           <Switch>
               <Route path="/home" exact render={this.renderHome}/>
               <Route path="/login" exact render={this.renderForm} />
               <Route path="/register" exact render={this.renderForm} />
               <Route path="/setting" render={ this.renderSetting } />
               <Route path="/firstroom" render = {this.firstRoom} />
-              <Route render={this.renderHome} />
+              <Route render={this.renderForm} />
           </Switch>
+          { localStorage.token ? 
+          <>
+            <ProgressTracker />
+            <ClueList />
+          </>
+          : null}
           </>
       )
   }
