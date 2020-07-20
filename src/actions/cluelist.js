@@ -1,16 +1,29 @@
-// add item to cluelist
-// remove item from cluelist
+export let setClueList = (cluelistObj, cluelistItems = []) => {
+    return {
+      type: "SET_CLUELIST",
+      payload: {
+        cluelistObj,
+        cluelistItems}
+    }
+  }
 
-export const addItemToClueList = item => {
-    return {
-      type: 'ADD_ITEM',
-      item
-    }
+export let setAllClueLists = (cluelists) => {
+  return {
+    type: "SET_ALL_CLUELISTS",
+    payload: cluelists
   }
-  
-  export const removeItemFromClueList = itemId => {
+}
+
+export let addItemToClueList = (itemObject) => {
     return {
-      type: 'REMOVE_ITEM',
-      itemId
+      type: "ADD_ITEM",
+      payload: itemObject
     }
+}
+
+export let removeItemFromClueList = (itemObject) => {
+  return {
+    type: "REMOVE_ITEM",
+    payload: itemObject
   }
+}

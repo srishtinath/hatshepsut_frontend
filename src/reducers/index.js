@@ -1,9 +1,50 @@
-import { combineReducers } from 'redux';
-// import { foodReducer } from './rooms';
-import { userReducer } from './user'
-import { cluelistReducer } from './cluelist'
+let initialState = {
+  currentUser: {},
+  cluelist: {},
+  clueItems: [],
+  currentRoom: {},
+  currentLocation: {
+    items: []
+  },
+}
 
-export default combineReducers({
-  cluelistInformation: cluelistReducer,
-  userInformation: userReducer
-});
+export const rootReducer = (state = initialState, action) => {
+  switch(action.type){
+    case "SET_USER":
+      return {
+        ...state,
+        currentUser: action.payload
+      }
+
+    case "SET_CLUELIST":
+      return {
+        ...state,
+        cluelist: action.payload.cluelistObj,
+        clueItems: action.payload.cluelistItems
+      }
+    
+    case "ADD_ITEM":
+      return {
+        ...state,
+        clueItems: [...state.clueItems, action.payload]
+      };
+    case "REMOVE_ITEM":
+        return {
+            ...state,
+            clueItems: state.clueItems.filter(item => item.id !== action.payload.id)
+        }
+
+    case "SET_ROOM":
+      return {
+        ...state,
+        currentRoom: action.payload
+      }
+    case "SET_LOCATION":
+      return {
+        ...state,
+        currentLocation: action.payload,
+      }
+    default: 
+      return state
+  }
+}

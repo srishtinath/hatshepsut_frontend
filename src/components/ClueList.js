@@ -1,38 +1,53 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
+import { removeItemFromClueList } from '../actions/cluelist'
+
 
 class ClueList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  
-            cluelist: []
-        }
-    }
 
-    componentDidMount(){
-        fetch("http://localhost:3000/clue_lists/14")
+    handleRemoveFromNotepad = (item) => {
+    let entryId = this.props.cluelist.id
+        fetch(`http://localhost:3000/clue_lists/${entryId}/deleteItem/${item.id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type":"application/json",
+                "accept": "application/json"
+            }
+        })
         .then(r => r.json())
-        .then(fetchedCluelist => {
-            this.setState({
-                cluelist: fetchedCluelist
-            })
+        .then(resp => {
+            console.log(resp)
+            this.props.removeItemFromClueList(item)
         })
     }
-    render() { 
+
+    render() {
         return ( 
             <div className="cluelist-container">
                 This is the ClueList div!
-                {this.state.cluelist.items ? 
                 <>
                 <ul>
-                {this.state.cluelist.items.map(item => {
-                    return <li>{item.name}</li>
+                {this.props.clueItems.map(item => {
+                    return <li key={item.id + Math.random()}>{item.name}
+                            <button onClick={(event) => this.handleRemoveFromNotepad(item)} >Remove from Notepad</button>
+                        </li>
                 })}
                 </ul>
                 </>
-                : null}
             </div>
          );
     }
 }
+
+let mapStateToProps = (state) => {
+    return ({
+        cluelist: state.cluelist,
+        clueItems: state.clueItems
+        })
+}
+
+let mapDispatchToProps = {
+    removeItemFromClueList
+}
  
-export default ClueList;
+export default connect(mapStateToProps, mapDispatchToProps)(ClueList);

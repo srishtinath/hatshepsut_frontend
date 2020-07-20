@@ -4,61 +4,101 @@ import './App.css';
 
 import ProgressTracker from './components/ProgressTracker';
 import ClueList from './components/ClueList';
-import Body from './components/Body';
+import LoginForm from './components/LoginForm'
+import FirstRoom from './components/FirstRoom';
 import Setting from './components/Setting';
+import Home from './components/Home'
 
+import { setUserInfo } from './actions/user'
+import { setClueList } from './actions/cluelist'
+import { Switch, Route, withRouter } from 'react-router';
 
 
 class App extends Component {
+
   state = {
-    user: {},
-    rooms: [],
-    cluelist: []
+    token: ""
   }
 
   componentDidMount(){
-    fetch("http://localhost:3000/rooms")
+    if (localStorage.token){
+
+      fetch("http://localhost:3000/users/stay_logged_in", {
+        headers: {
+          "Authorization": localStorage.token
+        }
+      })
+      .then(r => r.json())
+      .then(this.handleResponse)
+
+  }}
+
+  handleLoginSubmit = (userInfo) => {
+    console.log("Login form has been submitted")
+    fetch("http://localhost:3000/users/login", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo)
+        })
     .then(r => r.json())
-    .then((rooms) => {
-      this.props.setAllRooms(rooms)
-    })
+    .then(this.handleResponse)
   }
 
-  //   if(localStorage.token){
-  //     fetch("http://localhost:4000/users/stay_logged_in",{
-  //       headers: {
-  //         "Authorization": localStorage.token
-  //       }
-  //     })
-  //     .then(r => r.json())
-  //     .then(this.handleResponse)
+  handleRegisterSubmit = (userInfo) => {
+    console.log("Register form has been submitted")
+    fetch("http://localhost:3000/users", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify(userInfo)
+        })
+        .then(r => r.json())
+        .then(this.handleResponse)
+  }
 
-  //   }
-  // }
+  handleResponse = (resp) => {
+    if (resp.message){
+      console.log(resp.message)
+    } else {
+      this.props.setUserInfo(resp.user)
+      localStorage.token = resp.token
+      this.setState({
+        token: resp.token
+      })
+      this.props.history.push("/home")
+    }
+  }
 
-  // renderForm = (routerProps) => {
-  //   if(routerProps.location.pathname === "/login"){
-  //     return <Form
-  //       formName="Login Form"
-  //       handleSubmit={this.handleLoginSubmit}
-  //     />
-  //   } else if (routerProps.location.pathname === "/register") {
-  //     return <Form
-  //       formName="Register Form"
-  //       handleSubmit={this.handleRegisterSubmit}
-  //     />
-  //   }
-  // }
+  renderForm = (routerProps) => {
+    if (routerProps.location.pathname === "/login"){
+      return <LoginForm formName="Login" handleSubmit={this.handleLoginSubmit}/>
+    } else if (routerProps.location.pathname === "/register"){
+      return <LoginForm formName="Register" handleSubmit={this.handleRegisterSubmit}/>
+    } else {
+      return <LoginForm formName="Login" handleSubmit={this.handleLoginSubmit}/>
+    }
+  }
 
-  // renderProfile = (routerProps) => {
-  //   if(this.props.loggedIn){
-  //     return <Profile />
-  //   } else {
-  //     this.props.history.push("/login")
-  //   }
-  // }
+  renderHome = (routerProps) => {
+    if (localStorage.token) {
+      return (
+        <div className="body-content">
+          <Home />
+        </div>
+    )
+    } else {
+      // this.props.history.push("/login")
+      console.log("boo")
+    }
+  }
 
-  //will change in Redux
+
+
+  // //will change in Redux
   handleCluelist = (LocationObject) => {
     fetch("http://localhost:3000/item_clue_lists", {
       method: "POST",
@@ -73,76 +113,47 @@ class App extends Component {
     })
     .then(r => r.json())
     .then (cluelistInfo => {
-      setCluelistInfo(cluelistInfo)
+      this.props.setClueList(cluelistInfo)
     })
   }
 
+  firstRoom = () => {
+    return <FirstRoom />
+}
+
+renderSetting = () => {
+    return <Setting />
+}
+
   render() { 
-    return ( 
-      <div>
-        <ProgressTracker />
-        <ClueList cluelist={this.props.cluelist}/>
-        <Body rooms={this.props.rooms} handleCluelist={this.handleCluelist}/>
-      </div>
-  );
+          return (
+            <>
+            <ProgressTracker />
+            <ClueList />
+
+          <Switch>
+              <Route path="/home" exact render={this.renderHome}/>
+              <Route path="/login" exact render={this.renderForm} />
+              <Route path="/register" exact render={this.renderForm} />
+              <Route path="/setting" render={ this.renderSetting } />
+              <Route path="/firstroom" render = {this.firstRoom} />
+          </Switch>
+          </>
+      )
   }
 }
 
-let setAllRooms = (roomsArr) => {
-  return {
-    type: "SET_ALL_ROOMS",
-    payload: roomsArr
-  }
-}
-let setAllLocations = (locationsArr) => {
-  return {
-    type: "SET_ALL_LOCATIONS",
-    payload: locationsArr
-  }
-}
-let setAllItems = (itemsArr) => {
-  return {
-    type: "SET_ALL_ITEMS",
-    payload: itemsArr
-  }
-}
-
-
-let setUserInfo = (userInfo) => {
-  return {
-    type: "SET_USER_INFO",
-    payload: userInfo
-  }
-}
-let setCluelistInfo = (cluelistInfo) => {
-  return {
-    type: "SET_CLUELIST_INFO",
-    payload: cluelistInfo
-  }
-}
-let setCharacterInfo = (characterInfo) => {
-  return {
-    type: "SET_CHARACTER_INFO",
-    paylod: characterInfo
-  }
-}
-
-// mapDispatchToProps is a POJO that will be merged as props to App
 let mapDispatchToProps = {
-  setAllRooms: setAllRooms,
-  setAllLocations: setAllLocations,
-  setAllItems: setAllItems,
-  setUserInfo: setUserInfo,
-  setCluelistInfo: setCluelistInfo,
-  setCharacterInfo: setCharacterInfo
+  setUserInfo,
+  setClueList
 }
 
-
-let mapStateToProps = (globalState) => {
+let mapStateToProps = (state) => {
   return {
-    loggedIn: true
+    currentUser: state.currentUser
   }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
