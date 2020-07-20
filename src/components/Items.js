@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import { addItemToClueList } from '../actions/cluelist'
+import Item from './Item'
 
 
 class Items extends Component {
@@ -31,10 +32,8 @@ class Items extends Component {
         .then(r => r.json())
         .then(fetchedItem => {
             console.log(fetchedItem)
-            localStorage.items = [...localStorage.items, fetchedItem]
             this.props.addItemToClueList(fetchedItem)
         })
-        // this.props.addItemToClueList(item, this.props.location)
     }
 
     render() { 
@@ -45,15 +44,7 @@ class Items extends Component {
             <>
             {this.props.items.map(item => {
                 return (
-                <div key={item.id} className="item-div">
-                    <div className="item-underlay">
-                        <img src={item.image_url} alt={item.name} className="item-image"/>
-                    </div>
-                    <div className="item-overlay">
-                    <p>{item.description}</p>
-                    <button onClick={(event) => this.handleAddToNotepad(item)} className="add-notepad-btn" >Add to Notepad!</button>
-                    </div>
-                </div>
+                < Item item = {item} handleAddToNotepad={this.handleAddToNotepad}/>
                 )}
                 )}
             </>

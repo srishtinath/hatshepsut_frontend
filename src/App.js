@@ -65,6 +65,7 @@ class App extends Component {
       console.log(resp.message)
     } else {
       localStorage.token = resp.token
+      localStorage.clueListId = resp.user.clue_list.id
       this.setState({
         token: resp.token
       }, this.handleInitialInfo(resp.user))

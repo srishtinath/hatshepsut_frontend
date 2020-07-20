@@ -7,12 +7,12 @@ import { setClueList, setClueItems } from '../actions/cluelist'
 class ClueList extends Component {
 
     componentWillMount(){
-        let entryId = this.props.cluelist.id
+        let entryId = localStorage.clueListId
         fetch(`http://localhost:3000/clue_lists/${entryId}`)
         .then(r => r.json())
         .then(resp => {
             console.log(resp)
-        // this.props.setClueList(resp)
+        this.props.setClueList(resp)
             if (resp.items){
                 this.props.setClueItems(resp.items)
             }
@@ -50,7 +50,7 @@ class ClueList extends Component {
                     <>
                     {this.props.clueItems.map(item => {
                     return <li key={item.id + Math.random()}>{item.name}
-                            <button onClick={(event) => this.handleRemoveFromNotepad(item)} >Remove from Notepad</button>
+                            <button onClick={(event) => this.handleRemoveFromNotepad(item)} >{'\u00D7'}</button>
                         </li>
                 })}
                 </>
