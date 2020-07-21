@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { removeItemFromClueList } from '../actions/cluelist'
 import { setClueList, setClueItems } from '../actions/cluelist'
-
+import { withRouter } from 'react-router'
 
 class ClueList extends Component {
 
@@ -27,6 +27,10 @@ class ClueList extends Component {
         })
     }
 
+    guessCulprit = (e) => {
+        this.props.history.push('/guess')
+    }
+
     render() {
         return ( 
             <>
@@ -35,21 +39,21 @@ class ClueList extends Component {
                         <div className="menu"></div>
                 </label>
                 <div className="cluelist-container">
-                This is the ClueList div!
                 <>
-                <ul>
-                    {this.props.clueItems ? 
-                    <>
-                    {this.props.clueItems.map(item => {
-                    return <li key={item.id + Math.random()}>{item.name}
-                            <button onClick={(event) => this.handleRemoveFromNotepad(item)} >{'\u00D7'}</button>
-                        </li>
-                })}
+                    <ul>
+                        {this.props.clueItems ? 
+                        <>
+                        {this.props.clueItems.map(item => {
+                        return <li key={item.id + Math.random()}>{item.name}
+                                <button onClick={(event) => this.handleRemoveFromNotepad(item)} >{'\u00D7'}</button>
+                            </li>
+                    })}
+                    </>
+                    : null}
+                    </ul>
                 </>
-                : null}
-                </ul>
-                </>
-            </div>
+                <button className="guess-culprit-btn" onClick={this.guessCulprit}>Guess the culprit!</button>
+                </div>
             </>
          );
     }
@@ -69,4 +73,4 @@ let mapDispatchToProps = {
     setClueItems
 }
  
-export default connect(mapStateToProps, mapDispatchToProps)(ClueList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ClueList));

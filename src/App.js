@@ -6,6 +6,7 @@ import ProgressTracker from './components/ProgressTracker';
 import ClueList from './components/ClueList';
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
+import GuessCulprit from './components/GuessCulprit'
 
 import { setUserInfo } from './actions/user'
 import { setClueList, setClueItems} from './actions/cluelist'
@@ -119,6 +120,10 @@ class App extends Component {
     })
   }
 
+  guessCulprit = () => {
+    return <GuessCulprit />
+  }
+
   render() { 
           return (
            <>
@@ -127,6 +132,7 @@ class App extends Component {
               <Route path="/home" render={this.renderHome}/>
               <Route path="/login" render={this.renderForm} />
               <Route path="/register" render={this.renderForm} />
+              <Route path="/guess" render={this.guessCulprit} />
           </Switch>
           </div>
           { localStorage.token ? 

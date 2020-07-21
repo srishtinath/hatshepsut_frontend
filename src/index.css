@@ -54,12 +54,12 @@ input#menu {
 }
 
 .icon {
-  background: #FFF;
+  background: rgb(181, 111, 102);
   cursor: pointer;
   display: block;
-  height: 24px;
+  height: 20px;
   padding: 16px;
-  width: 24px;
+  width: 20px;
 }
 
 label.icon {
@@ -134,6 +134,7 @@ label.icon {
   height: 0%;
   background-color: rgba(181, 111, 102, 0.6);
   z-index: 10;
+  padding: auto;
 }
 
 .body-content {
