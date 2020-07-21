@@ -13,14 +13,17 @@ class CharacterChat extends Component {
             <div className="character-chat-content">
                 { character.name }
                 { character.description }
-
-                <ul>
+                <p></p>
                     {character.chats[0] ? 
-                <>{ character.chats[0].chat_options.map(option => {
-                    return <li>{option.text}</li>
-                }) }</>
+                    <>
+                    <p className="character-response">{character.chats[0].response}</p>
+                    <ul className="character-options-ul">
+                    { character.chats[0].chat_options.map(option => {
+                        return <li className="character-options-li">{option.text}</li>
+                    }) }
+                    </ul>
+                    </>
                 :null}
-                </ul>
                 <br></br><button onClick={this.props.toggleRoom}>Go back...</button>
             </div>
             </>

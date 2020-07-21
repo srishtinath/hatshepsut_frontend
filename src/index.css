@@ -191,34 +191,6 @@ label.icon {
   grid-template-rows: auto;
 }
 
-.character-chat-content {
-  background-color: rgba(255,255,255, 0.4);
-  display: block;
-  text-align: right;
-  width: 70%;
-  height: 70%;
-  margin: auto;
-  overflow: auto;
-  padding: 1%;
-}
-
-.character-chat-img {
-  position: absolute;
-  left: -5%;
-}
-
-.character-div {
-  position: absolute;
-  display: flex;
-  width: 40%;
-  top: 5%;
-  z-index: 2;
-}
-
-.character-img {
-  max-width: 50%;
-}
-
 .item-div {
   width: 30%;
   padding: 1%;
@@ -270,4 +242,51 @@ label.icon {
 
 .room-content-ul {
   list-style-type: none;
+}
+
+
+.character-chat-content {
+  background-color: rgba(255,255,255, 0.4);
+  display: block;
+  text-align: right;
+  width: 70%;
+  height: 70%;
+  margin: auto;
+  overflow: auto;
+  padding: 1%;
+}
+
+.character-chat-img {
+  position: absolute;
+  left: -5%;
+}
+
+.character-div {
+  position: absolute;
+  display: flex;
+  width: 40%;
+  top: 5%;
+  z-index: 2;
+}
+
+.character-img {
+  max-width: 50%;
+}
+
+.character-response {
+  text-align: left;
+}
+
+.character-options-ul {
+  list-style-type: none;
+  display: flex;
+}
+
+.character-options-li {
+  text-align: center;
+  color: white;
+  background-color: rgb(181, 111,102);
+  margin: 1%;
+  padding: 1%;
+  box-shadow: 5px 5px rgba(181,111,102, 0.4);
 }
