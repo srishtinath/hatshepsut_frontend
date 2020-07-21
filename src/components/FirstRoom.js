@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Location from './Location'
 import CurrentLocation from './CurrentLocation'
+import CharacterChat from './CharacterChat'
 
 import { connect } from 'react-redux'
 import { setCurrentRoom } from '../actions/room'
@@ -10,12 +11,13 @@ import { setCurrentLocation } from '../actions/room'
 class FirstRoom extends Component {
 
     state = {
-        showZoomedLocation: false
+        showZoomedLocation: false,
+        showCharacterChat: false
     }
 
     // this will be set in a component above
     componentDidMount(){
-        fetch("http://localhost:3000/rooms/21")
+        fetch("http://localhost:3000/rooms/23")
         .then(r => r.json())
         .then(fetchedRoom => {
             this.props.setCurrentRoom(fetchedRoom)
@@ -34,31 +36,47 @@ class FirstRoom extends Component {
         })
     }
 
-    onClick = (e) => {
-        this.setState({
-            showZoomedLocation: true
-        })
-    }
-
     goToRoomDetails = (e) => {
         this.setState({
             showZoomedLocation: !this.state.showZoomedLocation
         })
     }
 
+    handleCharacterChat = () => {
+        this.setState({
+            showCharacterChat: !this.state.showCharacterChat
+        })
+    }
+
+
     render() 
     { 
         let room = this.props.currentRoom
-        console.log(this.props.currentRoom)
+        // console.log(this.props.currentRoom)
         return ( 
-            <div>
+            <>
+            <div className="character-content">
+                {this.state.showCharacterChat ? 
+                    <CharacterChat />
+                : 
+                <>
+                    { room.character ? 
+                    <div className="character-div" onClick={this.handleCharacterChat}>
+                        <img src={room.character.image_url} alt={room.character.name} className="character-img"/>
+                        { room.character.name }
+                        { room.character.description }
+                    </div>
+                    : null }
+                </>
+                }
+            </div>
             <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`}}>
                 <h1> Welcome to {room.name}!</h1>
-                    {console.log(room.locations)}
                 { this.state.showZoomedLocation ? 
                 <CurrentLocation currentLocation={this.props.location} goToRoomDetails={this.goToRoomDetails}/>
+                : 
+                <ul className="room-content-ul">
 
-                : <ul className="room-content-ul">
                 {room.locations ? 
                 <>
                 { room.locations.map(loc => {
@@ -68,9 +86,11 @@ class FirstRoom extends Component {
                 })}
                 </>
                 : null}
-            </ul>}
+                </ul>}
+
+                
             </div> 
-            </div>);
+            </>);
     }
 }
 

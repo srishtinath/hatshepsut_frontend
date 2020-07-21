@@ -6,19 +6,6 @@ import { setClueList, setClueItems } from '../actions/cluelist'
 
 class ClueList extends Component {
 
-    componentWillMount(){
-        let entryId = localStorage.clueListId
-        fetch(`http://localhost:3000/clue_lists/${entryId}`)
-        .then(r => r.json())
-        .then(resp => {
-            console.log(resp)
-        this.props.setClueList(resp)
-            if (resp.items){
-                this.props.setClueItems(resp.items)
-            }
-            }
-        )}
-
     handleRemoveFromNotepad = (item) => {
     let entryId = this.props.cluelist.id
         fetch(`http://localhost:3000/clue_lists/${entryId}/deleteItem/${item.id}`, {
@@ -39,7 +26,7 @@ class ClueList extends Component {
         return ( 
             <>
                 <input type="checkbox" id="menu" />
-                <label for="menu" className="icon">
+                <label htmlFor="menu" className="icon">
                         <div className="menu"></div>
                 </label>
                 <div className="cluelist-container">

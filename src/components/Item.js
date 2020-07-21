@@ -1,22 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { addItemToClueList } from '../actions/cluelist'
 
 class Item extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
+    state = { 
             inCluelist: false
          }
+
+    componentWillMount(){
+        this.inCluelist(this.props.item)
     }
-    
-    inCluelist = (item) => {
+
+    componentDidUpdate(prevProps){
+        if (prevProps.clueItems !== this.props.clueItems){
+            this.inCluelist(this.props.item)
+        }
+    }
+
+    handleAddToNotepad = (item) => {
+        fetch("http://localhost:3000/item_clue_lists", {
+            method: "POST",
+            headers: {
+                "content-type":"application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify({
+                item_id: item.id,
+                clue_list_id: this.props.cluelist.id
+            })
+        })
+        .then(r => r.json())
+        .then(fetchedItem => {
+            console.log(fetchedItem)
+            this.props.addItemToClueList(fetchedItem)
+            this.inCluelist()
+        })
+    }
+
+    inCluelist = () => {
         let itemFound
-        if (this.props.cluelist.items){
-            itemFound = this.props.cluelist.items.find(itemList => itemList.id === item.id)
+        console.log(this.props.cluelist)
+        if (this.props.clueItems){
+            itemFound = this.props.clueItems.find(itemList => itemList.id === this.props.item.id)
         }
         if (itemFound){
             this.setState({
-                inCluelist: !this.state.inCluelist
+                inCluelist: true
+            })
+        } else {
+            this.setState({
+                inCluelist: false
             })
         }
     }
@@ -29,8 +62,11 @@ class Item extends Component {
         </div>
         <div className="item-overlay">
         <p>{this.props.item.description}</p>
-        <button onClick={(event) => this.props.handleAddToNotepad(this.props.item)} className="add-notepad-btn">
-            {this.inCluelist(this.props.item) ? "Already in notepad!" : "Add to Notepad!"}
+        <button 
+        onClick={(event) => this.handleAddToNotepad(this.props.item)} 
+        className="add-notepad-btn"
+        disabled={this.state.inCluelist}>
+            {this.state.inCluelist ? "Already in notepad" : "Add to Notepad!"}
             </button>
         </div>
     </div> );
@@ -39,8 +75,13 @@ class Item extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        cluelist: state.cluelist
+        cluelist: state.cluelist,
+        clueItems: state.clueItems
     }
 }
- 
-export default connect(mapStateToProps)(Item);
+
+let mapDispatchToProps = {
+    addItemToClueList
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

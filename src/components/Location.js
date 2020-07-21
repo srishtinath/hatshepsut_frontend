@@ -3,18 +3,10 @@ import { connect } from 'react-redux'
 
 class Location extends Component {
 
-    state = { 
-        toggleImages: false,
-    }
-
-    renderCurrentLocation = (locationObj) => {
-        
-    }
-
 
     render() { 
         return ( 
-            <div id={this.props.location.id} onClick={this.renderCurrentLocation}>
+            <div id={this.props.location.id} style={{position: 'absolute', top: '0', right: '0'}}>
                 <h1>{this.props.location.name}</h1>
                 <img src={this.props.location.image_url} alt={this.props.location.name} className="location-image" onClick={this.showImages}/>
             </div>

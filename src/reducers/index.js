@@ -34,10 +34,10 @@ export const rootReducer = (state = initialState, action) => {
         clueItems: [...state.clueItems, action.payload]
       };
     case "REMOVE_ITEM":
-        return {
-            ...state,
-            clueItems: state.clueItems.filter(item => item.id !== action.payload.id)
-        }
+      return {
+          ...state,
+          clueItems: state.clueItems.filter(item => item.id !== action.payload.id)
+      }
 
     case "SET_ROOM":
       return {

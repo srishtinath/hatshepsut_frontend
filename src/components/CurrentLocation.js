@@ -9,7 +9,7 @@ import Zoom from 'react-reveal/Zoom';
 class CurrentLocation extends Component {
     
     render() { 
-        console.log(this.props.currentLocation.items)
+        // console.log(this.props.currentLocation.items)
         return ( <>
             <Zoom>
                 <div className="location-items">

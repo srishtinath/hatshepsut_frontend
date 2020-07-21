@@ -138,6 +138,7 @@ label.icon {
 
 .body-content {
   position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
   /* background-color: azure; */
@@ -176,15 +177,34 @@ label.icon {
 .room-background {
   position: absolute;
   max-width: 100%;
-  /* z-index: -10 */
 }
 
 .firstroom-content{
   background-color: rgba(37, 195, 244, 0.7);
   height: 100%;
   width: 100%;
-  background-size: cover;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  background-size: 100%;
+  background-repeat: none;
   grid-template-rows: auto;
+}
+
+.character-content {
+  /* z-index: 10; */
+}
+
+.character-div {
+  position: absolute;
+  display: flex;
+  width: 40%;
+  top: 5%;
+  z-index: 2;
+}
+
+.character-img {
+  max-width: 50%;
 }
 
 .item-div {
@@ -207,7 +227,6 @@ label.icon {
   width: 100%;
   opacity: 0;
   transition: .5s ease;
-  z-index: 3;
   text-align: center;
   align-items: center;
 }

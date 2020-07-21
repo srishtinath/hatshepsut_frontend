@@ -10,7 +10,7 @@ import Setting from './components/Setting';
 import Home from './components/Home'
 
 import { setUserInfo } from './actions/user'
-import { setClueList } from './actions/cluelist'
+import { setClueList, setClueItems} from './actions/cluelist'
 import { Switch, Route, withRouter } from 'react-router';
 
 
@@ -65,7 +65,6 @@ class App extends Component {
       console.log(resp.message)
     } else {
       localStorage.token = resp.token
-      localStorage.clueListId = resp.user.clue_list.id
       this.setState({
         token: resp.token
       }, this.handleInitialInfo(resp.user))
@@ -76,6 +75,7 @@ class App extends Component {
   handleInitialInfo = (user) => {
       this.props.setUserInfo(user)
       this.props.setClueList(user.clue_list)
+      this.props.setClueItems(user.clue_list.items)
   }
 
   renderForm = (routerProps) => {
@@ -91,9 +91,7 @@ class App extends Component {
   renderHome = (routerProps) => {
     if (localStorage.token) {
       return (
-        <div className="body-content">
           <Home logoutUser={this.logoutUser}/>
-        </div>
     )
     } else {
       this.props.history.push("/login")
@@ -132,6 +130,7 @@ class App extends Component {
   render() { 
           return (
            <>
+           <div className="body-content">
           <Switch>
               <Route path="/home" exact render={this.renderHome}/>
               <Route path="/login" exact render={this.renderForm} />
@@ -140,6 +139,7 @@ class App extends Component {
               <Route path="/firstroom" render = {this.firstRoom} />
               <Route render={this.renderForm} />
           </Switch>
+          </div>
           { localStorage.token ? 
           <>
             <ProgressTracker />
@@ -153,7 +153,8 @@ class App extends Component {
 
 let mapDispatchToProps = {
   setUserInfo,
-  setClueList
+  setClueList,
+  setClueItems
 }
 
 let mapStateToProps = (state) => {
