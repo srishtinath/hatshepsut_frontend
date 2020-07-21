@@ -4,7 +4,7 @@ import CurrentLocation from './CurrentLocation'
 import CharacterChat from './CharacterChat'
 
 import { connect } from 'react-redux'
-import { setCurrentRoom } from '../actions/room'
+import { setCurrentRoom, setCurrentCharacter } from '../actions/room'
 import { setCurrentLocation } from '../actions/room'
 
 
@@ -42,7 +42,13 @@ class FirstRoom extends Component {
         })
     }
 
-    handleCharacterChat = () => {
+    handleCharacterChat = (e) => {
+        // console.log(this.props.currentRoom.character.id)
+        fetch(`http://localhost:3000/characters/${this.props.currentRoom.character.id}`)
+        .then(r => r.json())
+        .then(characterFetched => 
+            {console.log(characterFetched)
+            this.props.setCurrentCharacter(characterFetched)})
         this.setState({
             showCharacterChat: !this.state.showCharacterChat
         })
@@ -56,40 +62,42 @@ class FirstRoom extends Component {
         return ( 
             <>
             <div className="character-content">
-                {this.state.showCharacterChat ? 
-                    <CharacterChat />
-                : 
                 <>
+                    <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`}}>
+                    <h1> Welcome to {room.name}!</h1>
+
+                    { this.state.showZoomedLocation && !this.state.showCharacterChat ? 
+                    <CurrentLocation currentLocation={this.props.location} goToRoomDetails={this.goToRoomDetails}/>
+                    : 
+                    <>
+                    {!this.state.showCharacterChat ? 
+                    <>
                     { room.character ? 
-                    <div className="character-div" onClick={this.handleCharacterChat}>
-                        <img src={room.character.image_url} alt={room.character.name} className="character-img"/>
-                        { room.character.name }
-                        { room.character.description }
-                    </div>
-                    : null }
+                        <div className="character-div" onClick={this.handleCharacterChat}>
+                            <img src={room.character.image_url} alt={room.character.name} className="character-img"/>
+                        </div>
+                    : null}
+                    <ul className="room-content-ul">
+                        {room.locations ? 
+                            <>
+                            { room.locations.map(loc => {
+                                return (<li id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
+                                    <Location location={loc} items={loc.items} />
+                                </li>)
+                            })}
+                            </>
+                        : null}
+                    </ul>
+                    </>
+                    :
+                    <CharacterChat room={room} toggleRoom={this.handleCharacterChat}/>
+                    }
+                    </>
+                    }
+                </div>
                 </>
-                }
+                {/* } */}
             </div>
-            <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`}}>
-                <h1> Welcome to {room.name}!</h1>
-                { this.state.showZoomedLocation ? 
-                <CurrentLocation currentLocation={this.props.location} goToRoomDetails={this.goToRoomDetails}/>
-                : 
-                <ul className="room-content-ul">
-
-                {room.locations ? 
-                <>
-                { room.locations.map(loc => {
-                    return (<li id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
-                        <Location location={loc} items={loc.items} />
-                    </li>)
-                })}
-                </>
-                : null}
-                </ul>}
-
-                
-            </div> 
             </>);
     }
 }
@@ -102,7 +110,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = {
     setCurrentRoom: setCurrentRoom,
-    setCurrentLocation: setCurrentLocation
+    setCurrentLocation: setCurrentLocation,
+    setCurrentCharacter: setCurrentCharacter
 }
  
 export default connect(mapStateToProps, mapDispatchToProps)(FirstRoom);

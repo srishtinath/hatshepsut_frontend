@@ -11,3 +11,10 @@ export let setCurrentRoom = (roomObj) => {
       payload: locationObj
     }
   }
+
+  export let setCurrentCharacter = (characterObj) => {
+    return {
+      type: "SET_CHARACTER",
+      payload: characterObj
+    }
+  }

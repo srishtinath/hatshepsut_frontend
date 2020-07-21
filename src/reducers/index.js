@@ -6,6 +6,15 @@ let initialState = {
   currentLocation: {
     items: []
   },
+  currentCharacter: {
+    name: "",
+    description: "",
+    chats: {
+      id: "",
+      chat_options: []
+    },
+    room: {}
+  }
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -49,6 +58,12 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         currentLocation: action.payload,
       }
+
+      case "SET_CHARACTER":
+        return {
+          ...state,
+          currentCharacter: action.payload
+        }
     default: 
       return state
   }

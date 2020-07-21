@@ -191,8 +191,20 @@ label.icon {
   grid-template-rows: auto;
 }
 
-.character-content {
-  /* z-index: 10; */
+.character-chat-content {
+  background-color: rgba(255,255,255, 0.4);
+  display: block;
+  text-align: right;
+  width: 70%;
+  height: 70%;
+  margin: auto;
+  overflow: auto;
+  padding: 1%;
+}
+
+.character-chat-img {
+  position: absolute;
+  left: -5%;
 }
 
 .character-div {
