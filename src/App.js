@@ -5,8 +5,6 @@ import './App.css';
 import ProgressTracker from './components/ProgressTracker';
 import ClueList from './components/ClueList';
 import LoginForm from './components/LoginForm'
-import FirstRoom from './components/FirstRoom';
-import Setting from './components/Setting';
 import Home from './components/Home'
 
 import { setUserInfo } from './actions/user'
@@ -121,25 +119,14 @@ class App extends Component {
     })
   }
 
-  firstRoom = () => {
-    return <FirstRoom />
-  }
-
-  renderSetting = () => {
-      return <Setting />
-  }
-
   render() { 
           return (
            <>
            <div className="body-content">
           <Switch>
-              <Route path="/home" exact render={this.renderHome}/>
-              <Route path="/login" exact render={this.renderForm} />
-              <Route path="/register" exact render={this.renderForm} />
-              <Route path="/setting" render={ this.renderSetting } />
-              <Route path="/firstroom" render = {this.firstRoom} />
-              <Route render={this.renderForm} />
+              <Route path="/home" render={this.renderHome}/>
+              <Route path="/login" render={this.renderForm} />
+              <Route path="/register" render={this.renderForm} />
           </Switch>
           </div>
           { localStorage.token ? 

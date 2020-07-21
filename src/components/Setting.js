@@ -20,7 +20,6 @@ class Setting extends Component {
           };
         return ( 
             <div className="setting-content">
-                This is the setting div! It will be rendered conditionally!
                 <Slider {...settings}>
 
                 <div className="slide1">
@@ -49,7 +48,7 @@ class Setting extends Component {
                 <div className="slide4">
                     <div className="slide4-content">
                         <h2>Late one morning...</h2>
-                        <NavLink to="/firstroom"><button>Begin your adventure!</button></NavLink>
+                        <NavLink to="/home/firstroom"><button>Begin your adventure!</button></NavLink>
                     </div>
                     
                 </div>
