@@ -4,9 +4,24 @@ import { connect } from 'react-redux'
 
 class CharacterChat extends Component {
 
+    state = {
+        chatIndex: 0,
+        chatHistory: [94]
+    }
+
+    handleChatResponse = (e) => {
+        let changedHistory = this.state.chatHistory
+        changedHistory.push(parseInt(e.target.id))
+        console.log(changedHistory)
+        this.setState({
+            chatHistory: changedHistory
+        })
+    }
+
+
+
     render() { 
         let character = this.props.currentCharacter
-        console.log(character.chats[0])
         return ( 
             <>
             <img src={character.image_url} alt={character.name} className="character-chat-img" onClick={this.props.toggleRoom}/>
@@ -14,17 +29,34 @@ class CharacterChat extends Component {
                 { character.name }
                 { character.description }
                 <p></p>
-                    {character.chats[0] ? 
-                    <>
-                    <p className="character-response">{character.chats[0].response}</p>
-                    <ul className="character-options-ul">
-                    { character.chats[0].chat_options.map(option => {
-                        return <li className="character-options-li">{option.text}</li>
-                    }) }
-                    </ul>
-                    </>
+                {character.chats[0] ? 
+                <div>
+                {character.chats.map(chat => {
+                    return ( this.state.chatHistory.includes(chat.id)) ? 
+                        <div key={chat.id}>
+                        <p key={chat.id}>{chat.response}</p>
+                        {this.state.chatHistory.indexOf(chat.id) === this.state.chatHistory.length - 1 ? 
+                        <ul className="character-options-ul">
+                            { chat.chat_options.map(option => {
+                                return (
+                                <li className="character-options-li" 
+                                onClick={this.handleChatResponse} 
+                                key={option.id}
+                                id={option.nextResponse_id}>
+                                    {option.text}
+                                    </li>)
+                            }) }
+                        </ul>
+                        :null}
+                        </div>
+                    : null
+                    }
+                )}
+                </div>
                 :null}
-                <br></br><button onClick={this.props.toggleRoom}>Go back...</button>
+                {!this.state.chatHistory[this.state.chatHistory.length - 1] ? 
+                <button onClick={this.props.toggleRoom}>Go back...</button>
+                : null}
             </div>
             </>
          );

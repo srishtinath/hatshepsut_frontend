@@ -61,6 +61,7 @@ class App extends Component {
   }
 
   handleResponse = (resp) => {
+    console.log(resp)
     if (resp.message){
       console.log(resp.message)
     } else {
@@ -74,8 +75,9 @@ class App extends Component {
 
   handleInitialInfo = (user) => {
       this.props.setUserInfo(user)
-      this.props.setClueList(user.clue_list)
+      this.props.setClueList(user.clue_list.id)
       this.props.setClueItems(user.clue_list.items)
+      console.log("Initial Info Set")
   }
 
   renderForm = (routerProps) => {
@@ -159,7 +161,9 @@ let mapDispatchToProps = {
 
 let mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    cluelistId: state.cluelistId,
+    clueItems: state.clueItems
   }
 }
 

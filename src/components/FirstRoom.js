@@ -17,10 +17,10 @@ class FirstRoom extends Component {
 
     // this will be set in a component above
     componentDidMount(){
-        fetch("http://localhost:3000/rooms/23")
+        fetch("http://localhost:3000/rooms/")
         .then(r => r.json())
-        .then(fetchedRoom => {
-            this.props.setCurrentRoom(fetchedRoom)
+        .then(fetchedRooms => {
+            this.props.setCurrentRoom(fetchedRooms[0])
         })
     }
 
@@ -77,17 +77,20 @@ class FirstRoom extends Component {
                             <img src={room.character.image_url} alt={room.character.name} className="character-img"/>
                         </div>
                     : null}
-                    <ul className="room-content-ul">
+                    <div className="room-content-div">
+                        <div className="firstroom-instructions">
+                            <p>Directions</p>
+                        </div>
                         {room.locations ? 
                             <>
                             { room.locations.map(loc => {
-                                return (<li id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
+                                return (<div id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
                                     <Location location={loc} items={loc.items} />
-                                </li>)
+                                </div>)
                             })}
                             </>
                         : null}
-                    </ul>
+                    </div>
                     </>
                     :
                     <CharacterChat room={room} toggleRoom={this.handleCharacterChat}/>

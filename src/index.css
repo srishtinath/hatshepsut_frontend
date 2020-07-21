@@ -179,6 +179,15 @@ label.icon {
   max-width: 100%;
 }
 
+.firstroom-instructions {
+  background-color: rgba(255,255,255, 0.4);
+  width: 40%;
+  height: 200px;
+  margin: auto;
+  margin-top: 10%;
+  text-align: center;
+}
+
 .firstroom-content{
   background-color: rgba(37, 195, 244, 0.7);
   height: 100%;
@@ -229,7 +238,16 @@ label.icon {
 }
 
 .location-image {
-  max-width: 20%;
+  max-width: 25%;
+  z-index: 2;
+}
+
+.location-image-zoom {
+  position: absolute;
+  max-width: 40%;
+  right: -3%;
+  top: 30%;
+  z-index: 2;
 }
 
 .location-items {
@@ -240,8 +258,8 @@ label.icon {
   margin: auto;
 }
 
-.room-content-ul {
-  list-style-type: none;
+.room-content-div {
+  display: flex;
 }
 
 
@@ -266,7 +284,7 @@ label.icon {
   display: flex;
   width: 40%;
   top: 5%;
-  z-index: 2;
+  z-index: 1;
 }
 
 .character-img {

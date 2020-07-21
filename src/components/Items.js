@@ -18,6 +18,7 @@ class Items extends Component {
         // console.log(this.props)
         return ( 
             <>
+            {/* <img src={this.props.currentLocation.image_url} alt={this.props.currentLocation.name} className="location-image-zoom"/> */}
             {this.props.items ? 
             <>
             {this.props.items.map(item => {
@@ -36,7 +37,8 @@ class Items extends Component {
 let mapStateToProps = (state) => {
     return ({
         cluelist: state.cluelist,
-        clueItems: state.clueItems
+        clueItems: state.clueItems,
+        currentLocation: state.currentLocation
     })
 }
 

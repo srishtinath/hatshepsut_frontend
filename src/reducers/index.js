@@ -1,6 +1,6 @@
 let initialState = {
   currentUser: {},
-  cluelist: {},
+  cluelistId: 0,
   clueItems: [],
   currentRoom: {},
   currentLocation: {
@@ -28,7 +28,7 @@ export const rootReducer = (state = initialState, action) => {
     case "SET_CLUELIST":
       return {
         ...state,
-        cluelist: action.payload,
+        cluelistId: action.payload,
       }
 
     case "SET_CLUELIST_ITEMS":

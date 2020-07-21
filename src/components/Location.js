@@ -5,11 +5,14 @@ class Location extends Component {
 
 
     render() { 
+        let location = this.props.location
         return ( 
-            <div id={this.props.location.id} style={{position: 'absolute', top: '0', right: '0'}}>
-                <h1>{this.props.location.name}</h1>
-                <img src={this.props.location.image_url} alt={this.props.location.name} className="location-image" onClick={this.showImages}/>
-            </div>
+                <img src={location.image_url} 
+                alt={location.name} 
+                className="location-image" 
+                onClick={this.showImages} 
+                style={{position: 'absolute', bottom: `${location.positionY}%`, 
+                left: `${location.positionX}%`, maxWidth: `${location.size}%`}}/>
          );
     }
 }

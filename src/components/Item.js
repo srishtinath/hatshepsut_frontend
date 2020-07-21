@@ -17,16 +17,17 @@ class Item extends Component {
         }
     }
 
-    handleAddToNotepad = (item) => {
-        fetch("http://localhost:3000/item_clue_lists", {
+    handleAddToNotepad = (itemId) => {
+        console.log(this.props.cluelistId)
+        fetch(`http://localhost:3000/item_clue_lists/`, {
             method: "POST",
             headers: {
                 "content-type":"application/json",
                 "accept": "application/json"
             },
             body: JSON.stringify({
-                item_id: item.id,
-                clue_list_id: this.props.cluelist.id
+                item_id: itemId,
+                clue_list_id: this.props.cluelistId
             })
         })
         .then(r => r.json())
@@ -39,7 +40,6 @@ class Item extends Component {
 
     inCluelist = () => {
         let itemFound
-        console.log(this.props.cluelist)
         if (this.props.clueItems){
             itemFound = this.props.clueItems.find(itemList => itemList.id === this.props.item.id)
         }
@@ -63,7 +63,7 @@ class Item extends Component {
         <div className="item-overlay">
         <p>{this.props.item.description}</p>
         <button 
-        onClick={(event) => this.handleAddToNotepad(this.props.item)} 
+        onClick={(event) => this.handleAddToNotepad(this.props.item.id)} 
         className="add-notepad-btn"
         disabled={this.state.inCluelist}>
             {this.state.inCluelist ? "Already in notepad" : "Add to Notepad!"}
@@ -75,7 +75,7 @@ class Item extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        cluelist: state.cluelist,
+        cluelistId: state.cluelistId,
         clueItems: state.clueItems
     }
 }

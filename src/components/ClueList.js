@@ -6,8 +6,13 @@ import { setClueList, setClueItems } from '../actions/cluelist'
 
 class ClueList extends Component {
 
+    componentDidMount(){
+        console.log(this.props.cluelistId)
+        // this.props.setClueItems(this.props.cluelist.items)
+    }
+
     handleRemoveFromNotepad = (item) => {
-    let entryId = this.props.cluelist.id
+    let entryId = this.props.cluelistId
         fetch(`http://localhost:3000/clue_lists/${entryId}/deleteItem/${item.id}`, {
             method: "DELETE",
             headers: {
@@ -52,7 +57,7 @@ class ClueList extends Component {
 
 let mapStateToProps = (state) => {
     return ({
-        cluelist: state.cluelist,
+        cluelistId: state.cluelistId,
         clueItems: state.clueItems,
         currentUser: state.currentUser
         })
