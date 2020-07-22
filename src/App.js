@@ -65,6 +65,7 @@ class App extends Component {
       console.log(resp.message)
     } else {
       localStorage.token = resp.token
+      localStorage.cluelistId = resp.user.clue_list.id
       this.setState({
         token: resp.token
       }, this.handleInitialInfo(resp.user))
@@ -74,7 +75,7 @@ class App extends Component {
 
   handleInitialInfo = (user) => {
       this.props.setUserInfo(user)
-      this.props.setClueList(user.clue_list.id)
+      this.props.setClueList(localStorage.cluelistId)
       this.props.setClueItems(user.clue_list.items)
       console.log("Initial Info Set")
   }

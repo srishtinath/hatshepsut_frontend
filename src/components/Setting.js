@@ -48,6 +48,7 @@ class Setting extends Component {
                 <div className="slide4">
                     <div className="slide4-content">
                         <h2>Late one morning...</h2>
+                        
                         <NavLink to="/home/firstroom"><button>Begin your adventure!</button></NavLink>
                     </div>
                     

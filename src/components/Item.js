@@ -27,7 +27,7 @@ class Item extends Component {
             },
             body: JSON.stringify({
                 item_id: itemId,
-                clue_list_id: this.props.cluelistId
+                clue_list_id: localStorage.cluelistId
             })
         })
         .then(r => r.json())

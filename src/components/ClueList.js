@@ -40,11 +40,11 @@ class ClueList extends Component {
                 </label>
                 <div className="cluelist-container">
                 <>
-                    <ul>
+                    <ul className="cluelist-div">
                         {this.props.clueItems ? 
                         <>
                         {this.props.clueItems.map(item => {
-                        return <li key={item.id + Math.random()}>{item.name}
+                        return <li key={item.id}>{item.name}
                                 <button onClick={(event) => this.handleRemoveFromNotepad(item)} >{'\u00D7'}</button>
                             </li>
                     })}

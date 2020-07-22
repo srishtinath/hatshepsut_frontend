@@ -14,7 +14,7 @@ import { rootReducer } from './reducers/index'
 
 
 const store = createStore(rootReducer)
-console.log(store.getState())
+// console.log(store.getState())
 
 ReactDOM.render(
   <BrowserRouter>

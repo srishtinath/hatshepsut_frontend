@@ -7,13 +7,13 @@ let initialState = {
     items: []
   },
   currentCharacter: {
-    name: "",
-    description: "",
-    chats: {
-      id: "",
-      chat_options: []
-    },
-    room: {}
+    // name: "",
+    // description: "",
+    // chats: {
+    //   id: "",
+    //   chat_options: []
+    // },
+    // room: {}
   }
 }
 

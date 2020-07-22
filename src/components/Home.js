@@ -11,14 +11,14 @@ class Home extends Component {
     renderHome = () => {
         if (this.props.currentUser){
             return (
-                <>
+                <div className="home-content">
                 <Zoom>
                     <p>Welcome {this.props.currentUser.name}!</p>
                 </Zoom>
-                <button onClick={this.logoutUser}>Logout!</button>
                 <button onClick={this.seeIntroduction}>Re-read the introduction</button>
                 <button onClick={this.continueStory}>Continue where you left off...</button>
-                </>
+                <button onClick={this.logoutUser}>Logout</button>
+                </div>
             )
         } 
     }
@@ -31,6 +31,7 @@ class Home extends Component {
     logoutUser = (e) => {
         // e.preventDefault()
         localStorage.token = ""
+        localStorage.cluelistId = ""
         this.props.history.push('/login')
       }
 

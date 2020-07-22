@@ -47,8 +47,8 @@ class FirstRoom extends Component {
         fetch(`http://localhost:3000/characters/${this.props.currentRoom.character.id}`)
         .then(r => r.json())
         .then(characterFetched => 
-            {console.log(characterFetched)
-            this.props.setCurrentCharacter(characterFetched)})
+            // {console.log(characterFetched)
+            {this.props.setCurrentCharacter(characterFetched)})
         this.setState({
             showCharacterChat: !this.state.showCharacterChat
         })

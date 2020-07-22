@@ -134,7 +134,24 @@ label.icon {
   height: 0%;
   background-color: rgba(181, 111, 102, 0.6);
   z-index: 10;
-  padding: auto;
+}
+
+.cluelist-div {
+  background-color: rgba(255,255,255, 0.3);
+  max-width: 80%;
+  height: 80%;
+  margin: 5% auto;
+  padding: 2%;
+  text-align: center;
+  list-style-type: none;
+}
+
+.guess-culprit-btn {
+  position: relative;
+  /* max-width: 30%; */
+  margin: auto;
+  padding: 3%;
+  margin-left: 30%;
 }
 
 .body-content {
@@ -144,6 +161,14 @@ label.icon {
   height: 100%;
   /* background-color: azure; */
   /* border-style: dashed; */
+}
+
+.home-content {
+  background-color: rgba(255,255,255, 0.3);
+  max-width: 70%;
+  margin: 5% auto;
+  text-align: center;
+  padding: 1%;
 }
 
 .setting-content{
@@ -266,7 +291,6 @@ label.icon {
 
 .character-chat-content {
   background-color: rgba(255,255,255, 0.4);
-  display: block;
   text-align: right;
   width: 70%;
   height: 70%;
@@ -277,7 +301,8 @@ label.icon {
 
 .character-chat-img {
   position: absolute;
-  left: -5%;
+  left: -8%;
+  max-width: 30%;
 }
 
 .character-div {
@@ -299,13 +324,49 @@ label.icon {
 .character-options-ul {
   list-style-type: none;
   display: flex;
+  justify-content: space-evenly;
 }
 
 .character-options-li {
   text-align: center;
-  color: white;
-  background-color: rgb(181, 111,102);
+  /* color: white; */
+  background-color: rgb(213, 175, 132);
+  max-width: 30%;
   margin: 1%;
   padding: 1%;
-  box-shadow: 5px 5px rgba(181,111,102, 0.4);
+  box-shadow: 5px 5px rgba(156, 47, 51, 0.4);
+}
+
+.response {
+  text-align: left;
+  background-color: rgb(225, 137, 66);
+  color: white;
+  padding: 1%;
+}
+
+.option {
+  text-align: right;
+  background-color: rgb(165, 92, 59);
+  color: white;
+  padding: 1%;
+}
+
+button {
+  background-color: rgb(228, 186, 81);
+  border: none;
+  padding: 1%;
+  margin: 1%;
+  /* box-shadow: 5px 5px rgba(228, 186, 81, 0.6); */
+  transition-duration: 0.2s;
+}
+
+button:hover {
+  background-color: rgba(228, 186, 81, 0.9);
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgb(228, 186, 81);
+  color: black;
+  font-weight: bold;
+  /* padding: 1%; */
+  /* margin: 1%; */
 }
