@@ -7,21 +7,24 @@ import { connect } from 'react-redux'
 import { setCurrentRoom, setCurrentCharacter } from '../actions/room'
 import { setCurrentLocation } from '../actions/room'
 
+import Zoom from 'react-reveal/Zoom';
+
 
 class FirstRoom extends Component {
 
     state = {
         showZoomedLocation: false,
-        showCharacterChat: false
+        showCharacterChat: false,
+        numberOfLocations: 0,
+        clickCount: 0,
     }
 
-    // this will be set in a component above
     componentDidMount(){
-        fetch("http://localhost:3000/rooms/")
-        .then(r => r.json())
-        .then(fetchedRooms => {
-            this.props.setCurrentRoom(fetchedRooms[0])
-        })
+        if (this.props.currentRoom.locations){
+            this.setState({
+                numberOfLocations: this.props.currentRoom.locations.length
+            })
+        }
     }
 
     // Onclick ==> setCurrentLocation
@@ -32,7 +35,8 @@ class FirstRoom extends Component {
             this.props.setCurrentLocation(locationInfo)
         })
         this.setState({
-            showZoomedLocation: !this.state.showZoomedLocation
+            showZoomedLocation: !this.state.showZoomedLocation,
+            clickCount: this.state.clickCount + 1
         })
     }
 
@@ -54,11 +58,15 @@ class FirstRoom extends Component {
         })
     }
 
+    handleRoomComplete = () => {
+        console.log("Room complete!")
+        // add to UserRoom
+    }
 
     render() 
     { 
         let room = this.props.currentRoom
-        // console.log(this.props.currentRoom)
+        console.log(this.state.numberOfLocations, this.state.clickCount)
         return ( 
             <>
             <div className="character-content">
@@ -96,11 +104,18 @@ class FirstRoom extends Component {
                     :
                     <CharacterChat room={room} toggleRoom={this.handleCharacterChat}/>
                     }
+                    { this.state.numberOfLocations <= this.state.clickCount ? 
+                    <>
+                        <Zoom>
+                            <button className="next-room-btn" onClick={this.handleRoomComplete}>Go to next room</button>
+                        </Zoom>
+                    </>
+                    : null  
+                    }
                     </>
                     }
                 </div>
                 </>
-                {/* } */}
             </div>
             </>);
     }

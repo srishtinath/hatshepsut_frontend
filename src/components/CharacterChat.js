@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import Zoom from 'react-reveal/Zoom';
 import Fade from 'react-reveal/Fade';
 import Bounce from 'react-reveal/Bounce';
 
