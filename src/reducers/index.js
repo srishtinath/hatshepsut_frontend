@@ -6,15 +6,9 @@ let initialState = {
   currentLocation: {
     items: []
   },
-  currentCharacter: {
-    // name: "",
-    // description: "",
-    // chats: {
-    //   id: "",
-    //   chat_options: []
-    // },
-    // room: {}
-  }
+  currentCharacter: {},
+  allCharacters: [],
+  allRooms: []
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -36,7 +30,16 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         clueItems: action.payload
       }
-    
+    case "SET_CHARACTERS":
+      return {
+        ...state,
+        allCharacters: action.payload
+      }
+    case "SET_ROOMS":
+      return {
+        ...state,
+        allRooms: action.payload
+      }
     case "ADD_ITEM":
       return {
         ...state,

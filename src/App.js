@@ -8,9 +8,9 @@ import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 import GuessCulprit from './components/GuessCulprit'
 
-import { setUserInfo } from './actions/user'
+import { setUserInfo, setAllCharacters, setAllRooms } from './actions/user'
 import { setClueList, setClueItems} from './actions/cluelist'
-import { Switch, Route, withRouter, Redirect } from 'react-router';
+import { Switch, Route, withRouter } from 'react-router';
 
 
 class App extends Component {
@@ -28,6 +28,14 @@ class App extends Component {
       })
       .then(r => r.json())
       .then(this.handleResponse)
+      
+      fetch("http://localhost:3000/characters")
+      .then(r=> r.json())
+      .then(charactersFetched => this.props.setAllCharacters(charactersFetched))
+      
+      fetch("http://localhost:3000/rooms")
+      .then(r=> r.json())
+      .then(roomsFetched => this.props.setAllRooms(roomsFetched))
     }
 }
 
@@ -114,25 +122,6 @@ class App extends Component {
     }
   }
 
-  // user for registration - when new user created
-  handleCluelist = (LocationObject) => {
-    fetch("http://localhost:3000/item_clue_lists", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "accept": "applicatin/json"
-      }, 
-      body: JSON.stringify({
-        location: LocationObject,
-        cluelist: this.props.cluelist
-      })
-    })
-    .then(r => r.json())
-    .then (cluelistInfo => {
-      this.props.setClueList(cluelistInfo)
-    })
-  }
-
   guessCulprit = () => {
     return <GuessCulprit />
   }
@@ -162,14 +151,18 @@ class App extends Component {
 let mapDispatchToProps = {
   setUserInfo,
   setClueList,
-  setClueItems
+  setClueItems,
+  setAllCharacters,
+  setAllRooms
 }
 
 let mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
     cluelistId: state.cluelistId,
-    clueItems: state.clueItems
+    clueItems: state.clueItems,
+    allCharacters: state.allCharacters,
+    allRooms: state.allRooms
   }
 }
 

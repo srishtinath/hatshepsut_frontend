@@ -8,17 +8,27 @@ import Setting from './Setting'
 
 class Home extends Component {
 
+
     renderHome = () => {
-        console.log(this.props.formType)
         if (this.props.currentUser){
             return (
                 <div className="home-content">
-                <Zoom>
-                    <p>Welcome {this.props.currentUser.name}!</p>
-                </Zoom>
-                <button onClick={this.seeIntroduction}>Re-read the introduction</button>
-                <button onClick={this.continueStory}>Continue where you left off...</button>
-                <button onClick={this.logoutUser}>Logout</button>
+                    <Zoom>
+                        <p>Welcome {this.props.currentUser.name}!</p>
+                    </Zoom>
+                    <button onClick={this.seeIntroduction}>Re-read the introduction</button>
+                    <button onClick={this.continueStory}>Continue where you left off...</button>
+                    {/* Add Component to see All Rooms --> will be grayed out once visited */}
+                    <button onClick={this.logoutUser}>Logout</button>
+                    <p></p>
+                    <div className="room-index">
+                    {this.props.allRooms.map(room => 
+                        <div key={room.id}>
+                            <img src={room.image_url} alt={room.name} className="room-index-img" />
+                        </div>
+
+                        )}
+                    </div>
                 </div>
             )
         } 
@@ -68,7 +78,8 @@ class Home extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        allRooms: state.allRooms
     }
 }
  

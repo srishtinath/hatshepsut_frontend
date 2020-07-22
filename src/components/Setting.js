@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,13 +33,19 @@ class Setting extends Component {
                 <div className="slide2">
                     <div className="slide2-content">
                     <h2>Meet your fellow travellers</h2>
-                    <ul>
-                        <li>Atif Mostafa, your guide to Egyptian culture and history</li>
+                    <div className="slide2-div">
+                        {this.props.allCharacters.map(character => 
+                            <div key={character.id} className="set-char">
+                                {character.name}
+                                <img src={character.image_url} alt={character.name} className="set-char-img" />
+                            </div>
+                        )}
+                        {/* <li>Atif Mostafa, your guide to Egyptian culture and history</li>
                         <li>Lebanese model/actress</li>
                         <li>Rich couple on a "weekend getaway"</li>
                         <li>Head of the British Museum's Egyptology department</li>
-                        <li>Professor of Archaeology from Cambridge, colleague of yours</li>
-                    </ul>
+                        <li>Professor of Archaeology from Cambridge, colleague of yours</li> */}
+                    </div>
                     </div>
                 </div>
                 <div className="slide3">
@@ -59,5 +67,11 @@ class Setting extends Component {
          );
     }
 }
+
+let mapStateToProps = (state) => {
+    return {
+      allCharacters: state.allCharacters
+    }
+  }
  
-export default Setting;
+export default connect(mapStateToProps)(Setting);

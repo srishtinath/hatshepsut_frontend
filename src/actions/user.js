@@ -4,3 +4,18 @@ export let setUserInfo = (userObj) => {
       payload: userObj
     }
   }
+
+  export let setAllCharacters = (charArray) => {
+    return {
+      type: "SET_CHARACTERS",
+      payload: charArray
+    }
+  }
+
+  export let setAllRooms = (roomsArray) => {
+    return {
+      type: "SET_ROOMS",
+      payload: roomsArray
+    }
+  }
+

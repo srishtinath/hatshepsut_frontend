@@ -180,6 +180,15 @@ label.icon {
   padding: 1%;
 }
 
+.room-index {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.room-index-img {
+  width: 300px;
+}
+
 .setting-content{
   position: absolute;
   width: 90%;
@@ -216,6 +225,23 @@ label.icon {
   text-align: left;
   padding: 3%;
 }
+
+.slide2-div {
+  display: flex;
+  max-width: 100%;
+  height: 100%;
+  overflow: auto;
+  overflow-y: hidden;
+}
+.set-char {
+  max-width: 40%;
+  height: 500px;
+}
+
+/* .set-char-img {
+  max-width: 100%;
+} */
+
 .slide3 {
   background-image: url("https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595435154/Setting/Screen_Shot_2020-07-22_at_12.25.14_PM_jsuujr.png");
   background-repeat: no-repeat;
@@ -342,7 +368,8 @@ label.icon {
   width: 70%;
   height: 70%;
   margin: auto;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 1%;
 }
 
