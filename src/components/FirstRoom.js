@@ -64,7 +64,7 @@ class FirstRoom extends Component {
             <div className="character-content">
                 <>
                     <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`}}>
-                    <h1> Welcome to {room.name}!</h1>
+                    {/* <h1> Welcome to {room.name}!</h1> */}
 
                     { this.state.showZoomedLocation && !this.state.showCharacterChat ? 
                     <CurrentLocation currentLocation={this.props.location} goToRoomDetails={this.goToRoomDetails}/>

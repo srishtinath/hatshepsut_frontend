@@ -206,6 +206,8 @@ label.icon {
 }
 
 .firstroom-instructions {
+  position: fixed;
+  display: none;
   background-color: rgba(255,255,255, 0.4);
   width: 40%;
   height: 200px;
@@ -227,7 +229,7 @@ label.icon {
 }
 
 .item-div {
-  width: 30%;
+  max-width: 30%;
   padding: 1%;
   display: grid;
 }
@@ -236,7 +238,7 @@ label.icon {
   opacity: 0.9;
 }
 .item-image {
-  width: 100px;
+  max-width: 100%;
 }
 
 .item-overlay {
@@ -260,7 +262,7 @@ label.icon {
 .go-back-btn {
   position: absolute;
   bottom: 5%;
-  transition: .5s ease;
+  left: 45%;
 }
 
 .location-image {
@@ -270,18 +272,21 @@ label.icon {
 
 .location-image-zoom {
   position: absolute;
-  max-width: 40%;
-  right: -3%;
-  top: 30%;
+  max-width: 30%;
+  left: -3%;
+  bottom: 3%;
   z-index: 2;
 }
 
 .location-items {
   background-color: rgba(255,255,255, 0.4);
   display: flex;
+  /* text-align: center; */
   justify-content: space-evenly;
-  max-width: 70%;
-  margin: auto;
+  max-width: 80%;
+  /* height: 80%; */
+  margin-top: 2%;
+  margin-left: 10%;
 }
 
 .room-content-div {
