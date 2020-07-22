@@ -9,6 +9,7 @@ import Setting from './Setting'
 class Home extends Component {
 
     renderHome = () => {
+        console.log(this.props.formType)
         if (this.props.currentUser){
             return (
                 <div className="home-content">

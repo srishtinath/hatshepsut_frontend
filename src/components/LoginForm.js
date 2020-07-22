@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class LoginForm extends Component {
     state = {
@@ -33,6 +34,12 @@ class LoginForm extends Component {
                     <input type="text" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Enter password"></input>
                     <input type="submit"/>
                 </form>
+                <br></br>
+                { formName === "Login" ? 
+                <NavLink to="/register">Register</NavLink>    
+                :
+                <NavLink to="/login">Login</NavLink>    
+                }
             </div>
             <div>
                 <img src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595266951/Hatshepsut/Screen_Shot_2020-07-20_at_1.42.04_PM_vycsij.png" alt="egypt-goddess" className="intro-image"/>

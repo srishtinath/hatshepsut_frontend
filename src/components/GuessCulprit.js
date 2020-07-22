@@ -14,8 +14,10 @@ class GuessCulprit extends Component {
     render() { 
         return ( 
             <>
+            <div className="home-content">
             <p>This is the GuessCulprit component</p>
             <button onClick={this.goHome}>Go back home cuz you're probably wrong</button>
+            </div>
             </>
          );
     }

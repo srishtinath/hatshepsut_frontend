@@ -9,9 +9,9 @@ class Setting extends Component {
 
     render() { 
         var settings = {
-            dots: true,
+            dots: false,
             infinite: true,
-            speed: 600,
+            speed: 400,
             slidesToShow: 1,
             autoplay: true,
             pauseOnHover: true,
@@ -32,7 +32,7 @@ class Setting extends Component {
                     <div className="slide2-content">
                     <h2>Meet your fellow travellers</h2>
                     <ul>
-                        <li>Atif Aslam, your guide to Egyptian culture and history</li>
+                        <li>Atif Mostafa, your guide to Egyptian culture and history</li>
                         <li>Lebanese model/actress</li>
                         <li>Rich couple on a "weekend getaway"</li>
                         <li>Head of the British Museum's Egyptology department</li>
@@ -48,7 +48,7 @@ class Setting extends Component {
                 <div className="slide4">
                     <div className="slide4-content">
                         <h2>Late one morning...</h2>
-                        
+
                         <NavLink to="/home/firstroom"><button>Begin your adventure!</button></NavLink>
                     </div>
                     

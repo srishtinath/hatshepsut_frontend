@@ -31,6 +31,10 @@ class ClueList extends Component {
         this.props.history.push('/guess')
     }
 
+    renderHome = (e) => {
+        this.props.history.push('/home')
+    }
+
     render() {
         return ( 
             <>
@@ -53,6 +57,7 @@ class ClueList extends Component {
                     </ul>
                 </>
                 <button className="guess-culprit-btn" onClick={this.guessCulprit}>Guess the culprit!</button>
+                <button className="go-home-btn" onClick={this.renderHome}>Home</button>
                 </div>
             </>
          );

@@ -10,7 +10,7 @@ import GuessCulprit from './components/GuessCulprit'
 
 import { setUserInfo } from './actions/user'
 import { setClueList, setClueItems} from './actions/cluelist'
-import { Switch, Route, withRouter } from 'react-router';
+import { Switch, Route, withRouter, Redirect } from 'react-router';
 
 
 class App extends Component {
@@ -29,7 +29,6 @@ class App extends Component {
       .then(r => r.json())
       .then(this.handleResponse)
     }
-
 }
 
   handleLoginSubmit = (userInfo) => {
@@ -42,7 +41,7 @@ class App extends Component {
             body: JSON.stringify(userInfo)
         })
     .then(r => r.json())
-    .then(this.handleResponse)
+    .then(this.handleLoginResponse)
   }
 
   handleRegisterSubmit = (userInfo) => {
@@ -56,10 +55,10 @@ class App extends Component {
             body: JSON.stringify(userInfo)
         })
         .then(r => r.json())
-        .then(this.handleResponse)
+        .then(this.handleRegisterResponse)
   }
 
-  handleResponse = (resp) => {
+  handleLoginResponse = (resp) => {
     console.log(resp)
     if (resp.message){
       console.log(resp.message)
@@ -69,9 +68,23 @@ class App extends Component {
       this.setState({
         token: resp.token
       }, this.handleInitialInfo(resp.user))
-      this.props.history.push("/home")
-    }
+    this.props.history.push('/home')
   }
+}
+
+  handleRegisterResponse = (resp) => {
+    console.log(resp)
+    if (resp.message){
+      console.log(resp.message)
+    } else {
+      localStorage.token = resp.token
+      localStorage.cluelistId = resp.user.clue_list.id
+      this.setState({
+        token: resp.token
+      }, this.handleInitialInfo(resp.user))
+    this.props.history.push('/home/setting')
+  }
+}
 
   handleInitialInfo = (user) => {
       this.props.setUserInfo(user)
@@ -100,7 +113,6 @@ class App extends Component {
       console.log("boo")
     }
   }
-
 
   // user for registration - when new user created
   handleCluelist = (LocationObject) => {

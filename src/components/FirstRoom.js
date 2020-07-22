@@ -79,7 +79,8 @@ class FirstRoom extends Component {
                     : null}
                     <div className="room-content-div">
                         <div className="firstroom-instructions">
-                            <p>Directions</p>
+                            <p>Welcome to the first room!</p>
+                            <p>Looks like this was Tess's tent. Click around and see if you can find any clues.</p>
                         </div>
                         {room.locations ? 
                             <>
