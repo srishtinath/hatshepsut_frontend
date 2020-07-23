@@ -8,7 +8,8 @@ let initialState = {
   },
   currentCharacter: {},
   allCharacters: [],
-  allRooms: []
+  allRooms: [],
+  userRooms: []
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -39,6 +40,18 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allRooms: action.payload
+      }
+
+    case "SET_USER_ROOMS":
+      return {
+        ...state,
+        userRooms: action.payload
+      }
+
+    case "ADD_USER_ROOM":
+      return {
+        ...state,
+        userRooms: [...state.userRooms, action.payload]
       }
     case "ADD_ITEM":
       return {

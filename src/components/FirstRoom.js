@@ -4,8 +4,7 @@ import CurrentLocation from './CurrentLocation'
 import CharacterChat from './CharacterChat'
 
 import { connect } from 'react-redux'
-import { setCurrentRoom, setCurrentCharacter } from '../actions/room'
-import { setCurrentLocation } from '../actions/room'
+import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
 
 import Zoom from 'react-reveal/Zoom';
 
@@ -61,12 +60,28 @@ class FirstRoom extends Component {
     handleRoomComplete = () => {
         console.log("Room complete!")
         // add to UserRoom
+        fetch("http://localhost:3000/user_rooms", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            }, 
+            body: JSON.stringify({
+                user_id: this.props.currentUser.id,
+                room_id: this.props.currentRoom.id
+            })
+        }).then(r => r.json())
+        .then(userRoomObj => 
+            addToUserRoom(userRoomObj))
+            let currentRoomId = this.props.currentRoom.id
+            let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
+            if (nextRoomObj){
+                this.props.setCurrentRoom(nextRoomObj)
+            }
     }
 
     render() 
     { 
         let room = this.props.currentRoom
-        console.log(this.state.numberOfLocations, this.state.clickCount)
         return ( 
             <>
             <div className="character-content">
@@ -123,14 +138,17 @@ class FirstRoom extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        currentRoom: state.currentRoom
+        currentRoom: state.currentRoom,
+        currentUser: state.currentUser,
+        allRooms: state.allRooms
     }
 }
 
 let mapDispatchToProps = {
     setCurrentRoom: setCurrentRoom,
     setCurrentLocation: setCurrentLocation,
-    setCurrentCharacter: setCurrentCharacter
+    setCurrentCharacter: setCurrentCharacter,
+    addToUserRoom: addToUserRoom
 }
  
 export default connect(mapStateToProps, mapDispatchToProps)(FirstRoom);

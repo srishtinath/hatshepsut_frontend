@@ -8,9 +8,9 @@ import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 import GuessCulprit from './components/GuessCulprit'
 
-import { setUserInfo, setAllCharacters, setAllRooms } from './actions/user'
+import { setUserInfo, setAllCharacters, setAllRooms, setUserRoom } from './actions/user'
 import { setClueList, setClueItems} from './actions/cluelist'
-import { Switch, Route, withRouter } from 'react-router';
+import { Switch, Route, withRouter, Router } from 'react-router';
 
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
         }
       })
       .then(r => r.json())
-      .then(this.handleResponse)
+      .then(this.handleLoginResponse)
       
       fetch("http://localhost:3000/characters")
       .then(r=> r.json())
@@ -98,6 +98,7 @@ class App extends Component {
       this.props.setUserInfo(user)
       this.props.setClueList(localStorage.cluelistId)
       this.props.setClueItems(user.clue_list.items)
+      this.props.setUserRoom(user.user_rooms)
       console.log("Initial Info Set")
   }
 
@@ -112,7 +113,7 @@ class App extends Component {
   }
 
   renderHome = (routerProps) => {
-    if (localStorage.token) {
+    if (this.state.token) {
       return (
           <Home logoutUser={this.logoutUser}/>
     )
@@ -135,6 +136,7 @@ class App extends Component {
               <Route path="/login" render={this.renderForm} />
               <Route path="/register" render={this.renderForm} />
               <Route path="/guess" render={this.guessCulprit} />
+              <Route render={this.renderHome} />
           </Switch>
           </div>
           { localStorage.token ? 
@@ -153,7 +155,8 @@ let mapDispatchToProps = {
   setClueList,
   setClueItems,
   setAllCharacters,
-  setAllRooms
+  setAllRooms,
+  setUserRoom
 }
 
 let mapStateToProps = (state) => {
@@ -162,7 +165,8 @@ let mapStateToProps = (state) => {
     cluelistId: state.cluelistId,
     clueItems: state.clueItems,
     allCharacters: state.allCharacters,
-    allRooms: state.allRooms
+    allRooms: state.allRooms,
+    userRooms: state.userRooms
   }
 }
 

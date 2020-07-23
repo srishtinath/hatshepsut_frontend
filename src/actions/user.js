@@ -19,3 +19,9 @@ export let setUserInfo = (userObj) => {
     }
   }
 
+  export let setUserRoom = (userRoomArray) => {
+    return {
+      type: "SET_USER_ROOMS",
+      payload: userRoomArray
+    }
+  }

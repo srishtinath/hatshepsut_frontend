@@ -18,3 +18,10 @@ export let setCurrentRoom = (roomObj) => {
       payload: characterObj
     }
   }
+
+  export let addToUserRoom = (userRoomObj) => {
+    return {
+      type: "ADD_USER_ROOM",
+      payload: userRoomObj
+    }
+  }

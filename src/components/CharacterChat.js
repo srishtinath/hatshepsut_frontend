@@ -81,15 +81,15 @@ class CharacterChat extends Component {
                         {this.state.chatHistory.map(textArray => 
                             textArray[0] === "option" ? 
                             <div key={textArray.index}>
-                            <Bounce right> 
-                                <p className={textArray[0]}>{textArray[1]}</p>
-                            </Bounce>
+                                <Bounce right> 
+                                    <p className={textArray[0]}>{textArray[1]}</p>
+                                </Bounce>
                             </div>
                             : 
                             <div key={textArray.index}>
-                            <Bounce left>
-                            <p className={textArray[0]}>{textArray[1]}</p>
-                            </Bounce>
+                                <Bounce left>
+                                <p className={textArray[0]}>{textArray[1]}</p>
+                                </Bounce>
                             </div>
                         )}
                         { this.state.chatOption.chat_options ? 

@@ -4,10 +4,16 @@ import { connect } from 'react-redux'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { setCurrentRoom } from '../actions/room';
 
-import { NavLink } from 'react-router-dom'
+import { withRouter } from 'react-router'
 
 class Setting extends Component {
+
+    handleAdventure = () => {
+        this.props.setCurrentRoom(this.props.allRooms[0])
+        this.props.history.push('/home/room')
+    }
 
     render() { 
         var settings = {
@@ -57,7 +63,7 @@ class Setting extends Component {
                     <div className="slide4-content">
                         <h2>Late one morning...</h2>
 
-                        <NavLink to="/home/firstroom"><button>Begin your adventure!</button></NavLink>
+                        <button onClick={this.handleAdventure}>Begin your adventure!</button>
                     </div>
                     
                 </div>
@@ -70,8 +76,13 @@ class Setting extends Component {
 
 let mapStateToProps = (state) => {
     return {
-      allCharacters: state.allCharacters
+      allCharacters: state.allCharacters,
+      allRooms: state.allRooms
     }
   }
+
+let mapDispatchToProps = {
+    setCurrentRoom
+}
  
-export default connect(mapStateToProps)(Setting);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Setting));
