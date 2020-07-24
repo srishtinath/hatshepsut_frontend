@@ -13,6 +13,10 @@ import { setClueList, setClueItems} from './actions/cluelist'
 import { Switch, Route, withRouter, Router } from 'react-router';
 
 
+import Sound from 'react-sound';
+import SoundFile from './music/Sultan-Palace.mp3'
+
+
 class App extends Component {
 
   state = {
@@ -130,6 +134,13 @@ class App extends Component {
   render() { 
           return (
            <>
+           {/* <Sound  */}
+                {/* url={SoundFile} */}
+                {/* playStatus={Sound.status.PLAYING} */}
+                {/* playFromPosition={300 /* in milliseconds */}
+                {/* onLoading={this.handleSongLoading} */}
+                {/* onPlaying={this.handleSongPlaying} */}
+                {/* onFinishedPlaying={this.handleSongFinishedPlaying}/> */}
            <div className="body-content">
           <Switch>
               <Route path="/home" render={this.renderHome}/>

@@ -57,6 +57,7 @@ class ClueList extends Component {
                     </ul>
                 </>
                 <button className="guess-culprit-btn" onClick={this.guessCulprit}>Guess the culprit!</button>
+                <br></br>
                 <button className="go-home-btn" onClick={this.renderHome}>Home</button>
                 </div>
             </>

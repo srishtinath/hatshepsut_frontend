@@ -15,15 +15,29 @@ class Rooms extends Component {
         this.props.history.push('/home/room')
     } 
 
+    guessCulprit = (e) => {
+        this.props.history.push('/guess')
+    }
+
     render() { 
         return ( 
         <div className="room-index">
         {this.props.allRooms.map(room => 
-            <div key={room.id}>
-                <img src={room.image_url} alt={room.name} className="room-index-img" onClick={() => this.goToRoom(room)}/>
+            <div key={room.id} className="room-index-img">
+                <div><img src={room.image_url} alt={room.name} className="room-img-underlay" onClick={() => this.goToRoom(room)}/></div>
+                {/* <div className="room-index-overlay"><p>{room.name}</p></div> */}
+                {/* If roomId can be found in UserRoom, then add black box with opacity 0.3 saying Completed */}
+                { Boolean(this.props.userRooms.find(userRoom => userRoom.room_id === room.id)) ? 
+                <>
+                <div className="room-complete">Room Complete</div>
+                </>
+                : null }
             </div>
 
             )}
+            {this.props.userRooms.length >= this.props.allRooms.length ? 
+            <button className="guess-culprit" onClick={this.guessCulprit}>Guess the culprit!</button>
+            : null}
         </div> 
         );
     }
@@ -32,7 +46,8 @@ class Rooms extends Component {
 let mapStateToProps = (state) => {
     return {
         currentUser: state.currentUser,
-        allRooms: state.allRooms
+        allRooms: state.allRooms,
+        userRooms: state.userRooms
     }
 }
 

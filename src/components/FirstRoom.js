@@ -6,7 +6,7 @@ import CharacterChat from './CharacterChat'
 import { connect } from 'react-redux'
 import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
 
-import Zoom from 'react-reveal/Zoom';
+import Tada from 'react-reveal/Tada';
 
 
 class FirstRoom extends Component {
@@ -57,9 +57,11 @@ class FirstRoom extends Component {
         })
     }
 
-    handleRoomComplete = () => {
+    handleRoomComplete = (e) => {
         console.log("Room complete!")
         // add to UserRoom
+        let allRoomIds = this.props.allRooms.map(roomObj => roomObj.id)
+        if (!allRoomIds.includes(this.props.currentRoom.id)){
         fetch("http://localhost:3000/user_rooms", {
             method: "POST",
             headers: {
@@ -76,7 +78,16 @@ class FirstRoom extends Component {
             let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
             if (nextRoomObj){
                 this.props.setCurrentRoom(nextRoomObj)
+            } else {
+                e.target.innerText = "Guess the culprit!"
             }
+        }
+    }
+
+    componentWillUnmount(){
+        this.setState({
+            clickCount: 0
+        })
     }
 
     render() 
@@ -84,6 +95,7 @@ class FirstRoom extends Component {
         let room = this.props.currentRoom
         return ( 
             <>
+            
             <div className="character-content">
                 <>
                     <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`}}>
@@ -96,8 +108,9 @@ class FirstRoom extends Component {
                     {!this.state.showCharacterChat ? 
                     <>
                     { room.character ? 
-                        <div className="character-div" onClick={this.handleCharacterChat}>
-                            <img src={room.character.image_url} alt={room.character.name} className="character-img"/>
+                        // eslint-disable-next-line react/jsx-no-duplicate-props
+                        <div className="character-div" className={room.name} onClick={this.handleCharacterChat}>
+                            <img src={room.character.image_url} alt={room.character.name} className="character-img" />
                         </div>
                     : null}
                     <div className="room-content-div">
@@ -121,9 +134,9 @@ class FirstRoom extends Component {
                     }
                     { this.state.numberOfLocations <= this.state.clickCount ? 
                     <>
-                        <Zoom>
+                        <Tada>
                             <button className="next-room-btn" onClick={this.handleRoomComplete}>Go to next room</button>
-                        </Zoom>
+                        </Tada>
                     </>
                     : null  
                     }
