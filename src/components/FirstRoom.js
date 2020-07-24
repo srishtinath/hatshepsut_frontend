@@ -5,6 +5,7 @@ import CharacterChat from './CharacterChat'
 
 import { connect } from 'react-redux'
 import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
+import { withRouter } from 'react-router'
 
 import Tada from 'react-reveal/Tada';
 
@@ -60,7 +61,7 @@ class FirstRoom extends Component {
     handleRoomComplete = (e) => {
         console.log("Room complete!")
         // add to UserRoom
-        let allRoomIds = this.props.allRooms.map(roomObj => roomObj.id)
+        let allRoomIds = this.props.userRooms.map(roomObj => roomObj.room_id)
         if (!allRoomIds.includes(this.props.currentRoom.id)){
         fetch("http://localhost:3000/user_rooms", {
             method: "POST",
@@ -73,15 +74,33 @@ class FirstRoom extends Component {
             })
         }).then(r => r.json())
         .then(userRoomObj => 
-            addToUserRoom(userRoomObj))
+            this.props.addToUserRoom(userRoomObj))
             let currentRoomId = this.props.currentRoom.id
             let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
             if (nextRoomObj){
                 this.props.setCurrentRoom(nextRoomObj)
+                this.setState({
+                    clickCount: 0
+                })
+            } else {
+                e.target.innerText = "Guess the culprit!"
+            }
+        } else if (e.target.innerText === "Guess the culprit!"){
+            console.log("Hellooo")
+            this.props.history.push('/guess')
+        } else {
+            let currentRoomId = this.props.currentRoom.id
+            let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
+            if (nextRoomObj){
+                this.props.setCurrentRoom(nextRoomObj)
+                this.setState({
+                    clickCount: 0
+                })
             } else {
                 e.target.innerText = "Guess the culprit!"
             }
         }
+
     }
 
     componentWillUnmount(){
@@ -153,7 +172,8 @@ let mapStateToProps = (state) => {
     return {
         currentRoom: state.currentRoom,
         currentUser: state.currentUser,
-        allRooms: state.allRooms
+        allRooms: state.allRooms,
+        userRooms: state.userRooms
     }
 }
 
@@ -164,4 +184,4 @@ let mapDispatchToProps = {
     addToUserRoom: addToUserRoom
 }
  
-export default connect(mapStateToProps, mapDispatchToProps)(FirstRoom);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FirstRoom));

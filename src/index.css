@@ -43,15 +43,25 @@ code {
   padding: 2%;
 }
 
-.progress-tracker-div {
+.progress-tracker {
   position: fixed;
   bottom: 0;
   z-index: 12;
   width: 35%;
-  height: 5%;
+  height: 6%;
   background-color: rgba(40, 183, 215, 0.6);
   border-radius: 10%;
-  text-align: center;
+  /* text-align: center; */
+}
+
+.progress-tracker-div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.progress-img {
+  max-width: 8%;
+  /* padding: 1%; */
 }
 
 input#menu {
@@ -219,7 +229,7 @@ label.icon {
 .room-img-underlay {
   width: 100%;
   height: 100%;
-  position: relative;
+  /* position: relative; */
 }
 
 .room-complete {
@@ -227,7 +237,7 @@ label.icon {
   grid-column: 1;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  /* z-index: 2; */
   background-color: rgba(0,0,0, 0.4);
   text-align: center;
 }
