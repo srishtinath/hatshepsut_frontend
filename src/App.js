@@ -150,7 +150,7 @@ class App extends Component {
               <Route render={this.renderHome} />
           </Switch>
           </div>
-          { localStorage.token ? 
+          { this.state.token ? 
           <>
             <ProgressTracker />
             <ClueList />

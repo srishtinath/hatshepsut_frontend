@@ -51,12 +51,9 @@ code {
   height: 6%;
   background-color: rgba(40, 183, 215, 0.6);
   border-radius: 10%;
-  /* text-align: center; */
-}
-
-.progress-tracker-div {
   display: flex;
   justify-content: space-evenly;
+  /* text-align: center; */
 }
 
 .progress-img {

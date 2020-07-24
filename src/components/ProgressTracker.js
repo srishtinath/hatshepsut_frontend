@@ -46,19 +46,17 @@ class ProgressTracker extends Component {
         let returnedArray = this.renderImages()
         console.log(this.props.userRooms)
         return ( 
-            <div className="progress-tracker">
-                {/* This is the ProgressTracker div! */}
+            <>
                 { this.props.userRooms ? 
                 <>
-                <div className="progress-tracker-div">
-                {/* <p>Progress: </p> */}
-                {returnedArray.map(obj => {
-                    return obj
-                })}
-                </div>
+                    <div className="progress-tracker">
+                        {returnedArray.map(obj => {
+                            return obj
+                        })}
+                    </div>
                 </>
                  : null}
-            </div>
+            </>
          );
     }
 }

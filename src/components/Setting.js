@@ -31,6 +31,7 @@ class Setting extends Component {
             useTransform: true
             // slidesToScroll: 1
           };
+        let displayCharacters = this.props.allCharacters.filter(char => char.display === true)
         return ( 
             <div className="setting">
                 <Slider {...settings}>
@@ -55,7 +56,7 @@ class Setting extends Component {
                     <div className="slide2-content">
                     <h2>Meet your fellow travellers</h2>
                         <div className="slide2-div">
-                            {this.props.allCharacters.map(character => 
+                            {displayCharacters.map(character => 
                                 <div key={character.id} className="set-char">
                                     <div className="char-description">
                                         <h3>{character.name}</h3>
