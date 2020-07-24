@@ -44,7 +44,7 @@ class ProgressTracker extends Component {
 
     render() { 
         let returnedArray = this.renderImages()
-        console.log(this.props.userRooms)
+        // console.log(this.props.userRooms)
         return ( 
             <>
                 { this.props.userRooms ? 

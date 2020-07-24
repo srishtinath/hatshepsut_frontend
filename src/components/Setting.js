@@ -32,6 +32,8 @@ class Setting extends Component {
             // slidesToScroll: 1
           };
         let displayCharacters = this.props.allCharacters.filter(char => char.display === true)
+        console.log(this.props.allCharacters)
+        console.log(displayCharacters)
         return ( 
             <div className="setting">
                 <Slider {...settings}>
