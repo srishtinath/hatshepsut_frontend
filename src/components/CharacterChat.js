@@ -17,13 +17,12 @@ class CharacterChat extends Component {
     componentDidMount(){
         let character = this.props.currentCharacter
         let sortedChatsArray
-        console.log(character)
         if (character.chats){
             sortedChatsArray = character.chats.sort(function(chatA,chatB){return chatA.id - chatB.id})
             this.setState({
                 sortedChats: sortedChatsArray,
                 chatOption: sortedChatsArray[this.state.chatIndex],
-                chatHistory: [["left", sortedChatsArray[this.state.chatIndex].response]]
+                chatHistory: [["response", sortedChatsArray[this.state.chatIndex].response]]
             }, console.log(this.state))
         }
     }
@@ -71,13 +70,13 @@ class CharacterChat extends Component {
         return ( 
             <>
             <img src={character.image_url} alt={character.name} className="character-chat-img" onClick={this.props.toggleRoom}/>
-            <div className="character-chat-content">
+            <div className="character-chat-content" key="chat-content-1">
                 { character.name }
                 <br></br>
                 { character.description }
                 <p></p>
                 {this.state.sortedChats ? 
-                    <div>
+                    <div key="chat-content-2">
                         {this.state.chatHistory.map(textArray => 
                             textArray[0] === "option" ? 
                             <div key={textArray.index}>
@@ -86,7 +85,7 @@ class CharacterChat extends Component {
                                 </Bounce>
                             </div>
                             : 
-                            <div key={textArray.index}>
+                            <div key={textArray.index + Math.random()}>
                                 <Bounce left>
                                 <p className={textArray[0]}>{textArray[1]}</p>
                                 </Bounce>

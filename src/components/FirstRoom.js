@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Location from './Location'
 import CurrentLocation from './CurrentLocation'
 import CharacterChat from './CharacterChat'
+import Character from './Character'
+import Directions from './Directions'
 
 import { connect } from 'react-redux'
 import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
@@ -46,13 +48,7 @@ class FirstRoom extends Component {
         })
     }
 
-    handleCharacterChat = (e) => {
-        // console.log(this.props.currentRoom.character.id)
-        fetch(`http://localhost:3000/characters/${this.props.currentRoom.character.id}`)
-        .then(r => r.json())
-        .then(characterFetched => 
-            // {console.log(characterFetched)
-            {this.props.setCurrentCharacter(characterFetched)})
+    showCharacterChat = () => {
         this.setState({
             showCharacterChat: !this.state.showCharacterChat
         })
@@ -118,7 +114,11 @@ class FirstRoom extends Component {
             <div className="character-content">
                 <>
                     <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "cover"}}>
-                    {/* <h1> Welcome to {room.name}!</h1> */}
+                    {/* {!this.props.userRooms ?  */}
+                    {true ? 
+                    <Directions />
+                    :null
+                    }
 
                     { this.state.showZoomedLocation && !this.state.showCharacterChat ? 
                     <CurrentLocation currentLocation={this.props.location} goToRoomDetails={this.goToRoomDetails}/>
@@ -127,13 +127,10 @@ class FirstRoom extends Component {
                     {!this.state.showCharacterChat ? 
                     <>
                     { room.character ? 
-                        // eslint-disable-next-line react/jsx-no-duplicate-props
-                        <div className="character-div" className={room.name} onClick={this.handleCharacterChat}>
-                            <img src={room.character.image_url} alt={room.character.name} className="character-img" />
-                        </div>
+                       <Character room={room} showCharacterChat={this.showCharacterChat}/>
                     : null}
                     <div className="room-content-div">
-                        <div className="firstroom-instructions">
+                        <div className="room-description">
                             <p>{room.description}</p>
                         </div>
                         {room.locations ? 
@@ -148,7 +145,7 @@ class FirstRoom extends Component {
                     </div>
                     </>
                     :
-                    <CharacterChat room={room} toggleRoom={this.handleCharacterChat}/>
+                    <CharacterChat room={room} toggleRoom={this.showCharacterChat}/>
                     }
                     { this.state.numberOfLocations <= this.state.clickCount ? 
                     <>
@@ -160,6 +157,7 @@ class FirstRoom extends Component {
                     }
                     </>
                     }
+                    
                 </div>
                 </>
             </div>

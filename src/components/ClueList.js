@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {connect} from 'react-redux'
 import { removeItemFromClueList } from '../actions/cluelist'
 import { setClueList, setClueItems } from '../actions/cluelist'
@@ -6,7 +6,6 @@ import { withRouter } from 'react-router'
 
 import { useRef } from "react";
 import { motion, useCycle } from "framer-motion";
-import { useDimensions } from "./use-dimensions.ts";
 import { MenuToggle } from "./MenuToggle";
 import { ClueListItems } from './ClueListItems'
 
@@ -23,7 +22,7 @@ function ClueList(props) {
                 }
         }),
         closed: {
-            clipPath: "circle(5% at 90% 3.5%)",
+            clipPath: "circle(5% at 86% 4.2%)",
             transition: {
                 delay: 0.3,
                 type: "spring",
@@ -34,21 +33,18 @@ function ClueList(props) {
         }
     const [isOpen, toggleOpen] = useCycle(false, true);
     const containerRef = useRef(null);
-    const { height } = useDimensions(containerRef);
 
         return ( 
 
             <motion.nav
                 initial={false}
                 animate={isOpen ? "open" : "closed"}
-                custom={height}
                 ref={containerRef}>
                 <MenuToggle toggle={() => toggleOpen()} />
 
                 <motion.div
                 initial={false}
                 animate={isOpen ? "open" : "closed"}
-                custom={height}
                 ref={containerRef}
                 variants={sidebar}
                 className="cluelist-container">

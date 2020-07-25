@@ -50,7 +50,7 @@ code {
   width: 35%;
   height: 6%;
   background-color: rgba(40, 183, 215, 0.6);
-  border-radius: 10%;
+  border-radius: 10px;
   display: flex;
   justify-content: space-evenly;
   /* text-align: center; */
@@ -63,8 +63,8 @@ code {
 
 .cluelist-toggle {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 1%;
+  right: 1%;
   margin: 0%;
   z-index: 200;
   background-color: transparent;
@@ -86,6 +86,7 @@ code {
   display: block;
   align-items: center;
   text-align: center;
+  z-index: 199;
 }
 
 .cluelist-ul {
@@ -98,6 +99,7 @@ code {
   text-align: center;
   align-items: center;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .guess-culprit-btn {
@@ -309,16 +311,21 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   max-width: 100%;
 }
 
-.firstroom-instructions {
+.instructions-div {
   position: fixed;
   background-color: rgba(255,255,255, 0.7);
-  width: 35%;
-  height: 10%;
-  bottom: 8%;
+  width: 20vw;
+  height: 10vh;
+  bottom: 0%;
   padding: 2%;
-  left: 30%;
+  right: 0%;
   text-align: center;
   z-index: 4;
+  border-radius: 10px;
+}
+
+.room-description{
+  background-color: rgba(255,255,255, 0.3);
 }
 
 .firstroom-content{

@@ -1,10 +1,10 @@
-import * as React from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { removeItemFromClueList } from '../actions/cluelist'
 
-// import { MenuItem } from "./MenuItem";
+export const ClueListItems = () => {
 
-// const result: any = useSelector(selector: Function, equalityFn?: Function)
 const guessCulprit = (e) => {
     this.props.history.push('/guess')
 }
@@ -22,8 +22,10 @@ const variants = {
   }
 };
 
+let entryId = useSelector(state => state.cluelistId)
+const dispatch = useDispatch()
 const handleRemoveFromNotepad = (item) => {
-    let entryId = this.props.cluelistId
+    console.log(item.id)
         fetch(`http://localhost:3000/clue_lists/${entryId}/deleteItem/${item.id}`, {
             method: "DELETE",
             headers: {
@@ -34,7 +36,7 @@ const handleRemoveFromNotepad = (item) => {
         .then(r => r.json())
         .then(resp => {
             console.log(resp)
-            this.props.removeItemFromClueList(item)
+            dispatch(removeItemFromClueList(item))
         })
     }
     
@@ -54,22 +56,25 @@ const livariants = {
         }
     }
     }; 
-export const ClueListItems = (props) => (
-    <>
-    <motion.ul variants={variants} className="cluelist-ul">
-        {/* {this.props.clueItems.map(item => {
-        return <li key={item.id}>{item.name}
-                <button onClick={(event) => handleRemoveFromNotepad(item)} >{'\u00D7'}</button>
-            </li>
-    })} */}
-        <motion.li
-        variants={livariants}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}>Where is this line?
-        </motion.li>
-    </motion.ul>
-    <button className="guess-culprit-btn" onClick={guessCulprit}>Guess the culprit!</button>
-    <br></br>
-    <button className="go-home-btn" onClick={renderHome}>Home</button>
-    </>
-);
+
+    const clueItems = useSelector(state => state.clueItems)
+    
+    return (
+        <>
+        <motion.ul variants={variants} className="cluelist-ul">
+            {clueItems.map(item => {
+            return <motion.li 
+                    variants={livariants}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    key={item.id}>{item.name}
+                    <button onClick={(event) => handleRemoveFromNotepad(item)} >{'\u00D7'}</button>
+                </motion.li>
+            })}
+        </motion.ul>
+        <button className="guess-culprit-btn" onClick={guessCulprit}>Guess the culprit!</button>
+        <br></br>
+        <button className="go-home-btn" onClick={renderHome}>Home</button>
+        </>
+    )
+}
