@@ -62,7 +62,7 @@ class Setting extends Component {
                                         <h3>{character.name}</h3>
                                         <p>{character.description}</p>
                                     </div>
-                                    <div>
+                                    <div className="set-char-img-div">
                                         <img src={character.image_url} alt={character.name} className="set-char-img" />
                                     </div>
                                 </div>

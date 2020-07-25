@@ -248,8 +248,9 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   overflow-y: hidden;
 }
 .set-char {
-  width: 60%;
+  width: 40%;
   height: 600px;
+  display: block;
 }
 
 .set-char:hover .char-description{
@@ -258,11 +259,17 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 
 .char-description {
   opacity: 0;
-  text-align: center;
+  height: 20%;
+  width: 300%;
   transition: transform .5s;
 }
 
+.set-char-img-div {
+  height: 80%;
+}
+
 .set-char-img {
+  height: 90%;
   transition: transform .5s ease;
 }
 
@@ -477,19 +484,21 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 
 .tent {
   position: absolute;
-  width: 25%;
+  left: 4%;
+  top: 8%;
+  width: 15%;
 }
 
 .outside {
   position: absolute;
-  width: 10%;
+  width: 8%;
   right: 15%;
   bottom: 36%;
 }
 
 .dig {
   position: absolute;
-  width: 25%;
+  width: 10%;
   bottom: 15%;
   right: 30%;
 }
@@ -502,7 +511,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 
 .PyramidRoom1 {
   position: absolute;
-  width: 20%;
+  width: 25%;
   bottom: 2%;
 }
 
@@ -510,19 +519,22 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   position: absolute;
   width: 14%;
   bottom: 3%;
-  left: 3%;
+  left: 6%;
 }
 
 .PyramidRoom3 {
   position: absolute;
-  width: 10%;
-  bottom: 0%;
-  right: 20%;
+  width: 15%;
+  bottom: -3%;
+  right: 28%;
 }
 
-/* .TreasureRoom {
-
-} */
+.TreasureRoom {
+  position: absolute;
+  width: 3%;
+  left: 48%;
+  top: 33%;
+}
 
 
 .character-response {

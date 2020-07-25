@@ -30,7 +30,7 @@ const Character = (props) => {
 
     const [animate, cycle] = useCycle(
         { scale: 1.0, zIndex:2, x: 0, y: 0 },
-        { scale: 1.75, zIndex:7, x: -120, y: 400.0 }
+        { scale: 1.75, zIndex:7, x: -40, y: 400.0 }
       );
 
 
