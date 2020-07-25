@@ -7,7 +7,7 @@ class Item extends Component {
             inCluelist: false
          }
 
-    componentWillMount(){
+    componentDidMount(){
         this.inCluelist(this.props.item)
     }
 

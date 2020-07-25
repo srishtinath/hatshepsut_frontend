@@ -10,7 +10,7 @@ import GuessCulprit from './components/GuessCulprit'
 
 import { setUserInfo, setAllCharacters, setAllRooms, setUserRoom } from './actions/user'
 import { setClueList, setClueItems} from './actions/cluelist'
-import { Switch, Route, withRouter, Router } from 'react-router';
+import { Switch, Route, withRouter } from 'react-router';
 
 
 import Sound from 'react-sound';

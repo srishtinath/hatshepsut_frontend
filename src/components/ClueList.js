@@ -4,65 +4,58 @@ import { removeItemFromClueList } from '../actions/cluelist'
 import { setClueList, setClueItems } from '../actions/cluelist'
 import { withRouter } from 'react-router'
 
-class ClueList extends Component {
+import { useRef } from "react";
+import { motion, useCycle } from "framer-motion";
+import { useDimensions } from "./use-dimensions.ts";
+import { MenuToggle } from "./MenuToggle";
+import { ClueListItems } from './ClueListItems'
 
-    componentDidMount(){
-        console.log(this.props.cluelistId)
-        // this.props.setClueItems(this.props.cluelist.items)
-    }
 
-    handleRemoveFromNotepad = (item) => {
-    let entryId = this.props.cluelistId
-        fetch(`http://localhost:3000/clue_lists/${entryId}/deleteItem/${item.id}`, {
-            method: "DELETE",
-            headers: {
-                "content-type":"application/json",
-                "accept": "application/json"
+function ClueList(props) {
+
+    const sidebar = {
+        open: (height = 1000) => ({
+            clipPath: `circle(${height * 2 + 800}px at 90% 4%)`,
+            transition: {
+                type: "spring",
+                stiffness: 20,
+                restDelta: 2
+                }
+        }),
+        closed: {
+            clipPath: "circle(5% at 90% 3.5%)",
+            transition: {
+                delay: 0.3,
+                type: "spring",
+                stiffness: 400,
+                damping: 40
+                }
             }
-        })
-        .then(r => r.json())
-        .then(resp => {
-            console.log(resp)
-            this.props.removeItemFromClueList(item)
-        })
-    }
+        }
+    const [isOpen, toggleOpen] = useCycle(false, true);
+    const containerRef = useRef(null);
+    const { height } = useDimensions(containerRef);
 
-    guessCulprit = (e) => {
-        this.props.history.push('/guess')
-    }
-
-    renderHome = (e) => {
-        this.props.history.push('/home')
-    }
-
-    render() {
         return ( 
-            <>
-                <input type="checkbox" id="menu" />
-                <label htmlFor="menu" className="icon">
-                        <div className="menu"></div>
-                </label>
-                <div className="cluelist-container">
-                <>
-                    <ul className="cluelist-div">
-                        {this.props.clueItems ? 
-                        <>
-                        {this.props.clueItems.map(item => {
-                        return <li key={item.id}>{item.name}
-                                <button onClick={(event) => this.handleRemoveFromNotepad(item)} >{'\u00D7'}</button>
-                            </li>
-                    })}
-                    </>
-                    : null}
-                    </ul>
-                </>
-                <button className="guess-culprit-btn" onClick={this.guessCulprit}>Guess the culprit!</button>
-                <br></br>
-                <button className="go-home-btn" onClick={this.renderHome}>Home</button>
-                </div>
-            </>
-         );
-    }
+
+            <motion.nav
+                initial={false}
+                animate={isOpen ? "open" : "closed"}
+                custom={height}
+                ref={containerRef}>
+                <MenuToggle toggle={() => toggleOpen()} />
+
+                <motion.div
+                initial={false}
+                animate={isOpen ? "open" : "closed"}
+                custom={height}
+                ref={containerRef}
+                variants={sidebar}
+                className="cluelist-container">
+                    <ClueListItems />
+                  </motion.div>
+            </motion.nav>
+);
 }
 
 let mapStateToProps = (state) => {

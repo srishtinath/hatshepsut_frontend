@@ -14,7 +14,7 @@ class CharacterChat extends Component {
         chatOption: {}
     }
 
-    componentWillMount(){
+    componentDidMount(){
         let character = this.props.currentCharacter
         let sortedChatsArray
         console.log(character)

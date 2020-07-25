@@ -61,105 +61,43 @@ code {
   /* padding: 1%; */
 }
 
-input#menu {
-  display: none;
-}
-
-.icon {
-  background: rgb(208, 150, 88);
-  cursor: pointer;
-  display: block;
-  height: 20px;
-  padding: 16px;
-  width: 20px;
-}
-
-label.icon {
-  position: fixed;
+.cluelist-toggle {
+  position: absolute;
   top: 0;
   right: 0;
+  margin: 0%;
   z-index: 200;
+  background-color: transparent;
 }
 
-.icon .menu,
-.icon .menu::before,
-.icon .menu::after {
-    background: #9FB1BD;
-    content: '';
-    /* display: block; */
-    height: 2px;
-    position: absolute;
-    transition: background ease .3s, top ease .3s .3s, transform ease .3s;
-    width: 20px;
+.cluelist-toggle:hover {
+  text-emphasis: none;
+  background-color: transparent;
+  border-style: none;
 }
-
-.icon:hover .menu,
-.icon:hover .menu::before,
-.icon:hover .menu::after {
-    background: rgb(156, 56, 36));
-}
-
-.icon .menu {
-    left: 18px;
-    top: 27px;
-}
-
-.icon .menu::before {
-    top: -6px;
-}
-
-.icon .menu::after {
-    top: 6px;
-}
-
-#menu:checked + .icon .menu {
-    background: transparent;
-}
-
-#menu:checked + .icon .menu::before {
-    transform: rotate(45deg);
-}
-
-#menu:checked + .icon .menu::after {
-    transform: rotate(-45deg);
-}
-
-#menu:checked + .icon .menu::before,
-#menu:checked + .icon .menu::after {
-    top: 0;
-    transition: top ease .3s, transform ease .3s .3s;
-}
-
-#menu:checked ~ .cluelist-container {
-  height: 100%;
-  right: 0;
-  /* transition: width ease .6s; */
-}
-
 
 .cluelist-container {
   position: fixed;
   top: 0;
-  right: -20%;
-  transition: height ease 1s;
+  right: 0;
+  bottom: 0;
   width: 20%;
-  height: 0%;
-  background-color: rgba(208, 150, 88, 0.8);
-  z-index: 10;
+  background-color: rgba(228, 186, 81, 0.8);
   display: block;
   align-items: center;
   text-align: center;
 }
 
-.cluelist-div {
+.cluelist-ul {
   background-color: rgba(255,255,255, 0.5);
   max-width: 80%;
-  height: 80%;
+  height: 70%;
   margin: 5% auto;
+  margin-top: 22%;
   padding: 2%;
   text-align: center;
   align-items: center;
-  list-style-type: none;
+  overflow-y: scroll;
 }
 
 .guess-culprit-btn {
@@ -467,6 +405,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   width: 70%;
   height: 70%;
   margin: auto;
+  margin-top: 3%;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 1%;
@@ -474,8 +413,8 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 
 .character-chat-img {
   position: absolute;
-  left: -8%;
-  max-width: 30%;
+  left: -5%;
+  width: 30%;
 }
 
 .character-div {
@@ -483,7 +422,8 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 }
 
 .character-img {
-  width: 100%;
+  width: 80%;
+  transition: transform .2s ease;
 }
 
 .tent {

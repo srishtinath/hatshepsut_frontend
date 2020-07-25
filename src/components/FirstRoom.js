@@ -117,7 +117,7 @@ class FirstRoom extends Component {
             
             <div className="character-content">
                 <>
-                    <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`}}>
+                    <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "cover"}}>
                     {/* <h1> Welcome to {room.name}!</h1> */}
 
                     { this.state.showZoomedLocation && !this.state.showCharacterChat ? 
@@ -134,8 +134,7 @@ class FirstRoom extends Component {
                     : null}
                     <div className="room-content-div">
                         <div className="firstroom-instructions">
-                            <p>Welcome to the first room!</p>
-                            <p>Looks like this was Tess's tent. Click around and see if you can find any clues.</p>
+                            <p>{room.description}</p>
                         </div>
                         {room.locations ? 
                             <>
