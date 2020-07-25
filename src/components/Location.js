@@ -1,26 +1,36 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import React, { useState } from 'react';
 
-class Location extends Component {
+import { motion } from 'framer-motion'
 
 
-    render() { 
-        let location = this.props.location
-        return ( 
-                <img src={location.image_url} 
-                alt={location.name} 
-                className="location-image" 
-                onClick={this.showImages} 
-                style={{position: 'absolute', bottom: `${location.positionY}%`, 
-                left: `${location.positionX}%`, maxWidth: `${location.size}%`}}/>
-         );
+const Location = (props) => {
+    let location = props.location
+
+    const toggleSwitch = () => setIsOn(!isOn);
+    const [isOn, setIsOn] = useState(false);
+
+    const handleZoom = (e) => {
+        toggleSwitch()
+        props.setCurrentLocation(e)
     }
-}
 
-let mapStateToProps = (state) => {
-    return ({
-        currentLocation: state.currentLocation,
-    })
+    // console.log(props.location)
+    return ( 
+        <>
+            <motion.img 
+            src={location.image_url} 
+            alt={location.name} 
+            className="location-image" 
+            onClick={handleZoom} 
+            data-isOn={isOn}
+            style={{position: 'absolute', bottom: `${location.positionY}%`, 
+            left: `${location.positionX}%`, maxWidth: `${location.size}%`}}
+            layout
+            transition={{ ease: "easeOut" }}
+            />
+
+            </>
+        );
 }
  
-export default connect(mapStateToProps)(Location);
+export default (Location);

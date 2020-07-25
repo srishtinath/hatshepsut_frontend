@@ -2,15 +2,19 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from 'react-redux'
 import { removeItemFromClueList } from '../actions/cluelist'
+import { useHistory } from "react-router-dom";
+
 
 export const ClueListItems = () => {
+let history = useHistory();
+
 
 const guessCulprit = (e) => {
-    this.props.history.push('/guess')
+    history.push('/guess')
 }
 
 const renderHome = (e) => {
-    this.props.history.push('/home')
+    history.push('/home')
 }
 
 const variants = {

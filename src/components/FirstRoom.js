@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Location from './Location'
 import CurrentLocation from './CurrentLocation'
-import CharacterChat from './CharacterChat'
 import Character from './Character'
 import Directions from './Directions'
 
@@ -15,6 +14,7 @@ import Tada from 'react-reveal/Tada';
 class FirstRoom extends Component {
 
     state = {
+        showDirections: true,
         showZoomedLocation: false,
         showCharacterChat: false,
         numberOfLocations: 0,
@@ -25,6 +25,11 @@ class FirstRoom extends Component {
         if (this.props.currentRoom.locations){
             this.setState({
                 numberOfLocations: this.props.currentRoom.locations.length
+            })
+        }
+        if (this.props.userRooms){
+            this.setState({
+                showDirections: false
             })
         }
     }
@@ -48,9 +53,15 @@ class FirstRoom extends Component {
         })
     }
 
-    showCharacterChat = () => {
+    showCharacterChat = (e) => {
         this.setState({
             showCharacterChat: !this.state.showCharacterChat
+        })
+    }
+
+    closeDirections = () => {
+        this.setState({
+            showDirections: !this.state.showDirections
         })
     }
 
@@ -109,44 +120,34 @@ class FirstRoom extends Component {
     { 
         let room = this.props.currentRoom
         return ( 
-            <>
-            
             <div className="character-content">
-                <>
                     <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "cover"}}>
-                    {/* {!this.props.userRooms ?  */}
-                    {true ? 
-                    <Directions />
+                    {this.state.showDirections ? 
+                    <Directions closeDirections={this.closeDirections}/>
                     :null
                     }
-
-                    { this.state.showZoomedLocation && !this.state.showCharacterChat ? 
-                    <CurrentLocation currentLocation={this.props.location} goToRoomDetails={this.goToRoomDetails}/>
-                    : 
-                    <>
-                    {!this.state.showCharacterChat ? 
-                    <>
-                    { room.character ? 
-                       <Character room={room} showCharacterChat={this.showCharacterChat}/>
-                    : null}
+                    
                     <div className="room-content-div">
-                        <div className="room-description">
+                        {/* <div className="room-description">
                             <p>{room.description}</p>
+                        </div> */}
+                        <Character room={room} showCharacterChat={this.showCharacterChat} zoomState={this.state.showCharacterChat}/>
+                        { room.locations.map(loc => {
+                            return (
+                            <div id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
+                                <Location location={loc} items={loc.items} setCurrentLocation={this.setCurrentLocation}/>
+                            </div>)
+                        })}
+
+                    { this.state.showZoomedLocation ? 
+                    <>
+                        <div className="modal-box">
+                            <CurrentLocation currentLocation={this.props.currentLocation} goToRoomDetails={this.goToRoomDetails}/>
                         </div>
-                        {room.locations ? 
-                            <>
-                            { room.locations.map(loc => {
-                                return (<div id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
-                                    <Location location={loc} items={loc.items} />
-                                </div>)
-                            })}
-                            </>
-                        : null}
-                    </div>
-                    </>
-                    :
-                    <CharacterChat room={room} toggleRoom={this.showCharacterChat}/>
-                    }
+                        </>
+                    : null}
+
+                    
                     { this.state.numberOfLocations <= this.state.clickCount ? 
                     <>
                         <Tada>
@@ -155,13 +156,9 @@ class FirstRoom extends Component {
                     </>
                     : null  
                     }
-                    </>
-                    }
-                    
-                </div>
-                </>
             </div>
-            </>);
+            </div>
+        </div>)
     }
 }
 
@@ -170,7 +167,8 @@ let mapStateToProps = (state) => {
         currentRoom: state.currentRoom,
         currentUser: state.currentUser,
         allRooms: state.allRooms,
-        userRooms: state.userRooms
+        userRooms: state.userRooms,
+        currentLocation: state.currentLocation
     }
 }
 

@@ -18,7 +18,6 @@ class Items extends Component {
         // console.log(this.props)
         return ( 
             <>
-            <img src={this.props.currentLocation.image_url} alt={this.props.currentLocation.name} className="location-image-zoom"/>
             {this.props.items ? 
             <>
             {this.props.items.map(item => {
@@ -28,7 +27,6 @@ class Items extends Component {
                 )}
             </>
             : null}
-            <button onClick={this.props.goToRoomDetails} className="go-back-btn"><p>Go back</p></button>
             </>
          );
     }

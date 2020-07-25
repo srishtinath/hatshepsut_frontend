@@ -66,10 +66,8 @@ class CharacterChat extends Component {
 
     render() { 
         let character = this.props.currentCharacter
-        // console.log(this.state.chatHistory)
         return ( 
             <>
-            <img src={character.image_url} alt={character.name} className="character-chat-img" onClick={this.props.toggleRoom}/>
             <div className="character-chat-content" key="chat-content-1">
                 { character.name }
                 <br></br>
@@ -109,9 +107,6 @@ class CharacterChat extends Component {
                     </div>
                     : null
                     }
-                { !this.state.chatIndex ? 
-                <button onClick={this.props.toggleRoom}>Go back...</button>
-                : null}
             </div>
             </>
          );
@@ -120,7 +115,6 @@ class CharacterChat extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        // currentRoom: state.currentRoom,
         currentCharacter: state.currentCharacter
     }
 }
