@@ -33,10 +33,10 @@ class ProgressTracker extends Component {
             incompletePerc = 0
         }
         for (let step = 0; step<completePerc; step++){
-            imageArray.push(<img key={step + Math.random()} src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595632000/Hatshepsut/Screen_Shot_2020-07-24_at_7.04.57_PM_eovwlc.png" alt="incomplete" className="progress-img"/>)
+            imageArray.push(<img key={step + Math.random()} src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595698426/Hatshepsut/hieroglyph_ebph6r.png" alt="incomplete" className="progress-img"/>)
         }
         for (let step = 0; step<incompletePerc; step++){
-            imageArray.push(<img key={step} src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595631998/Hatshepsut/Screen_Shot_2020-07-24_at_7.04.41_PM_gxuonj.png" alt="incomplete" className="progress-img"/>)
+            imageArray.push(<img key={step} src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595698431/Hatshepsut/scarab_lcoe6j.png" alt="incomplete" className="progress-img"/>)
         }
 
         return (imageArray)
