@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 
+import RightAnswer from './RightAnswer'
+import WrongAnswer from './WrongAnswer'
+
 class GuessCulprit extends Component {
     constructor(props) {
         super(props);
@@ -35,6 +38,9 @@ class GuessCulprit extends Component {
                             )}
                 <input type="submit" onClick={this.handleguess}></input>
             </form>
+
+            <RightAnswer />
+            <WrongAnswer />
 
             <button onClick={this.goHome}>Go back home cuz you're probably wrong</button>
             </div>
