@@ -23,19 +23,17 @@ class Rooms extends Component {
         let filteredRooms = this.props.allRooms.filter(room => room.display === true)
         return ( 
         <div className="room-index">
+            <h2>Rooms to explore:</h2>
+            <ul>
         {filteredRooms.map(room => 
-            <div key={room.id} className="room-index-img">
-                <div><img src={room.image_url} alt={room.name} className="room-img-underlay" onClick={() => this.goToRoom(room)}/></div>
-                {/* <div className="room-index-overlay"><p>{room.name}</p></div> */}
-                {/* If roomId can be found in UserRoom, then add black box with opacity 0.3 saying Completed */}
+            <div key={room.id} className="room-index-img" onClick={() => this.goToRoom(room)}>  
                 { Boolean(this.props.userRooms.find(userRoom => userRoom.room_id === room.id)) ? 
-                <>
-                <div className="room-complete">Room Complete</div>
-                </>
-                : null }
+                <strike className="room-complete"><li>{room.name} </li></strike>
+                : <li>{room.name} | {room.description}</li> }
             </div>
 
             )}
+            </ul>
             {this.props.userRooms.length >= this.props.allRooms.length ? 
             <button className="guess-culprit" onClick={this.guessCulprit}>Guess the culprit!</button>
             : null}
