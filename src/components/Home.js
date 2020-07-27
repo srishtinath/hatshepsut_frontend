@@ -33,9 +33,7 @@ class Home extends Component {
 
     logoutUser = (e) => {
         // e.preventDefault()
-        localStorage.token = ""
-        localStorage.cluelistId = ""
-        this.props.history.push('/login')
+        this.props.logoutUser()
       }
 
     seeIntroduction = (e) => {

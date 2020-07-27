@@ -42,7 +42,6 @@ class App extends Component {
       .then(roomsFetched => this.props.setAllRooms(roomsFetched))
     }
 }
-
   handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
     fetch("http://localhost:3000/users/login", {
@@ -71,7 +70,6 @@ class App extends Component {
   }
 
   handleLoginResponse = (resp) => {
-    console.log(resp)
     if (resp.message){
       console.log(resp.message)
     } else {
@@ -125,6 +123,15 @@ class App extends Component {
       this.props.history.push("/login")
       console.log("boo")
     }
+  }
+
+  logoutUser = () => {
+    localStorage.token = ""
+    localStorage.cluelistId = ""
+    this.props.history.push('/login')
+    this.setState({
+      token: ""
+    })
   }
 
   guessCulprit = () => {
