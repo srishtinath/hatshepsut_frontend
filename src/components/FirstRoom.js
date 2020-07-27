@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Location from './Location'
-import CurrentLocation from './CurrentLocation'
 import Character from './Character'
 import Directions from './Directions'
 
@@ -131,17 +130,7 @@ class FirstRoom extends Component {
                                 <Location location={loc} items={loc.items} setCurrentLocation={this.setCurrentLocation}/>
                             </div>)
                         })}
-
-                    { this.state.showZoomedLocation ? 
-                    <>
-                        <div className="modal-box">
-                            <CurrentLocation currentLocation={this.props.currentLocation} goToRoomDetails={this.goToRoomDetails}/>
-                        </div>
-                        </>
-                    : null}
-
-                    
-                    { this.state.numberOfLocations <= this.state.clickCount ? 
+                    { (this.state.numberOfLocations * 2) <= (this.state.clickCount) ? 
                     <>
                         <Tada>
                     <button className="next-room-btn" onClick={this.handleRoomComplete}>{room.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
