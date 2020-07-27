@@ -13,26 +13,29 @@ class GuessCulprit extends Component {
     }
 
     handleguess = (e) => {
-        e.preventDefautl()
-        console.log(e.target.value)
+        e.preventDefautl();
+        console.log(e.target);
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
     }
 
     render() { 
         return ( 
             <>
             <div className="home-content">
-            <p>This is the GuessCulprit component</p>
-            <form>
-                <label>So... who do you think did it?
+            <form onSubmit={this.handleguess}>
+                <label>So... who do you think did it?</label>
+
                     <br></br>
-                    <select>
                         {this.props.allCharacters.map(character => 
-                            <option value={character.name}>{character.name}</option>
+                            <p key={character.id}>
+                            <input name="character" type="radio" value={character.name} />
+                            <label>{character.name}</label>
+                            </p>
                             )}
-                    </select>
-                </label>
                 <input type="submit" onClick={this.handleguess}></input>
             </form>
+
             <button onClick={this.goHome}>Go back home cuz you're probably wrong</button>
             </div>
             </>

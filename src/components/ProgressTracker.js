@@ -9,9 +9,11 @@ class ProgressTracker extends Component {
     }
 
     componentDidMount(){
-        this.setState({
-            percentage: 0
-        })
+        let filteredRooms = this.props.allRooms.filter(room => room.display === true)
+        let newPerc = (this.props.userRooms.length / filteredRooms.length) * 100
+            this.setState({
+                percentage: newPerc
+            })
     }
     componentDidUpdate(prevProps){
         let filteredRooms = this.props.allRooms.filter(room => room.display === true)

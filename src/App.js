@@ -122,6 +122,7 @@ class App extends Component {
     } else {
       this.props.history.push("/login")
       console.log("boo")
+      // alert login
     }
   }
 
@@ -134,9 +135,6 @@ class App extends Component {
     })
   }
 
-  guessCulprit = () => {
-    return <GuessCulprit />
-  }
 
   render() { 
           return (
@@ -153,7 +151,6 @@ class App extends Component {
               <Route path="/home" render={this.renderHome}/>
               <Route path="/login" render={this.renderForm} />
               <Route path="/register" render={this.renderForm} />
-              <Route path="/guess" render={this.guessCulprit} />
               <Route render={this.renderHome} />
           </Switch>
           </div>

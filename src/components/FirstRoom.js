@@ -73,7 +73,17 @@ class FirstRoom extends Component {
 
     handleRoomComplete = (e) => {
         let allRoomIds = this.props.userRooms.map(roomObj => roomObj.room_id)
-        if (!allRoomIds.includes(this.props.currentRoom.id) && e.target.innerText !== "Guess the culprit!"){
+        if (!allRoomIds.includes(this.props.currentRoom.id)){
+            this.addToUserRoom()
+        } else {
+            this.setNextRoom()
+        }
+        if (e.target.innerText === "Guess the culprit!"){
+            this.props.history.push('/guess')
+        }
+    }
+
+    addToUserRoom = () => {
         fetch("http://localhost:3000/user_rooms", {
             method: "POST",
             headers: {
@@ -86,16 +96,14 @@ class FirstRoom extends Component {
         }).then(r => r.json())
         .then(userRoomObj => 
             this.props.addToUserRoom(userRoomObj))
-            let filteredRooms = this.props.allRooms.filter(room => room.display === true)
-            let currentRoomId = filteredRooms.indexOf(this.props.currentRoom)
-            let nextRoomObj = filteredRooms[currentRoomId + 1]
-            this.props.setCurrentRoom(nextRoomObj)
-        } else if (e.target.innerText === "Guess the culprit!"){
-            this.props.history.push('/guess')
-        } else {
-            let filteredRooms = this.props.allRooms.filter(room => room.display === true)
-            let currentRoomId = filteredRooms.indexOf(this.props.currentRoom)
-            let nextRoomObj = filteredRooms[currentRoomId + 1]
+            this.setNextRoom()
+    }
+
+    setNextRoom = () => {
+        let filteredRooms = this.props.allRooms.filter(room => room.display === true)
+        let currentRoomId = filteredRooms.indexOf(this.props.currentRoom)
+        let nextRoomObj = filteredRooms[currentRoomId + 1]
+        if (nextRoomObj){
             this.props.setCurrentRoom(nextRoomObj)
         }
     }
