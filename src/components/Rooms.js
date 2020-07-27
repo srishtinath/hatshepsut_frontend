@@ -20,9 +20,10 @@ class Rooms extends Component {
     }
 
     render() { 
+        let filteredRooms = this.props.allRooms.filter(room => room.display === true)
         return ( 
         <div className="room-index">
-        {this.props.allRooms.map(room => 
+        {filteredRooms.map(room => 
             <div key={room.id} className="room-index-img">
                 <div><img src={room.image_url} alt={room.name} className="room-img-underlay" onClick={() => this.goToRoom(room)}/></div>
                 {/* <div className="room-index-overlay"><p>{room.name}</p></div> */}

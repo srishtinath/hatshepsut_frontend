@@ -25,7 +25,6 @@ class FirstRoom extends Component {
             numberOfLocations: this.props.currentRoom.locations.length
         })
         if (this.props.currentUser.user_rooms){
-            // console.log(this.props.currentUser.user_rooms)
             this.setState({
                 showDirections: false
             })
@@ -76,7 +75,7 @@ class FirstRoom extends Component {
         console.log("Room complete!")
         // add to UserRoom
         let allRoomIds = this.props.userRooms.map(roomObj => roomObj.room_id)
-        if (!allRoomIds.includes(this.props.currentRoom.id)){
+        if (!allRoomIds.includes(this.props.currentRoom.id) && e.target.innerText !== "Guess the culprit!"){
         fetch("http://localhost:3000/user_rooms", {
             method: "POST",
             headers: {
@@ -89,21 +88,17 @@ class FirstRoom extends Component {
         }).then(r => r.json())
         .then(userRoomObj => 
             this.props.addToUserRoom(userRoomObj))
-            let currentRoomId = this.props.currentRoom.id
-            let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
-            if (nextRoomObj){
-                this.props.setCurrentRoom(nextRoomObj)
-            } else {
-                e.target.innerText = "Guess the culprit!"
-            }
+            let filteredRooms = this.props.allRooms.filter(room => room.display === true)
+            let currentRoomId = filteredRooms.indexOf(this.props.currentRoom)
+            let nextRoomObj = filteredRooms[currentRoomId + 1]
+            this.props.setCurrentRoom(nextRoomObj)
         } else if (e.target.innerText === "Guess the culprit!"){
             this.props.history.push('/guess')
         } else {
-            let currentRoomId = this.props.currentRoom.id
-            let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
-            if (nextRoomObj){
-                this.props.setCurrentRoom(nextRoomObj)
-            }
+            let filteredRooms = this.props.allRooms.filter(room => room.display === true)
+            let currentRoomId = filteredRooms.indexOf(this.props.currentRoom)
+            let nextRoomObj = filteredRooms[currentRoomId + 1]
+            this.props.setCurrentRoom(nextRoomObj)
         }
     }
 

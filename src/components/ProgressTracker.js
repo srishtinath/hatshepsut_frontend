@@ -14,8 +14,9 @@ class ProgressTracker extends Component {
         })
     }
     componentDidUpdate(prevProps){
+        let filteredRooms = this.props.allRooms.filter(room => room.display === true)
         if (this.props.userRooms !== prevProps.userRooms || this.props.allRooms !== prevProps.allRooms){
-            let newPerc = (this.props.userRooms.length / this.props.allRooms.length) * 100
+            let newPerc = (this.props.userRooms.length / filteredRooms.length) * 100
             this.setState({
                 percentage: newPerc
             })
