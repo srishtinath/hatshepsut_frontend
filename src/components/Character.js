@@ -1,6 +1,5 @@
 import React from 'react';
 import CharacterChat from '../components/CharacterChat'
-import { useState } from "react";
 
 import { useDispatch } from 'react-redux';
 import { setCurrentCharacter } from '../actions/room'

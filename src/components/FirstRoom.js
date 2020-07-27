@@ -22,14 +22,22 @@ class FirstRoom extends Component {
     }
 
     componentDidMount(){
-        if (this.props.currentRoom.locations){
-            this.setState({
-                numberOfLocations: this.props.currentRoom.locations.length
-            })
-        }
-        if (this.props.userRooms){
+        this.setState({
+            numberOfLocations: this.props.currentRoom.locations.length
+        })
+        if (this.props.currentUser.user_rooms){
+            // console.log(this.props.currentUser.user_rooms)
             this.setState({
                 showDirections: false
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps){
+        if (this.props.currentRoom !== prevProps.currentRoom){
+            this.setState({
+                clickCount: 0,
+                numberOfLocations: this.props.currentRoom.locations.length
             })
         }
     }
@@ -86,39 +94,24 @@ class FirstRoom extends Component {
             let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
             if (nextRoomObj){
                 this.props.setCurrentRoom(nextRoomObj)
-                this.setState({
-                    clickCount: 0
-                })
             } else {
                 e.target.innerText = "Guess the culprit!"
             }
         } else if (e.target.innerText === "Guess the culprit!"){
-            console.log("Hellooo")
             this.props.history.push('/guess')
         } else {
             let currentRoomId = this.props.currentRoom.id
             let nextRoomObj = this.props.allRooms.find(roomObj => roomObj.id === (currentRoomId + 1))
             if (nextRoomObj){
                 this.props.setCurrentRoom(nextRoomObj)
-                this.setState({
-                    clickCount: 0
-                })
-            } else {
-                e.target.innerText = "Guess the culprit!"
             }
         }
-
-    }
-
-    componentWillUnmount(){
-        this.setState({
-            clickCount: 0
-        })
     }
 
     render() 
     { 
         let room = this.props.currentRoom
+        let lastRoom = this.props.allRooms[this.props.allRooms.length-1]
         return ( 
             <div className="character-content">
                     <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "cover"}}>
@@ -151,7 +144,7 @@ class FirstRoom extends Component {
                     { this.state.numberOfLocations <= this.state.clickCount ? 
                     <>
                         <Tada>
-                            <button className="next-room-btn" onClick={this.handleRoomComplete}>Go to next room</button>
+                    <button className="next-room-btn" onClick={this.handleRoomComplete}>{room.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
                         </Tada>
                     </>
                     : null  
