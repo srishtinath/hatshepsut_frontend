@@ -29,7 +29,6 @@ const variants = {
 let entryId = useSelector(state => state.cluelistId)
 const dispatch = useDispatch()
 const handleRemoveFromNotepad = (item) => {
-    console.log(item.id)
         fetch(`http://localhost:3000/clue_lists/${entryId}/deleteItem/${item.id}`, {
             method: "DELETE",
             headers: {

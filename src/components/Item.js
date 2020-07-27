@@ -32,7 +32,6 @@ class Item extends Component {
         })
         .then(r => r.json())
         .then(fetchedItem => {
-            console.log(fetchedItem)
             this.props.addItemToClueList(fetchedItem)
             this.inCluelist()
         })

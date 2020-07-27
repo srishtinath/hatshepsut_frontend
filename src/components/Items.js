@@ -20,10 +20,8 @@ class Items extends Component {
             <>
             {this.props.items ? 
             <>
-            {this.props.items.map(item => {
-                return (
+            {this.props.items.map(item => 
                 < Item item = {item} handleAddToNotepad={this.handleAddToNotepad} key={item.id}/>
-                )}
                 )}
             </>
             : null}

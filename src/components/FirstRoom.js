@@ -24,9 +24,9 @@ class FirstRoom extends Component {
         this.setState({
             numberOfLocations: this.props.currentRoom.locations.length
         })
-        if (this.props.currentUser.user_rooms){
+        if (this.props.currentUser.user_rooms.length){
             this.setState({
-                showDirections: false
+                showDirections: !this.state.showDirections
             })
         }
     }
@@ -35,14 +35,14 @@ class FirstRoom extends Component {
         if (this.props.currentRoom !== prevProps.currentRoom){
             this.setState({
                 clickCount: 0,
-                numberOfLocations: this.props.currentRoom.locations.length
+                numberOfLocations: this.props.currentRoom.locations.length,
             })
         }
     }
 
     // Onclick ==> setCurrentLocation
-    setCurrentLocation = (event) => {
-        fetch(`http://localhost:3000/locations/${event.target.parentNode.id}`)
+    setCurrentLocation = (locationId) => {
+        fetch(`http://localhost:3000/locations/${locationId}`)
         .then(r => r.json())
         .then(locationInfo =>{
             this.props.setCurrentLocation(locationInfo)
@@ -72,8 +72,6 @@ class FirstRoom extends Component {
     }
 
     handleRoomComplete = (e) => {
-        console.log("Room complete!")
-        // add to UserRoom
         let allRoomIds = this.props.userRooms.map(roomObj => roomObj.room_id)
         if (!allRoomIds.includes(this.props.currentRoom.id) && e.target.innerText !== "Guess the culprit!"){
         fetch("http://localhost:3000/user_rooms", {
@@ -121,11 +119,11 @@ class FirstRoom extends Component {
                         <Character room={room} showCharacterChat={this.showCharacterChat} zoomState={this.state.showCharacterChat}/>
                         { room.locations.map(loc => {
                             return (
-                            <div id={loc.id} onClick={this.setCurrentLocation} key={loc.id} >
+                            <div id={loc.id} key={loc.id} >
                                 <Location location={loc} items={loc.items} setCurrentLocation={this.setCurrentLocation}/>
                             </div>)
                         })}
-                    { (this.state.numberOfLocations * 2) <= (this.state.clickCount) ? 
+                    { (this.state.numberOfLocations) <= (this.state.clickCount) ? 
                     <>
                         <Tada>
                     <button className="next-room-btn" onClick={this.handleRoomComplete}>{room.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
