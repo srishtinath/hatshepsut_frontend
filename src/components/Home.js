@@ -7,9 +7,9 @@ import FirstRoom from './FirstRoom'
 import Setting from './Setting'
 import Rooms from './Rooms'
 import GuessCulprit from './GuessCulprit'
+import RandomDream from './RandomDream'
 
 class Home extends Component {
-
 
     renderHome = () => {
         if (this.props.currentUser){
@@ -26,14 +26,8 @@ class Home extends Component {
             )
         } 
     }
-    toggleText = (e) => {
-        this.setState({
-            toggleText: !this.state.toggleText
-        })
-    }
 
     logoutUser = (e) => {
-        // e.preventDefault()
         this.props.logoutUser()
       }
 
@@ -45,30 +39,22 @@ class Home extends Component {
         this.props.history.push('home/rooms')
     }
 
-    firstRoom = () => {
-        return <FirstRoom />
+
+    renderRandomDream1 = () => {
+        this.props.history.push('/dream')
+        // this.setNextRoom()
     }
 
-
-    renderSetting = () => {
-        return <Setting />
-    }
-
-    seeRooms = () => {
-        return <Rooms />
-    }
-
-    guessCulprit = () => {
-        return <GuessCulprit />
-      }
     render() { 
+        // setTimeout(this.renderRandomDream1, 4000)
         return ( 
             <div>
                 <Switch>
-                    <Route path="/home/setting" render={ this.renderSetting } />
-                    <Route path="/home/room" render = {this.firstRoom} />
-                    <Route path="/home/rooms" render = {this.seeRooms} />
-                    <Route path="/guess" render={this.guessCulprit} />
+                    <Route path="/home/setting" component={ Setting } />
+                    <Route path="/home/room" component = { FirstRoom} />
+                    <Route path="/home/rooms" component = { Rooms } />
+                    <Route path="/guess" component={ GuessCulprit } />
+                    <Route path="/dream" component={ RandomDream } />
                     <Route render = {this.renderHome} />
                 </Switch>
             </div>

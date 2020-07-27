@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Location from './Location'
 import Character from './Character'
 import Directions from './Directions'
+import RandomDream from './RandomDream'
 
 import { connect } from 'react-redux'
 import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
@@ -40,7 +41,6 @@ class FirstRoom extends Component {
         }
     }
 
-    // Onclick ==> setCurrentLocation
     setCurrentLocation = (locationId) => {
         fetch(`http://localhost:3000/locations/${locationId}`)
         .then(r => r.json())
@@ -106,6 +106,10 @@ class FirstRoom extends Component {
         if (nextRoomObj){
             this.props.setCurrentRoom(nextRoomObj)
         }
+    }
+
+    componentWillUnmount(){
+        clearTimeout()
     }
 
     render() 

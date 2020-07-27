@@ -8,7 +8,9 @@ import WrongAnswer from './WrongAnswer'
 class GuessCulprit extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            showForm: true
+         }
     }
 
     goHome = (e) => {
@@ -18,33 +20,38 @@ class GuessCulprit extends Component {
     handleguess = (e) => {
         e.preventDefautl();
         console.log(e.target);
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
+        this.setState({
+            showForm: false
+        })
     }
 
     render() { 
         return ( 
-            <>
             <div className="home-content">
-            <form onSubmit={this.handleguess}>
-                <label>So... who do you think did it?</label>
+            {this.state.showForm ? 
+            <>
+                <form onSubmit={this.handleguess}>
+                    <label>So... who do you think did it?</label>
 
-                    <br></br>
-                        {this.props.allCharacters.map(character => 
-                            <p key={character.id}>
-                            <input name="character" type="radio" value={character.name} />
-                            <label>{character.name}</label>
-                            </p>
-                            )}
-                <input type="submit" onClick={this.handleguess}></input>
-            </form>
-
-            <RightAnswer />
-            <WrongAnswer />
-
-            <button onClick={this.goHome}>Go back home cuz you're probably wrong</button>
-            </div>
+                        <br></br>
+                            {/* {this.props.allCharacters.map(character => 
+                                <p key={character.id}>
+                                <input name="character" type="radio" value={character.name} />
+                                <label>{character.name}</label>
+                                </p>
+                                )} */}
+                                <input type="text" />
+                    <input type="submit" onClick={this.handleguess} />
+                </form>
+                <button onClick={this.goHome}>Go back home cuz you're probably wrong</button>
+                </>
+                : 
+                <>
+                <RightAnswer />
+                <WrongAnswer />
             </>
+            }
+            </div>
          );
     }
 }
