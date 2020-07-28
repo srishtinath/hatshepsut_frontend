@@ -18,7 +18,7 @@ class GuessCulprit extends Component {
     }
 
     handleguess = (e) => {
-        e.preventDefautl();
+        e.preventDefault();
         console.log(e.target);
         this.setState({
             showForm: false
@@ -32,16 +32,13 @@ class GuessCulprit extends Component {
             <>
                 <form onSubmit={this.handleguess}>
                     <label>So... who do you think did it?</label>
-
-                        <br></br>
-                            {/* {this.props.allCharacters.map(character => 
+                            {this.props.allCharacters.map(character => 
                                 <p key={character.id}>
                                 <input name="character" type="radio" value={character.name} />
                                 <label>{character.name}</label>
                                 </p>
-                                )} */}
-                                <input type="text" />
-                    <input type="submit" onClick={this.handleguess} />
+                                )}
+                    <button type="submit"> Guess</button>
                 </form>
                 <button onClick={this.goHome}>Go back home cuz you're probably wrong</button>
                 </>

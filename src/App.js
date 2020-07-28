@@ -6,15 +6,16 @@ import ProgressTracker from './components/ProgressTracker';
 import ClueList from './components/ClueList';
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
-import GuessCulprit from './components/GuessCulprit'
+// import GuessCulprit from './components/GuessCulprit'
 
 import { setUserInfo, setAllCharacters, setAllRooms, setUserRoom } from './actions/user'
 import { setClueList, setClueItems} from './actions/cluelist'
 import { Switch, Route, withRouter } from 'react-router';
+import GuessCulprit from './components/GuessCulprit';
 
 
-import Sound from 'react-sound';
-import SoundFile from './music/Sultan-Palace.mp3'
+// import Sound from 'react-sound';
+// import SoundFile from './music/Sultan-Palace.mp3'
 
 
 class App extends Component {
@@ -135,6 +136,9 @@ class App extends Component {
     })
   }
 
+  renderGuess = () => {
+    return <GuessCulprit />
+  }
 
   render() { 
           return (
@@ -151,7 +155,8 @@ class App extends Component {
               <Route path="/home" render={this.renderHome}/>
               <Route path="/login" render={this.renderForm} />
               <Route path="/register" render={this.renderForm} />
-              <Route render={this.renderHome} />
+              <Route path="/guess" render={this.renderGuess} />
+              {/* <Route render={this.renderHome} /> */}
           </Switch>
           </div>
           { this.state.token ? 

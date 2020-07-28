@@ -24,16 +24,22 @@ class Rooms extends Component {
         return ( 
         <div className="room-index">
             <h2>Rooms to explore:</h2>
-            <ul>
+            <div>
         {filteredRooms.map(room => 
             <div key={room.id} className="room-index-img" onClick={() => this.goToRoom(room)}>  
                 { Boolean(this.props.userRooms.find(userRoom => userRoom.room_id === room.id)) ? 
-                <strike className="room-complete"><li>{room.name} </li></strike>
-                : <li>{room.name} | {room.description}</li> }
+                <div style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-complete">
+                    <p>{room.name} </p>
+                </div>
+                :
+                <div style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-incomplete">
+                    <p>{room.name}</p>
+                </div>
+            }
             </div>
 
             )}
-            </ul>
+            </div>
             {this.props.userRooms.length >= this.props.allRooms.length ? 
             <button className="guess-culprit" onClick={this.guessCulprit}>Guess the culprit!</button>
             : null}

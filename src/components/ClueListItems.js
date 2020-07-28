@@ -38,7 +38,6 @@ const handleRemoveFromNotepad = (item) => {
         })
         .then(r => r.json())
         .then(resp => {
-            console.log(resp)
             dispatch(removeItemFromClueList(item))
         })
     }

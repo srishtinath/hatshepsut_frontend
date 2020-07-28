@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import Location from './Location'
 import Character from './Character'
 import Directions from './Directions'
-import RandomDream from './RandomDream'
+// import RandomDream from './RandomDream'
 
 import { connect } from 'react-redux'
-import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
+import { setCurrentRoom, setCurrentCharacter, addToUserRoom } from '../actions/room'
 import { withRouter } from 'react-router'
 
 import Tada from 'react-reveal/Tada';
+import Zoom from 'react-reveal/Zoom';
 
 
 class FirstRoom extends Component {
 
     state = {
         showDirections: true,
-        showZoomedLocation: false,
+        showImages: false,
         showCharacterChat: false,
         numberOfLocations: 0,
         clickCount: 0,
@@ -39,24 +40,6 @@ class FirstRoom extends Component {
                 numberOfLocations: this.props.currentRoom.locations.length,
             })
         }
-    }
-
-    setCurrentLocation = (locationId) => {
-        fetch(`http://localhost:3000/locations/${locationId}`)
-        .then(r => r.json())
-        .then(locationInfo =>{
-            this.props.setCurrentLocation(locationInfo)
-        })
-        this.setState({
-            showZoomedLocation: !this.state.showZoomedLocation,
-            clickCount: this.state.clickCount + 1
-        })
-    }
-
-    goToRoomDetails = (e) => {
-        this.setState({
-            showZoomedLocation: !this.state.showZoomedLocation
-        })
     }
 
     showCharacterChat = (e) => {
@@ -108,8 +91,46 @@ class FirstRoom extends Component {
         }
     }
 
-    componentWillUnmount(){
-        clearTimeout()
+    handlePotentialZoom = (e) => {
+        let parentDiv = document.getElementById("room-div-to-change-img")
+        let locationItems = Array.from(document.getElementsByClassName("location-image"))
+        console.log(parentDiv.className)
+        if (e.target.className === "location-image"){
+            let closeButton = document.getElementById("close-items-btn")
+            closeButton.style.opacity = 1
+            let imageOffset_x = e.clientX * 0.6;
+            let imageOffset_y = e.clientY * 0.6;
+            parentDiv.style.transform = `scale(8,8) translateX(${-imageOffset_x}px) translateY(${-imageOffset_y}px)`
+            parentDiv.style.transition = "transform 0.6s ease"
+
+            locationItems.forEach(locationImg => {
+                locationImg.style.transform = `scale(8,8) translateX(${-imageOffset_x}px) translateY(${-imageOffset_y}px)`
+                locationImg.style.transition = "transform 0.6s ease"
+            })
+
+            console.log(locationItems)
+            this.setState({
+                showImages: true
+            })
+        } 
+    }
+
+    closeDirections = (e) => {
+        let parentDiv = document.getElementById("room-div-to-change-img")
+        let locationItems = Array.from(document.getElementsByClassName("location-image"))
+
+        console.log(locationItems)
+        parentDiv.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
+        parentDiv.style.transition = "transform 0.6 ease"
+        locationItems.forEach(locationImg => {
+            locationImg.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
+            locationImg.style.transition = "transform 0.6 ease"
+        })
+        let closeButton = document.getElementById("close-items-btn")
+        this.setState({
+            clickCount: this.state.clickCount + 1
+        })
+        closeButton.style.opacity = 0
     }
 
     render() 
@@ -117,22 +138,23 @@ class FirstRoom extends Component {
         let room = this.props.currentRoom
         let lastRoom = this.props.allRooms[this.props.allRooms.length-1]
         return ( 
-            <div className="character-content">
-                    <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "cover"}}>
+            
+            <div className="character-content" onClick={this.handlePotentialZoom}>
+                    <Zoom>
+                    <div id="room-div-to-change" className="firstroom-content" >
+                    <img id="room-div-to-change-img" src={room.image_url} alt={room.name}/>
                     {this.state.showDirections ? 
                     <Directions closeDirections={this.closeDirections}/>
                     :null
                     }
                     
                     <div className="room-content-div">
-                        {/* <div className="room-description">
-                            <p>{room.description}</p>
-                        </div> */}
                         <Character room={room} showCharacterChat={this.showCharacterChat} zoomState={this.state.showCharacterChat}/>
                         { room.locations.map(loc => {
                             return (
                             <div id={loc.id} key={loc.id} >
-                                <Location location={loc} items={loc.items} setCurrentLocation={this.setCurrentLocation}/>
+                                <Location location={loc}/>
+                                <button onClick={this.closeDirections} id="close-items-btn">{'\u00D7'}</button>
                             </div>)
                         })}
                     { (this.state.numberOfLocations) <= (this.state.clickCount) ? 
@@ -145,6 +167,7 @@ class FirstRoom extends Component {
                     }
             </div>
             </div>
+            </Zoom>
         </div>)
     }
 }
@@ -161,7 +184,6 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = {
     setCurrentRoom: setCurrentRoom,
-    setCurrentLocation: setCurrentLocation,
     setCurrentCharacter: setCurrentCharacter,
     addToUserRoom: addToUserRoom
 }
