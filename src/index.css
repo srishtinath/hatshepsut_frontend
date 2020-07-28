@@ -501,11 +501,12 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   background-color: rgba(255,255,255, 0.4);
   display: flex;
   justify-content: space-evenly;
-  width: 80%;
+  align-items: center;
+  width: 70%;
   height: 70%;
-  margin: auto;
-  margin-top: 4%;
+  top: 10%;
   left: 10%;
+  margin: auto;
   z-index: 6;
 }
 
@@ -513,6 +514,11 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   display: flex;
 }
 
+.character-content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
 .character-chat-content {
   background-color: rgba(255,255,255, 0.4);

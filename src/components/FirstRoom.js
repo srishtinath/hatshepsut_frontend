@@ -94,19 +94,57 @@ class FirstRoom extends Component {
     handlePotentialZoom = (e) => {
         let parentDiv = document.getElementById("room-div-to-change-img")
         let locationItems = Array.from(document.getElementsByClassName("location-image"))
-        console.log(parentDiv.className)
+        let characterObj = document.getElementById("character-image")
+        console.log(e.clientX, e.clientY)
+        console.log(parentDiv.width, parentDiv.height)
+
+        // let x_offset = e.clientX / parentDiv.width * 100
+        //     let y_offset = e.clientY / parentDiv.height * 100
+        //     let imageOffset_x = x_offset * 3.2;
+        //     let imageOffset_y = y_offset * 3.2;
+
+        let imageOffset_x = e.clientX/4
+        let imageOffset_y = e.clientY/4
+            let itemOffset_x = imageOffset_x
+            let itemOffset_y = imageOffset_y
+
+
+            console.log(imageOffset_x, imageOffset_y)
         if (e.target.className === "location-image"){
             let closeButton = document.getElementById("close-items-btn")
             closeButton.style.opacity = 1
-            let imageOffset_x = e.clientX * 0.6;
-            let imageOffset_y = e.clientY * 0.6;
+            // if (e.clientX > 
+            // let x_offset = e.clientX / parentDiv.width * 100
+            // let y_offset = e.clientY / parentDiv.height * 100
+            // let imageOffset_x = x_offset * 3.2;
+            // let imageOffset_y = y_offset * 3.2;
+
+            // let itemOffset_x = imageOffset_x
+            // let itemOffset_y = imageOffset_y
+
+            // console.log(imageOffset_x, imageOffset_y)
+            // if (e.clientX > 1100){
+            //     imageOffset_x = 0
+            // }
+
+            // if (e.clientY > 800){
+            //     imageOffset_y = 800*0.2
+            // }
+
             parentDiv.style.transform = `scale(8,8) translateX(${-imageOffset_x}px) translateY(${-imageOffset_y}px)`
             parentDiv.style.transition = "transform 0.6s ease"
 
             locationItems.forEach(locationImg => {
-                locationImg.style.transform = `scale(8,8) translateX(${-imageOffset_x}px) translateY(${-imageOffset_y}px)`
-                locationImg.style.transition = "transform 0.6s ease"
+                console.log(locationImg.style.posLeft, locationImg.style.posTop)
+                let differenceX = (locationImg.offsetLeft - e.clientX)
+                let differenceY = (locationImg.offsetTop - e.clientY)
+                console.log(differenceX, differenceY)
+                locationImg.style.transform = `scale(8,8) translateX(${differenceX}px) translateY(${differenceY}px)`
+                locationImg.style.transition = "transform 0.3s ease"
             })
+
+            characterObj.style.transform = `scale(8,8) translateX(${-itemOffset_x}px) translateY(${-itemOffset_y}px)`
+            characterObj.style.transition = "transform 0.6s ease"
 
             console.log(locationItems)
             this.setState({
@@ -118,17 +156,21 @@ class FirstRoom extends Component {
     closeDirections = (e) => {
         let parentDiv = document.getElementById("room-div-to-change-img")
         let locationItems = Array.from(document.getElementsByClassName("location-image"))
+        let characterObj = document.getElementById("character-image")
 
         console.log(locationItems)
         parentDiv.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
         parentDiv.style.transition = "transform 0.6 ease"
+        characterObj.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
+        characterObj.style.transition = "transform 0.6 ease"
         locationItems.forEach(locationImg => {
             locationImg.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
             locationImg.style.transition = "transform 0.6 ease"
         })
         let closeButton = document.getElementById("close-items-btn")
         this.setState({
-            clickCount: this.state.clickCount + 1
+            clickCount: this.state.clickCount + 1,
+            showImages: false
         })
         closeButton.style.opacity = 0
     }
@@ -153,7 +195,7 @@ class FirstRoom extends Component {
                         { room.locations.map(loc => {
                             return (
                             <div id={loc.id} key={loc.id} >
-                                <Location location={loc}/>
+                                <Location location={loc} showImages={this.state.showImages}/>
                                 <button onClick={this.closeDirections} id="close-items-btn">{'\u00D7'}</button>
                             </div>)
                         })}

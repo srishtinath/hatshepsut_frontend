@@ -37,6 +37,7 @@ const Character = (props) => {
     // eslint-disable-next-line react/jsx-no-duplicate-props
     <>
          <motion.img
+         id="character-image"
          src={room.character.image_url} 
          alt={room.character.name} 
          className={room.name} 

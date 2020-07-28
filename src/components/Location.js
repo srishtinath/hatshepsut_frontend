@@ -10,8 +10,6 @@ const Location = (props) => {
 
     const handleClick = (e) => {
         setShowImages(true)
-        e.target.style.transform = "scale(1.5, 1.5)"
-        e.target.style.transition = "transform 0.3s ease"
     }
 
     const closeImages = (e) => {
@@ -34,14 +32,14 @@ const Location = (props) => {
             
             />
 
-            { showImages ? 
-            <div className="modal-box" onClick={closeImages}>
+            { showImages && props.showImages ? 
+            // <div className="modal-box" onClick={closeImages}>
                 <Zoom>
-                    <div className="location-items">
+                    <div className="location-items"  onClick={closeImages}>
                         <Items items={location.items}/>
                     </div>
                 </Zoom>
-            </div>
+            // </div>
             : null}
             </>
         );
