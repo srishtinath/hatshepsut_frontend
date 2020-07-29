@@ -15,14 +15,17 @@ code {
     monospace;
 }
 
-.home-logo-container {
-  display: flex;
-  width: 80%;
-  margin: 2% auto;
+.welcome-div {
+  display: block;
+  align-items: center;
+  text-align: center;
 }
 
 .home-logo {
-  width: 50%;
+  width: 40%;
+  margin: auto;
+  padding: 1%;
+  margin: 1%;
 }
 
 .home-description {
@@ -33,7 +36,7 @@ code {
 
 .login-form {
   position: relative;
-  width: 70%;
+  max-width: 70%;
   margin: auto;
   top: 5%;
   text-align: center;
@@ -156,6 +159,14 @@ code {
   /* border-style: dashed; */
 }
 
+.game-intro-div {
+  /* position: absolute; */
+  /* right: 0; */
+  height: 100px;
+  margin: auto;
+  width: 20%;
+}
+
 .home-content {
   background-color: rgba(255,255,255, 0.6);
   max-width: 70%;
@@ -163,6 +174,8 @@ code {
   text-align: center;
   padding: 1% 5%;
 }
+
+
 
 .room-index {
   max-width: 60%;
@@ -388,18 +401,6 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   width: 100%;
 }
 
-/* .display-enter, .display-appear {
-  top: var(--room-div-to-change-img-starting-top);
-  width: var(--room-div-to-change-img-width);
-  max-height: var(--room-div-to-change-img-height);
-}
-.display-enter-active, .display-appear-active {
-  transform: scale(8,8);
-  transition: all var(--timeout);
-} */
-
-
-
 .room-description{
   background-color: rgba(255,255,255, 0.3);
 }
@@ -417,7 +418,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 }
 
 
-.firstroom-content-zoomIn {
+/* .firstroom-content-zoomIn {
   background-color: rgba(37, 195, 244, 0.7);
   height: 100%;
   width: 100%;
@@ -453,17 +454,17 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   grid-template-rows: auto;
   transition: ease-in;
   animation: zoomOut 3s;
-  animation-fill-mode: forwards;
-}
+  animation-fill-mode: forwards; */
+/* } */
 
-@keyframes zoomOut {
+/* @keyframes zoomOut {
   from {
     background-size: 150% 150%;
   }
   to {
    background-size: 100% 100%;
   }
-}
+} */
 
 .item-div {
   position: relative;
@@ -542,12 +543,13 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 70%;
-  height: 70%;
-  top: 10%;
-  left: 10%;
+  width: 600px;
+  height: 300px;
+  top: 300px;
+  left: 300px;
   margin: auto;
   z-index: 6;
+  transform: scale(0.01);
 }
 
 .room-content-div {

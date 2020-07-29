@@ -28,12 +28,6 @@ class LoginForm extends Component {
 
         return ( 
             <>
-            <div className="home-logo-container">
-                <img src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595988720/Hatshepsut/Hatshepsut_Mystery_Logo_pres9y.png" alt="main-logo" className="home-logo"/>
-                <div className="home-description">
-                    <p>The Hatshepsut Mystery is a murder mystery game.</p>
-                </div>
-            </div>
             <div className="login-form">
                  <h1>{formName}</h1>
                 <form onSubmit={this.handleSubmit} >
@@ -41,6 +35,7 @@ class LoginForm extends Component {
                     <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Enter password"></input>
                     <input type="submit"/>
                 </form>
+
                 <br></br>
                 { formName === "Login" ? 
                 <NavLink to="/register">Register</NavLink>    
@@ -48,6 +43,7 @@ class LoginForm extends Component {
                 <NavLink to="/login">Login</NavLink>    
                 }
             </div>
+
             </>
             );
     }

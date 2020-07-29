@@ -6,14 +6,14 @@ import Directions from './Directions'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useCycle } from "framer-motion";
+import { useRef } from "react";
+
 
 import { setCurrentRoom, setCurrentCharacter, addToUserRoom } from '../actions/room'
 
 import Tada from 'react-reveal/Tada';
 import Zoom from 'react-reveal/Zoom';
-
-import {CSSTransition} from 'react-transition-group'
 
 
 function FirstRoom(props) {
@@ -86,31 +86,33 @@ function FirstRoom(props) {
 
 
     const handlePotentialZoom = (e) => {
-        let parentDiv = document.getElementById("room-div-to-change-img")
-        // let characterObj = document.getElementById("character-image")
+        // let parentDiv = document.getElementById("room-div-to-change-img")
+        // // let characterObj = document.getElementById("character-image")
 
-        if (e.target.className === "location-image-invisible"){
-            let roomCenterX = (parentDiv.width/2)
-            let roomCenterY = (parentDiv.height/2)
-            let offsetX = (roomCenterX - e.clientX) 
-            let offsetY = (roomCenterY - e.clientY) 
+        if (e.target.className === "location-image-invisible" || e.target.id === "close-items-btn"){
+            toggleZoom()
+        }
+        //     let roomCenterX = (parentDiv.width/2)
+        //     let roomCenterY = (parentDiv.height/2)
+        //     let offsetX = (roomCenterX - e.clientX) 
+        //     let offsetY = (roomCenterY - e.clientY) 
 
-            if (offsetX > 600){
-                offsetX = 600
-            }
-            if (offsetX < -600){
-                offsetX = -600
-            }
-            if (offsetY > 300){
-                offsetY = 300
-            }
-            if (offsetY < -300){
-                offsetY = -300
-            }
+        //     if (offsetX > 600){
+        //         offsetX = 600
+        //     }
+        //     if (offsetX < -600){
+        //         offsetX = -600
+        //     }
+        //     if (offsetY > 300){
+        //         offsetY = 300
+        //     }
+        //     if (offsetY < -300){
+        //         offsetY = -300
+        //     }
             
-            console.log(offsetX, offsetY)
-            parentDiv.style.transform = `scale(6,6) translateX(${offsetX}px) translateY(${offsetY}px)`
-            parentDiv.style.transition = "all 0.6s 0.2s"
+        //     console.log(offsetX, offsetY)
+        //     parentDiv.style.transform = `scale(6,6) translateX(${offsetX}px) translateY(${offsetY}px)`
+        //     parentDiv.style.transition = "all 0.6s 0.2s"
 
             // locationItems.forEach(locationImg => {
             //     if (locationImg.id !== e.target.id){
@@ -127,33 +129,54 @@ function FirstRoom(props) {
 
             // characterObj.style.transform = `scale(8,8) translateX(${offsetX}%) translateY(${offsetY}%)`
             // characterObj.style.transition = "transform 0.6s ease"
-        } 
+        // } 
     }
 
     const closeZoom = (e) => {
-        let parentDiv = document.getElementById("room-div-to-change-img")
-        let characterObj = document.getElementById("character-image")
-
-        parentDiv.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
-        parentDiv.style.transition = "transform 0.6 0.2s"
-        characterObj.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
-        characterObj.style.transition = "all 0.6 ease"
-        
         setClickCount(clickCount + 1)
     }
 
     const lastRoom = allRooms[allRooms.length-1]
-        
+
+    const [isZoom, toggleZoom] = useCycle(false, true)
+
+    const variants = {
+        notZoom: {
+            scale: 1,
+            transition:{delay: 0.3,
+                type: "spring",
+                stiffness: 400,
+                damping: 40}
+        },
+        Zoomed: {
+            scale: 8,
+            transition:{delay: 0.3,
+                type: "spring",
+                stiffness: 400,
+                damping: 40}
+        }
+    }
+    const containerRef = useRef(null);
+    
     return ( 
             
-        <div className="character-content" onClick={handlePotentialZoom}>
+        <motion.div className="character-content" 
+        // onClick={handlePotentialZoom}
+            initial={false}
+            animate={isZoom ? "notZoom" : "Zoomed"}
+            ref={containerRef}
+            onClick={handlePotentialZoom}
+        >
                 {/* <Zoom> */}
                 
-                <div id="room-div-to-change" className="firstroom-content" >
+                <motion.div id="room-div-to-change" 
+                className="firstroom-content" 
+                style={{backgroundImage: `url(${currentRoom.image_url})`}}
+                initial={false}
+                    animate={isZoom ? "Zoomed" : "notZoom"}
+                    ref={containerRef}
+                    variants={variants}>
                 
-                {/* <CSSTransition> */}
-                    <img id="room-div-to-change-img" src={currentRoom.image_url} alt={currentRoom.name} key="background-image"/>
-                {/* </CSSTransition> */}
 
                 {showDirections ? 
                 <Directions closeDirections={closeDirections}/>
@@ -178,9 +201,9 @@ function FirstRoom(props) {
                 : null  
                 }
                 </div>
-        </div>
+        </motion.div>
         {/* </Zoom> */}
-    </div>)
+    </motion.div>)
 }
 
 

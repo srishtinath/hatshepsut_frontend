@@ -6,6 +6,7 @@ import ProgressTracker from './components/ProgressTracker';
 import ClueList from './components/ClueList';
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
+import Welcome from './components/Welcome'
 // import GuessCulprit from './components/GuessCulprit'
 
 import { setUserInfo, setAllCharacters, setAllRooms, setUserRoom } from './actions/user'
@@ -33,7 +34,7 @@ class App extends Component {
       })
       .then(r => r.json())
       .then(this.handleLoginResponse)
-      
+    }
       fetch("http://localhost:3000/characters")
       .then(r=> r.json())
       .then(charactersFetched => this.props.setAllCharacters(charactersFetched))
@@ -41,7 +42,6 @@ class App extends Component {
       fetch("http://localhost:3000/rooms")
       .then(r=> r.json())
       .then(roomsFetched => this.props.setAllRooms(roomsFetched))
-    }
 }
   handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
@@ -130,7 +130,7 @@ class App extends Component {
   logoutUser = () => {
     localStorage.token = ""
     localStorage.cluelistId = ""
-    this.props.history.push('/login')
+    this.props.history.push('/welcome')
     this.setState({
       token: ""
     })
@@ -138,6 +138,10 @@ class App extends Component {
 
   renderGuess = () => {
     return <GuessCulprit />
+  }
+
+  renderWelcome = () => {
+    return <Welcome />
   }
 
   render() { 
@@ -152,6 +156,7 @@ class App extends Component {
                 {/* onFinishedPlaying={this.handleSongFinishedPlaying}/> */}
            <div className="body-content">
           <Switch>
+              <Route path="/welcome" render={this.renderWelcome} />
               <Route path="/home" render={this.renderHome}/>
               <Route path="/login" render={this.renderForm} />
               <Route path="/register" render={this.renderForm} />
