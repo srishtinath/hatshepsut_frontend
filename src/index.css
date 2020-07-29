@@ -5,14 +5,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595266147/Hatshepsut/382913-PCI5F6-854_pkszsk.jpg");
-  background-repeat: no-repeat;
-  background-size: 150%;
+  background-image: url("https://res.cloudinary.com/dqtw2xfuf/image/upload/v1595999662/Hatshepsut/Screen_Shot_2020-07-29_at_1.14.02_AM_nsn2me.png");
+  background-repeat: repeat;
+  background-size: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.home-logo-container {
+  display: flex;
+  width: 80%;
+  margin: 2% auto;
+}
+
+.home-logo {
+  width: 50%;
+}
+
+.home-description {
+  background-color: rgba(255,255,255, 0.6);
+  padding: 2%;
+  margin: auto;
 }
 
 .login-form {
@@ -26,7 +42,7 @@ code {
 .intro-box {
   background-color: rgba(255,255,255, 0.6);
   width: 70%;
-  margin: 3% auto;
+  margin: auto;
   padding: 5%;
 }
 
@@ -105,13 +121,23 @@ code {
 .guess-culprit-btn {
   position: relative;
   padding: 3%;
-  margin: 3%;
+  margin: 1%;
 }
 
 .go-home-btn {
   position: relative;
   padding: 3%;
   margin: 3%;
+}
+
+.hint-from-hat {
+  position: absolute;
+  width: 40%;
+  background-color: rgba(255,255,255, 0.6);
+  margin: 5% auto;
+  padding: 5%;
+  top: 0;
+  left: 0;
 }
 
 .next-room-btn {
@@ -131,17 +157,17 @@ code {
 }
 
 .home-content {
-  background-color: rgba(255,255,255, 0.3);
+  background-color: rgba(255,255,255, 0.6);
   max-width: 70%;
   margin: 5% auto;
   text-align: center;
-  padding: 1%;
+  padding: 1% 5%;
 }
 
 .room-index {
   max-width: 60%;
   height: 600px;
-  /* overflow: auto; */
+  overflow: hidden;
   background-color: rgba(255,255,255, 0.3);
   margin: auto;
   padding: 1%;
@@ -165,8 +191,7 @@ code {
   height: 30%;
   padding: 1%;
   margin: 1%;
-  border-radius: 2px;
-  opacity: 0.8;
+  border-radius: 5px;
   color: grey;
 }
 
@@ -175,7 +200,7 @@ code {
 }
 
 .room-incomplete {
-  border-radius: 2px;
+  border-radius: 5px;
   width: 96%;
   height: 30%;
   padding: 1%;
@@ -351,7 +376,6 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   margin: 0;
   padding: 1%;
   z-index: 10;
-  opacity: 0;
 }
 
 #close-items-btn:hover {
@@ -364,6 +388,15 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   width: 100%;
 }
 
+/* .display-enter, .display-appear {
+  top: var(--room-div-to-change-img-starting-top);
+  width: var(--room-div-to-change-img-width);
+  max-height: var(--room-div-to-change-img-height);
+}
+.display-enter-active, .display-appear-active {
+  transform: scale(8,8);
+  transition: all var(--timeout);
+} */
 
 
 
@@ -476,9 +509,16 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 }
 
 .location-image {
-  
   width: 25%;
   z-index: 2;
+}
+
+.location-image-invisible {
+  opacity: 0;
+}
+
+.location-image-invisible:hover {
+  cursor: pointer;
 }
 
 .char-zoom {
@@ -514,6 +554,10 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   display: flex;
 }
 
+#character-image {
+  z-index: 14
+}
+
 .character-content {
   position: absolute;
   height: 100%;
@@ -521,7 +565,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 }
 
 .character-chat-content {
-  background-color: rgba(255,255,255, 0.4);
+  background-color: rgba(255,255,255, 0.2);
   text-align: right;
   width: 70%;
   height: 70%;
@@ -553,7 +597,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   z-index:4;
 }
 
-.tent {
+.Tent {
   position: absolute;
   left: 4%;
   top: 8%;
@@ -567,7 +611,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   bottom: 36%;
 }
 
-.dig {
+.Digsite {
   position: absolute;
   width: 10%;
   bottom: 15%;

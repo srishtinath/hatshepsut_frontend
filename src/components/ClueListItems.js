@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from 'react-redux'
 import { removeItemFromClueList } from '../actions/cluelist'
@@ -59,8 +59,16 @@ const livariants = {
     }
     }; 
 
+    const hints = ["Hint 1", "Hint 2"]
+
+    const [showHint, setShowHint] = useState(false)
+    const renderRandomHint = () => {
+        setShowHint(!showHint)   
+    }
+
     const clueItems = useSelector(state => state.clueItems)
-    
+    const userRooms = useSelector(state => state.userRooms)
+
     return (
         <>
         <motion.ul variants={variants} className="cluelist-ul">
@@ -77,6 +85,18 @@ const livariants = {
         <button className="guess-culprit-btn" onClick={guessCulprit}>Guess the culprit!</button>
         <br></br>
         <button className="go-home-btn" onClick={renderHome}>Home</button>
+        { userRooms.length >= 2 ?
+        <button className="guess-culprit-btn" onClick={renderRandomHint}>Get a hint from Hatshepsut / Tess</button>
+        :null
+        }
+
+        { showHint ? 
+        <div className="hint-from-hat">
+            {hints.sample}
+        </div>
+        : null}
+
         </>
+
     )
 }

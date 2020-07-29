@@ -1,63 +1,78 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { setCurrentRoom } from '../actions/room' 
 
-class Rooms extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
+export const Rooms = () => {
+let history = useHistory()
+const dispatch = useDispatch()
+let allRooms = useSelector(state => state.allRooms)
+let userRooms = useSelector(state => state.userRooms)
 
-    goToRoom = (roomObj) => {
-        this.props.setCurrentRoom(roomObj)
-        this.props.history.push('/home/room')
+    const goToRoom = (roomObj) => {
+        dispatch(setCurrentRoom(roomObj))
+        history.push('/home/room')
     } 
 
-    guessCulprit = (e) => {
-        this.props.history.push('/guess')
+    const guessCulprit = (e) => {
+        history.push('/guess')
     }
 
-    render() { 
-        let filteredRooms = this.props.allRooms.filter(room => room.display === true)
+    const list = {
+        hidden: {     
+            transition: { staggerChildren: 0.07, delayChildren: 0.2 }
+        },
+        visible: {
+            transition: { staggerChildren: 0.1, staggerDirection: 1 }
+        }
+    }
+
+    const item = {
+        hidden: {
+            y: 100,
+            opacity: 0,
+            transition: {
+            y: { stiffness: 1000, velocity: -100 }
+            }
+        },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+            y: { stiffness: 1000 }
+            }
+        }
+    }
+
+    const filteredRooms = allRooms.filter(room => room.display === true)
         return ( 
         <div className="room-index">
             <h2>Rooms to explore:</h2>
-            <div>
+            <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={list}
+            >
         {filteredRooms.map(room => 
-            <div key={room.id} className="room-index-img" onClick={() => this.goToRoom(room)}>  
-                { Boolean(this.props.userRooms.find(userRoom => userRoom.room_id === room.id)) ? 
-                <div style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-complete">
+            <div key={room.id} className="room-index-img" onClick={() => goToRoom(room)}>  
+                { Boolean(userRooms.find(userRoom => userRoom.room_id === room.id)) ? 
+                <motion.div variants = {item} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-complete">
                     <p>{room.name} </p>
-                </div>
+                </motion.div>
                 :
-                <div style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-incomplete">
+                <motion.div variants = {item} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-incomplete">
                     <p>{room.name}</p>
-                </div>
+                </motion.div>
             }
             </div>
 
             )}
-            </div>
-            {this.props.userRooms.length >= this.props.allRooms.length ? 
-            <button className="guess-culprit" onClick={this.guessCulprit}>Guess the culprit!</button>
+            </motion.div>
+            {userRooms.length >= allRooms.length ? 
+            <button className="guess-culprit" onClick={guessCulprit}>Guess the culprit!</button>
             : null}
         </div> 
         );
-    }
 }
-
-let mapStateToProps = (state) => {
-    return {
-        currentUser: state.currentUser,
-        allRooms: state.allRooms,
-        userRooms: state.userRooms
-    }
-}
-
-let mapDispatchToProps = {
-    setCurrentRoom
-  }
- 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Rooms));

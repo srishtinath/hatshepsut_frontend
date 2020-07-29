@@ -1,72 +1,64 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Location from './Location'
 import Character from './Character'
 import Directions from './Directions'
 // import RandomDream from './RandomDream'
 
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
+
 import { setCurrentRoom, setCurrentCharacter, addToUserRoom } from '../actions/room'
-import { withRouter } from 'react-router'
 
 import Tada from 'react-reveal/Tada';
 import Zoom from 'react-reveal/Zoom';
 
+import {CSSTransition} from 'react-transition-group'
 
-class FirstRoom extends Component {
 
-    state = {
-        showDirections: true,
-        showImages: false,
-        showCharacterChat: false,
-        numberOfLocations: 0,
-        clickCount: 0,
-    }
+function FirstRoom(props) {
 
-    componentDidMount(){
-        this.setState({
-            numberOfLocations: this.props.currentRoom.locations.length
-        })
-        if (this.props.currentUser.user_rooms.length){
-            this.setState({
-                showDirections: !this.state.showDirections
-            })
-        }
-    }
+    const [showDirections, setDirections] = useState(true)
+    const [showCharacterChat, setCharacterChat] = useState(false)
+    const [numberOfLocations, setLocationNumber] = useState(0)
+    const [clickCount, setClickCount] = useState(0)
 
-    componentDidUpdate(prevProps){
-        if (this.props.currentRoom !== prevProps.currentRoom){
-            this.setState({
-                clickCount: 0,
-                numberOfLocations: this.props.currentRoom.locations.length,
-            })
-        }
-    }
+    let dispatch = useDispatch()
+    let history = useHistory()
+    const currentRoom = useSelector(state => state.currentRoom)
+    const currentUser = useSelector(state => state.currentUser)
+    const allRooms = useSelector(state => state.allRooms)
+    const userRooms = useSelector(state => state.userRooms)
 
-    showCharacterChat = (e) => {
-        this.setState({
-            showCharacterChat: !this.state.showCharacterChat
-        })
-    }
+    useEffect(()=>{
+        setLocationNumber(currentRoom.locations.length)
+    }, [currentRoom.locations.length])
 
-    closeDirections = () => {
-        this.setState({
-            showDirections: !this.state.showDirections
-        })
-    }
+    useEffect(() => {
+        setDirections(false)
+    }, [currentUser.user_rooms])
 
-    handleRoomComplete = (e) => {
-        let allRoomIds = this.props.userRooms.map(roomObj => roomObj.room_id)
-        if (!allRoomIds.includes(this.props.currentRoom.id)){
-            this.addToUserRoom()
+    useEffect(() => {
+        setClickCount(0)
+    }, [currentRoom])
+
+    const showCharacterChatMethod = (e) => {setCharacterChat(!showCharacterChat)}
+
+    const closeDirections = () => {setDirections(!showDirections)}
+
+    const handleRoomComplete = (e) => {
+        let allRoomIds = userRooms.map(roomObj => roomObj.room_id)
+        if (!allRoomIds.includes(currentRoom.id)){
+            addToUserRoom()
         } else {
-            this.setNextRoom()
+            setNextRoom()
         }
         if (e.target.innerText === "Guess the culprit!"){
-            this.props.history.push('/guess')
+            history.push('/guess')
         }
     }
 
-    addToUserRoom = () => {
+    const addToUserRoom = () => {
         fetch("http://localhost:3000/user_rooms", {
             method: "POST",
             headers: {
@@ -77,157 +69,119 @@ class FirstRoom extends Component {
                 room_id: this.props.currentRoom.id
             })
         }).then(r => r.json())
-        .then(userRoomObj => 
-            this.props.addToUserRoom(userRoomObj))
-            this.setNextRoom()
+        .then(userRoomObj => {
+            dispatch(addToUserRoom(userRoomObj))
+            setNextRoom()
+        })
     }
 
-    setNextRoom = () => {
-        let filteredRooms = this.props.allRooms.filter(room => room.display === true)
-        let currentRoomId = filteredRooms.indexOf(this.props.currentRoom)
+    const setNextRoom = () => {
+        let filteredRooms = allRooms.filter(room => room.display === true)
+        let currentRoomId = filteredRooms.indexOf(currentRoom)
         let nextRoomObj = filteredRooms[currentRoomId + 1]
         if (nextRoomObj){
-            this.props.setCurrentRoom(nextRoomObj)
+            dispatch(setCurrentRoom(nextRoomObj))
         }
     }
 
-    handlePotentialZoom = (e) => {
+
+    const handlePotentialZoom = (e) => {
         let parentDiv = document.getElementById("room-div-to-change-img")
-        let locationItems = Array.from(document.getElementsByClassName("location-image"))
-        let characterObj = document.getElementById("character-image")
-        console.log(e.clientX, e.clientY)
-        console.log(parentDiv.width, parentDiv.height)
+        // let characterObj = document.getElementById("character-image")
 
-        // let x_offset = e.clientX / parentDiv.width * 100
-        //     let y_offset = e.clientY / parentDiv.height * 100
-        //     let imageOffset_x = x_offset * 3.2;
-        //     let imageOffset_y = y_offset * 3.2;
+        if (e.target.className === "location-image-invisible"){
+            let roomCenterX = (parentDiv.width/2)
+            let roomCenterY = (parentDiv.height/2)
+            let offsetX = (roomCenterX - e.clientX) 
+            let offsetY = (roomCenterY - e.clientY) 
 
-        let imageOffset_x = e.clientX/4
-        let imageOffset_y = e.clientY/4
-            let itemOffset_x = imageOffset_x
-            let itemOffset_y = imageOffset_y
+            if (offsetX > 600){
+                offsetX = 600
+            }
+            if (offsetX < -600){
+                offsetX = -600
+            }
+            if (offsetY > 300){
+                offsetY = 300
+            }
+            if (offsetY < -300){
+                offsetY = -300
+            }
+            
+            console.log(offsetX, offsetY)
+            parentDiv.style.transform = `scale(6,6) translateX(${offsetX}px) translateY(${offsetY}px)`
+            parentDiv.style.transition = "all 0.6s 0.2s"
 
+            // locationItems.forEach(locationImg => {
+            //     if (locationImg.id !== e.target.id){
+            //         let originalX = (locationImg.offsetLeft - e.clientX) * 8
+            //         let originalY = (locationImg.offsetTop - e.clientY) * 8
+            //         console.log(originalY, originalX)
+            //         locationImg.style.transform = `translateX(${originalX}px) translateY(${originalY}px)`
+            //         locationImg.style.transition = "transform 0.3s ease"
+            //     } else {
+            //         locationImg.style.transform = `scale(${number})`
+            //         locationImg.style.transition = "transform 0.3s ease"
+            //     }
+            // })
 
-            console.log(imageOffset_x, imageOffset_y)
-        if (e.target.className === "location-image"){
-            let closeButton = document.getElementById("close-items-btn")
-            closeButton.style.opacity = 1
-            // if (e.clientX > 
-            // let x_offset = e.clientX / parentDiv.width * 100
-            // let y_offset = e.clientY / parentDiv.height * 100
-            // let imageOffset_x = x_offset * 3.2;
-            // let imageOffset_y = y_offset * 3.2;
-
-            // let itemOffset_x = imageOffset_x
-            // let itemOffset_y = imageOffset_y
-
-            // console.log(imageOffset_x, imageOffset_y)
-            // if (e.clientX > 1100){
-            //     imageOffset_x = 0
-            // }
-
-            // if (e.clientY > 800){
-            //     imageOffset_y = 800*0.2
-            // }
-
-            parentDiv.style.transform = `scale(8,8) translateX(${-imageOffset_x}px) translateY(${-imageOffset_y}px)`
-            parentDiv.style.transition = "transform 0.6s ease"
-
-            locationItems.forEach(locationImg => {
-                console.log(locationImg.style.posLeft, locationImg.style.posTop)
-                let differenceX = (locationImg.offsetLeft - e.clientX)
-                let differenceY = (locationImg.offsetTop - e.clientY)
-                console.log(differenceX, differenceY)
-                locationImg.style.transform = `scale(8,8) translateX(${differenceX}px) translateY(${differenceY}px)`
-                locationImg.style.transition = "transform 0.3s ease"
-            })
-
-            characterObj.style.transform = `scale(8,8) translateX(${-itemOffset_x}px) translateY(${-itemOffset_y}px)`
-            characterObj.style.transition = "transform 0.6s ease"
-
-            console.log(locationItems)
-            this.setState({
-                showImages: true
-            })
+            // characterObj.style.transform = `scale(8,8) translateX(${offsetX}%) translateY(${offsetY}%)`
+            // characterObj.style.transition = "transform 0.6s ease"
         } 
     }
 
-    closeDirections = (e) => {
+    const closeZoom = (e) => {
         let parentDiv = document.getElementById("room-div-to-change-img")
-        let locationItems = Array.from(document.getElementsByClassName("location-image"))
         let characterObj = document.getElementById("character-image")
 
-        console.log(locationItems)
         parentDiv.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
-        parentDiv.style.transition = "transform 0.6 ease"
+        parentDiv.style.transition = "transform 0.6 0.2s"
         characterObj.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
-        characterObj.style.transition = "transform 0.6 ease"
-        locationItems.forEach(locationImg => {
-            locationImg.style.transform = "scale(1, 1) translateX(0px) translateY(0px)"
-            locationImg.style.transition = "transform 0.6 ease"
-        })
-        let closeButton = document.getElementById("close-items-btn")
-        this.setState({
-            clickCount: this.state.clickCount + 1,
-            showImages: false
-        })
-        closeButton.style.opacity = 0
+        characterObj.style.transition = "all 0.6 ease"
+        
+        setClickCount(clickCount + 1)
     }
 
-    render() 
-    { 
-        let room = this.props.currentRoom
-        let lastRoom = this.props.allRooms[this.props.allRooms.length-1]
-        return ( 
+    const lastRoom = allRooms[allRooms.length-1]
+        
+    return ( 
             
-            <div className="character-content" onClick={this.handlePotentialZoom}>
-                    <Zoom>
-                    <div id="room-div-to-change" className="firstroom-content" >
-                    <img id="room-div-to-change-img" src={room.image_url} alt={room.name}/>
-                    {this.state.showDirections ? 
-                    <Directions closeDirections={this.closeDirections}/>
-                    :null
-                    }
-                    
-                    <div className="room-content-div">
-                        <Character room={room} showCharacterChat={this.showCharacterChat} zoomState={this.state.showCharacterChat}/>
-                        { room.locations.map(loc => {
-                            return (
-                            <div id={loc.id} key={loc.id} >
-                                <Location location={loc} showImages={this.state.showImages}/>
-                                <button onClick={this.closeDirections} id="close-items-btn">{'\u00D7'}</button>
-                            </div>)
-                        })}
-                    { (this.state.numberOfLocations) <= (this.state.clickCount) ? 
-                    <>
-                        <Tada>
-                    <button className="next-room-btn" onClick={this.handleRoomComplete}>{room.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
-                        </Tada>
-                    </>
-                    : null  
-                    }
-            </div>
-            </div>
-            </Zoom>
-        </div>)
-    }
+        <div className="character-content" onClick={handlePotentialZoom}>
+                {/* <Zoom> */}
+                
+                <div id="room-div-to-change" className="firstroom-content" >
+                
+                {/* <CSSTransition> */}
+                    <img id="room-div-to-change-img" src={currentRoom.image_url} alt={currentRoom.name} key="background-image"/>
+                {/* </CSSTransition> */}
+
+                {showDirections ? 
+                <Directions closeDirections={closeDirections}/>
+                :null
+                }
+                
+                <div className="room-content-div">
+                    { currentRoom.locations.map(loc => {
+                        return (
+                        <div key={loc.id} >
+                            <Location location={loc} closeZoom={closeZoom}/>
+                            <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/>
+                        </div>)
+                    })}
+
+                { (numberOfLocations) <= (clickCount) ? 
+                <>
+                    <Tada>
+                        <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
+                    </Tada>
+                </>
+                : null  
+                }
+                </div>
+        </div>
+        {/* </Zoom> */}
+    </div>)
 }
 
-let mapStateToProps = (state) => {
-    return {
-        currentRoom: state.currentRoom,
-        currentUser: state.currentUser,
-        allRooms: state.allRooms,
-        userRooms: state.userRooms,
-        currentLocation: state.currentLocation
-    }
-}
 
-let mapDispatchToProps = {
-    setCurrentRoom: setCurrentRoom,
-    setCurrentCharacter: setCurrentCharacter,
-    addToUserRoom: addToUserRoom
-}
- 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FirstRoom));
+export default FirstRoom;

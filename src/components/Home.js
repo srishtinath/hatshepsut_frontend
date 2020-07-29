@@ -5,15 +5,34 @@ import { withRouter, Switch, Route } from 'react-router';
 
 import FirstRoom from './FirstRoom'
 import Setting from './Setting'
-import Rooms from './Rooms'
+import {Rooms} from './Rooms'
 import GuessCulprit from './GuessCulprit'
 import RandomDream from './RandomDream'
+import Hatshepsut from './Hatshepsut'
 
 class Home extends Component {
 
+    state = {
+        showDream: false
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.userRooms.length !== this.props.userRooms.length){
+            if (this.props.userRooms.length === 2){
+                this.setState({
+                    showDream: true
+                })
+            } else {
+                this.setState({
+                    showDream: false
+                })
+            }
+        } 
+    }
     renderHome = () => {
         if (this.props.currentUser){
             return (
+                <>
                 <div className="home-content">
                     <Zoom>
                         <p>Welcome {this.props.currentUser.name}!</p>
@@ -22,7 +41,10 @@ class Home extends Component {
                     <button onClick={this.continueStory}>Continue where you left off...</button>
                     <button onClick={this.logoutUser}>Logout</button>
                     <p></p>
+                    <Hatshepsut />
                 </div>
+                
+            </>
             )
         } 
     }
@@ -45,8 +67,13 @@ class Home extends Component {
         // this.setNextRoom()
     }
 
+    closeDream = () => {
+        this.setState({
+            showDream: false
+        })
+    }
+
     render() { 
-        // setTimeout(this.renderRandomDream1, 4000)
         return ( 
             <div>
                 <Switch>
@@ -54,9 +81,14 @@ class Home extends Component {
                     <Route path="/home/room" component = { FirstRoom} />
                     <Route path="/home/rooms" component = { Rooms } />
                     <Route path="/guess" component={ GuessCulprit } />
-                    <Route path="/dream" component={ RandomDream } />
+                    <Route path="/dream" render={ this.renderRandomDream1 } />
                     <Route render = {this.renderHome} />
                 </Switch>
+
+                {this.state.showDream ?
+                < RandomDream closeDream = {this.closeDream}/>
+                :null}
+
             </div>
          );
     }
@@ -65,7 +97,8 @@ class Home extends Component {
 let mapStateToProps = (state) => {
     return {
         currentUser: state.currentUser,
-        allRooms: state.allRooms
+        allRooms: state.allRooms,
+        userRooms: state.userRooms
     }
 }
  
