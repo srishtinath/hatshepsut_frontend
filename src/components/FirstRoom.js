@@ -2,33 +2,50 @@ import React, { useState, useEffect } from 'react';
 import Location from './Location'
 import Character from './Character'
 import Directions from './Directions'
-// import RandomDream from './RandomDream'
+import RandomDream from './RandomDream'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
-import { motion, useCycle } from "framer-motion";
-import { useRef } from "react";
+import { motion, useAnimation } from "framer-motion";
 
 
 import { setCurrentRoom, setCurrentCharacter, addToUserRoom } from '../actions/room'
 
 import Tada from 'react-reveal/Tada';
-import Zoom from 'react-reveal/Zoom';
 
 
 function FirstRoom(props) {
+
 
     const [showDirections, setDirections] = useState(true)
     const [showCharacterChat, setCharacterChat] = useState(false)
     const [numberOfLocations, setLocationNumber] = useState(0)
     const [clickCount, setClickCount] = useState(0)
+    const [offsetX, setOffsetX] = useState(0)
+    const [offsetY, setOffsetY] = useState(0)
+    const [showDream, setDream] = useState(false)
+    const [scale, setScale] = useState(1)
 
-    let dispatch = useDispatch()
+    const dispatch = useDispatch()
     let history = useHistory()
     const currentRoom = useSelector(state => state.currentRoom)
     const currentUser = useSelector(state => state.currentUser)
     const allRooms = useSelector(state => state.allRooms)
     const userRooms = useSelector(state => state.userRooms)
+    
+
+    useEffect(() => {
+        if (!currentUser.user_rooms){
+            setDirections(true)
+        }
+
+        let parentDiv = document.getElementById("room-div-to-change")
+        let roomCenterX = (parentDiv.offsetWidth/2)
+        let roomCenterY = (parentDiv.offsetHeight/2)
+        setOffsetX(roomCenterX)
+        setOffsetY(roomCenterY)
+        setScale(1)
+    }, [])
 
     useEffect(()=>{
         setLocationNumber(currentRoom.locations.length)
@@ -47,9 +64,10 @@ function FirstRoom(props) {
     const closeDirections = () => {setDirections(!showDirections)}
 
     const handleRoomComplete = (e) => {
+        console.log(userRooms.length)
         let allRoomIds = userRooms.map(roomObj => roomObj.room_id)
         if (!allRoomIds.includes(currentRoom.id)){
-            addToUserRoom()
+            addUserRoomState()
         } else {
             setNextRoom()
         }
@@ -58,21 +76,22 @@ function FirstRoom(props) {
         }
     }
 
-    const addToUserRoom = () => {
+    const addUserRoomState = () => {
         fetch("http://localhost:3000/user_rooms", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
             }, 
             body: JSON.stringify({
-                user_id: this.props.currentUser.id,
-                room_id: this.props.currentRoom.id
+                user_id: currentUser.id,
+                room_id: currentRoom.id
             })
         }).then(r => r.json())
-        .then(userRoomObj => {
+        .then((userRoomObj) => {
             dispatch(addToUserRoom(userRoomObj))
-            setNextRoom()
         })
+        setNextRoom()
+
     }
 
     const setNextRoom = () => {
@@ -84,98 +103,89 @@ function FirstRoom(props) {
         }
     }
 
-
-    const handlePotentialZoom = (e) => {
-        // let parentDiv = document.getElementById("room-div-to-change-img")
-        // // let characterObj = document.getElementById("character-image")
-
-        if (e.target.className === "location-image-invisible" || e.target.id === "close-items-btn"){
-            toggleZoom()
-        }
-        //     let roomCenterX = (parentDiv.width/2)
-        //     let roomCenterY = (parentDiv.height/2)
-        //     let offsetX = (roomCenterX - e.clientX) 
-        //     let offsetY = (roomCenterY - e.clientY) 
-
-        //     if (offsetX > 600){
-        //         offsetX = 600
-        //     }
-        //     if (offsetX < -600){
-        //         offsetX = -600
-        //     }
-        //     if (offsetY > 300){
-        //         offsetY = 300
-        //     }
-        //     if (offsetY < -300){
-        //         offsetY = -300
-        //     }
-            
-        //     console.log(offsetX, offsetY)
-        //     parentDiv.style.transform = `scale(6,6) translateX(${offsetX}px) translateY(${offsetY}px)`
-        //     parentDiv.style.transition = "all 0.6s 0.2s"
-
-            // locationItems.forEach(locationImg => {
-            //     if (locationImg.id !== e.target.id){
-            //         let originalX = (locationImg.offsetLeft - e.clientX) * 8
-            //         let originalY = (locationImg.offsetTop - e.clientY) * 8
-            //         console.log(originalY, originalX)
-            //         locationImg.style.transform = `translateX(${originalX}px) translateY(${originalY}px)`
-            //         locationImg.style.transition = "transform 0.3s ease"
-            //     } else {
-            //         locationImg.style.transform = `scale(${number})`
-            //         locationImg.style.transition = "transform 0.3s ease"
-            //     }
-            // })
-
-            // characterObj.style.transform = `scale(8,8) translateX(${offsetX}%) translateY(${offsetY}%)`
-            // characterObj.style.transition = "transform 0.6s ease"
-        // } 
-    }
-
     const closeZoom = (e) => {
         setClickCount(clickCount + 1)
     }
 
     const lastRoom = allRooms[allRooms.length-1]
 
-    const [isZoom, toggleZoom] = useCycle(false, true)
+    
+    const [clickX, setClickX] = useState(0)
+    const [clickY, setClickY] = useState(0)
 
-    const variants = {
-        notZoom: {
-            scale: 1,
-            transition:{delay: 0.3,
-                type: "spring",
-                stiffness: 400,
-                damping: 40}
-        },
-        Zoomed: {
-            scale: 8,
-            transition:{delay: 0.3,
-                type: "spring",
-                stiffness: 400,
-                damping: 40}
+    // useEffect((e) => {
+    //     console.log(e.clientX, e.clientY )
+    // }, [clickX, clickY])
+    
+    
+    
+    const handlePotentialZoom = (e) => {
+        if (e.target.className === "location-image-invisible"){
+            console.log(offsetX, offsetY)
+            setClickX(e.clientX)
+            setClickY(e.clientY)
+        } else if (e.target.id === "close-items-btn"){
+            controls.start({
+                scale: 1,
+                x: 0,
+                y: 0,
+                transition:{delay: 0.3,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 40}
+            })
         }
     }
-    const containerRef = useRef(null);
-    
+
+    useEffect(()=> {
+        let parentDiv = document.getElementById("room-div-to-change")
+        let roomCenterX = (parentDiv.offsetWidth/2)
+        let roomCenterY = (parentDiv.offsetHeight/2)
+        console.log(roomCenterX, roomCenterY)
+        console.log(clickX, clickY )
+        setOffsetX((roomCenterX - clickX)/roomCenterX * 100 * 1.75)
+        setOffsetY((roomCenterY - clickY)/roomCenterY * 100 * 1.75)
+        setScale(4)
+    }, [clickX, clickY])
+
+
+    useEffect(()=> {
+        controls.start({
+            // scale: scale,
+            // x: `${offsetX}%`,
+            // y: `${offsetY}%`,
+            transition:{delay: 0.3,
+                type: "spring",
+                stiffness: 400,
+                damping: 40}
+            })
+            console.log(offsetX, offsetY)
+    }, [clickX, clickY])
+
+    useEffect(() => {
+        if (currentUser.user_rooms === 2){
+            setDream(true)
+        } else (
+            setDream(false)
+        )
+    }, [currentUser.user_rooms])
+
+
+    const controls = useAnimation()
+
     return ( 
-            
-        <motion.div className="character-content" 
-        // onClick={handlePotentialZoom}
-            initial={false}
-            animate={isZoom ? "notZoom" : "Zoomed"}
-            ref={containerRef}
-            onClick={handlePotentialZoom}
-        >
-                {/* <Zoom> */}
-                
+        <div className="character-content" >
+        { showDream ? 
+            <RandomDream />
+            : 
+                <>
                 <motion.div id="room-div-to-change" 
                 className="firstroom-content" 
                 style={{backgroundImage: `url(${currentRoom.image_url})`}}
                 initial={false}
-                    animate={isZoom ? "Zoomed" : "notZoom"}
-                    ref={containerRef}
-                    variants={variants}>
+                animate={controls}
+                onClick={handlePotentialZoom}
+                >
                 
 
                 {showDirections ? 
@@ -187,7 +197,7 @@ function FirstRoom(props) {
                     { currentRoom.locations.map(loc => {
                         return (
                         <div key={loc.id} >
-                            <Location location={loc} closeZoom={closeZoom}/>
+                            <Location location={loc} closeZoom={closeZoom} offsetX={offsetX} offsetY={offsetY}/>
                             <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/>
                         </div>)
                     })}
@@ -202,8 +212,10 @@ function FirstRoom(props) {
                 }
                 </div>
         </motion.div>
-        {/* </Zoom> */}
-    </motion.div>)
+        </>
+        }
+
+    </div>)
 }
 
 

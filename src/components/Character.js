@@ -29,7 +29,7 @@ const Character = (props) => {
 
     const [animate, cycle] = useCycle(
         { scale: 1.0, zIndex:2},
-        { scale: 4.0, zIndex:7}
+        { scale: 1.1, zIndex:7},
       );
 
 
@@ -50,7 +50,9 @@ const Character = (props) => {
          { zoomState ? 
             <>
             <div className="modal-box">
+            <div>
                 <CharacterChat room={room} toggleRoom={handleCharacterChat}/>
+                </div>
             </div>
             </>
             : null}

@@ -1,5 +1,5 @@
 import React, {Component}from 'react';
-import Character from './Character'
+import CharacterChat from './CharacterChat'
 
 import { connect } from 'react-redux'
 import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
@@ -13,11 +13,17 @@ class RandomDream extends Component {
          }
     }
 
+    componentDidMount(){
+        this.props.setCurrentCharacter(this.props.allRooms[4].character)
+        this.setState({
+            showCharacterChat: true
+        })
+    }
     goBack = () => {
-        this.props.history.push("/home/rooms")
         this.props.addToUserRoom(this.props.allRooms[4])
-        this.props.setCurrentRoom(this.props.allRooms[5])
+        this.props.setCurrentRoom(this.props.allRooms[3])
         this.props.closeDream()
+        this.props.history.push("/home/room")
     }
 
     showCharacterChat = () => {
@@ -29,10 +35,17 @@ class RandomDream extends Component {
     render() { 
         let room=this.props.allRooms[4]
         return ( 
-            <div className="character-content">
-                    <div className="firstroom-content" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "cover"}}>
-            <Character room={room} showCharacterChat={this.showCharacterChat} zoomState={this.state.showCharacterChat}/>
+            <div className="random-dream">
+                    <div className="random-dream-character" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "cover"}}>
+                        <img 
+                        src={room.character.image_url} 
+                        alt={room.character.name} 
+                        className={room.name} />
+                        <div className="dream-state-chat">
+                            <p>Dream state chat will go here!</p>
+                        </div>
                     </div>
+
                     <button onClick={this.goBack} className="go-back-btn">Go back to exploring...</button>
                     </div>
          );

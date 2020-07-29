@@ -206,6 +206,7 @@ code {
   margin: 1%;
   border-radius: 5px;
   color: grey;
+  text-align: left;
 }
 
 .room-complete:hover {
@@ -219,6 +220,7 @@ code {
   padding: 1%;
   margin: 1%;
   font-weight: bolder;
+  text-align: right;
 }
 
 .guess-culprit {
@@ -417,60 +419,12 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   grid-template-rows: auto;
 }
 
-
-/* .firstroom-content-zoomIn {
-  background-color: rgba(37, 195, 244, 0.7);
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  background-size: 100%;
-  background-repeat: none;
-  grid-template-rows: auto;
-  animation: zoomIn 3s;
-  animation-fill-mode: forwards;
-  transition: ease-in;
-}
-
-@keyframes zoomIn {
-  from {
-    background-size: 100% 100%;
-  }
-  to {
-   background-size: 150% 150%;
-  }
-}
-
-.firstroom-content-zoomOut{
-  background-color: rgba(37, 195, 244, 0.7);
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  background-size: 100% 100%;
-  background-repeat: none;
-  grid-template-rows: auto;
-  transition: ease-in;
-  animation: zoomOut 3s;
-  animation-fill-mode: forwards; */
-/* } */
-
-/* @keyframes zoomOut {
-  from {
-    background-size: 150% 150%;
-  }
-  to {
-   background-size: 100% 100%;
-  }
-} */
-
 .item-div {
   position: relative;
-  width: 30%;
+  width: 80%;
   height: 80%;
-  padding: 1%;
+  padding: 2%;
+  margin: auto;
   display: grid;
 }
 
@@ -538,18 +492,16 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 }
 
 .location-items {
-  position: absolute;
+  position: relative;
   background-color: rgba(255,255,255, 0.4);
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 600px;
-  height: 300px;
-  top: 300px;
-  left: 300px;
+  flex-direction: column;
+  width: 30%;
+  height: 100%;
+  overflow-y: scroll;
   margin: auto;
+  padding: auto;
   z-index: 6;
-  transform: scale(0.01);
 }
 
 .room-content-div {
@@ -564,18 +516,21 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   position: absolute;
   height: 100%;
   width: 100%;
+  /* overflow: hidden; */
 }
 
 .character-chat-content {
+  position: absolute;
   background-color: rgba(255,255,255, 0.2);
   text-align: right;
   width: 70%;
   height: 70%;
-  margin: auto;
+  left: 15%;
+  margin-left: auto;
   margin-top: 3%;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 1%;
+  padding: 2%;
   z-index: 5;
 }
 /* 
@@ -618,12 +573,21 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   width: 10%;
   bottom: 15%;
   right: 30%;
+  z-index: 2;
 }
 
 .dream {
   position: absolute;
   width: 20%;
   bottom: 2%;
+}
+
+.random-dream {
+  z-index: 14;
+}
+
+.random-dream-character {
+  z-index: 15;
 }
 
 .PyramidRoom1 {

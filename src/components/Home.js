@@ -7,14 +7,9 @@ import FirstRoom from './FirstRoom'
 import Setting from './Setting'
 import {Rooms} from './Rooms'
 import GuessCulprit from './GuessCulprit'
-import RandomDream from './RandomDream'
 import Hatshepsut from './Hatshepsut'
 
 class Home extends Component {
-
-    state = {
-        showDream: false
-    }
 
     componentDidUpdate = (prevProps) => {
         if (prevProps.userRooms.length !== this.props.userRooms.length){
@@ -61,18 +56,6 @@ class Home extends Component {
         this.props.history.push('home/rooms')
     }
 
-
-    renderRandomDream1 = () => {
-        this.props.history.push('/dream')
-        // this.setNextRoom()
-    }
-
-    closeDream = () => {
-        this.setState({
-            showDream: false
-        })
-    }
-
     render() { 
         return ( 
             <div>
@@ -81,13 +64,9 @@ class Home extends Component {
                     <Route path="/home/room" component = { FirstRoom} />
                     <Route path="/home/rooms" component = { Rooms } />
                     <Route path="/guess" component={ GuessCulprit } />
-                    <Route path="/dream" render={ this.renderRandomDream1 } />
+                    {/* <Route path="/dream" render={ this.renderRandomDream1 } /> */}
                     <Route render = {this.renderHome} />
                 </Switch>
-
-                {this.state.showDream ?
-                < RandomDream closeDream = {this.closeDream}/>
-                :null}
 
             </div>
          );

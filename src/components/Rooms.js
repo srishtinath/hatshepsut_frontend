@@ -49,7 +49,7 @@ let userRooms = useSelector(state => state.userRooms)
     const filteredRooms = allRooms.filter(room => room.display === true)
         return ( 
         <div className="room-index">
-            <h2>Rooms to explore:</h2>
+            <h2>Explore</h2>
             <motion.div
             initial="hidden"
             animate="visible"
@@ -59,11 +59,11 @@ let userRooms = useSelector(state => state.userRooms)
             <div key={room.id} className="room-index-img" onClick={() => goToRoom(room)}>  
                 { Boolean(userRooms.find(userRoom => userRoom.room_id === room.id)) ? 
                 <motion.div variants = {item} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-complete">
-                    <p>{room.name} </p>
+                    <p>{room.description} </p>
                 </motion.div>
                 :
                 <motion.div variants = {item} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-incomplete">
-                    <p>{room.name}</p>
+                    <p>{room.description}</p>
                 </motion.div>
             }
             </div>
