@@ -613,7 +613,8 @@ polygon {
 
 .character-chat-content {
   position: absolute;
-  background-color: rgba(255,255,255, 1);
+  background-image: radial-gradient( white, #edb879);
+  box-shadow: 1px 1px 10px 3px grey;
   text-align: right;
   width: 70%;
   height: 70%;
@@ -629,13 +630,6 @@ polygon {
 .chat-intro {
   position: relative;
   bottom: 0;
-}
-
-.chat-content{
-  // background-color: rgba(255,255,255, 0.4);
-}
-
-.chat-div{
 }
 
 .character-div {
@@ -708,6 +702,19 @@ polygon {
   position: absolute;
   width: 25%;
   bottom: 2%;
+}
+
+.slider-container {
+  position: relative;
+  background-color: rgba(255,255,255, 0.6);
+  width: 60%;
+  top: 15%;
+  margin: auto;
+  padding: 2%;
+}
+
+.slider-game {
+  padding: 1%;
 }
 
 .PyramidRoom2 {

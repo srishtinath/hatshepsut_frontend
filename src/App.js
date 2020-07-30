@@ -7,16 +7,11 @@ import ClueList from './components/ClueList';
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 import Welcome from './components/Welcome'
-// import GuessCulprit from './components/GuessCulprit'
 
 import { setUserInfo, setAllCharacters, setAllRooms, setUserRoom } from './actions/user'
 import { setClueList, setClueItems} from './actions/cluelist'
 import { Switch, Route, withRouter } from 'react-router';
 import GuessCulprit from './components/GuessCulprit';
-
-
-import Sound from 'react-sound';
-import SoundFile from './music/Sultan-Palace.mp3'
 
 
 class App extends Component {
@@ -147,13 +142,6 @@ class App extends Component {
   render() { 
           return (
            <>
-           <Sound 
-                url={SoundFile}
-                playStatus={Sound.status.PAUSE}
-                playFromPosition={300} /* in milliseconds */
-                onLoading={this.handleSongLoading}
-                onPlaying={this.handleSongPlaying}
-                onFinishedPlaying={this.handleSongFinishedPlaying}/>
            <div className="body-content">
           <Switch>
               <Route path="/welcome" render={this.renderWelcome} />

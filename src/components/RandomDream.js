@@ -1,4 +1,4 @@
-import React, {useState}from 'react';
+import React, {useState, useEffect}from 'react';
 
 import {useSelector} from 'react-redux'
 import { setCurrentRoom, setCurrentCharacter, setCurrentLocation, addToUserRoom } from '../actions/room'
@@ -9,8 +9,16 @@ const RandomDream =(props)=> {
     const room=allRooms[4]
 
     const completeDream = () => {
-        props.goBack()
+        props.closeDream()
     }
+
+    const [chats, setChats] = useState([])
+    useEffect(() => {
+        let charId = room.character.id
+        fetch(`http://localhost:3000/characters/${charId}`)
+        .then(r=> r.json())
+        .then(fetchedCharacter => setChats(fetchedCharacter.chats))
+    }, [])
 
         return ( 
             <div className="random-dream" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "100%"}}>
@@ -21,7 +29,7 @@ const RandomDream =(props)=> {
                     className={room.name} />
                 </div>
                 <div className="dream-state-chat">
-                    <p>Dream state chat will go here!</p>
+                    <p>{chats ? chats.length : null}</p>
                 </div>
 
             <button onClick={completeDream} className="go-back-btn">Go back to exploring...</button>

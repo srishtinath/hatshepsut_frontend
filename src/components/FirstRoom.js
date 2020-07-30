@@ -3,6 +3,8 @@ import Location from './Location'
 import Character from './Character'
 import Directions from './Directions'
 import RandomDream from './RandomDream'
+import QuizContainer from './QuizContainer'
+import SliderGame from './SliderGame'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
@@ -12,6 +14,7 @@ import { motion, useAnimation } from "framer-motion";
 import { setCurrentRoom, setCurrentCharacter, addToUserRoom } from '../actions/room'
 
 import Tada from 'react-reveal/Tada';
+import { CloseButton } from './CloseButton';
 
 
 function FirstRoom(props) {
@@ -34,14 +37,14 @@ function FirstRoom(props) {
     const userRooms = useSelector(state => state.userRooms)
     
 
-    useEffect(() => {
-        let parentDiv = document.getElementById("room-div-to-change")
-        let roomCenterX = (parentDiv.offsetWidth/2)
-        let roomCenterY = (parentDiv.offsetHeight/2)
-        setOffsetX(roomCenterX)
-        setOffsetY(roomCenterY)
-        setScale(1)
-    }, [])
+    // useEffect(() => {
+    //     let parentDiv = document.getElementById("room-div-to-change")
+    //     let roomCenterX = (parentDiv.offsetWidth/2)
+    //     let roomCenterY = (parentDiv.offsetHeight/2)
+    //     setOffsetX(roomCenterX)
+    //     setOffsetY(roomCenterY)
+    //     setScale(1)
+    // }, [])
 
     useEffect(()=>{
         setLocationNumber(currentRoom.locations.length)
@@ -126,15 +129,16 @@ function FirstRoom(props) {
     
     const handlePotentialZoom = (e) => {
         if (e.target.className === "location-image-invisible"){
-            console.log(offsetX, offsetY)
+            // console.log(offsetX, offsetY)
             setClickX(e.clientX)
             setClickY(e.clientY)
+            setOffsets()
         } else if (e.target.id === "close-items-btn"){
             controls.start({
                 scale: 1,
                 x: 0,
                 y: 0,
-                transition:{delay: 0.3,
+                transition:{
                     type: "spring",
                     stiffness: 400,
                     damping: 60}
@@ -142,7 +146,7 @@ function FirstRoom(props) {
         }
     }
 
-    useEffect(()=> {
+    function setOffsets(){
         let parentDiv = document.getElementById("room-div-to-change")
         let roomCenterX = (parentDiv.offsetWidth/2)
         let roomCenterY = (parentDiv.offsetHeight/2)
@@ -151,10 +155,10 @@ function FirstRoom(props) {
         setOffsetX((roomCenterX - clickX)/roomCenterX * 100 * 1.75)
         setOffsetY((roomCenterY - clickY)/roomCenterY * 100 * 1.75)
         setScale(4)
-    }, [clickX, clickY])
+    }
 
 
-    function setAnimation(){
+    useEffect(()=> {
         controls.start({
             scale: scale,
             x: `${offsetX}%`,
@@ -165,10 +169,10 @@ function FirstRoom(props) {
                 damping: 60}
             })
             console.log(offsetX, offsetY)
-    })
+    }, [offsetX, offsetY, scale])
 
     useEffect(() => {
-        if (userRooms.length === 2){
+        if (userRooms.length === 1){
             setDream(true)
             console.log("Effect recorded", userRooms.length)
         } else {
@@ -192,14 +196,45 @@ function FirstRoom(props) {
         }).then(r => r.json())
         .then((userRoomObj) => {
             setNextRoom()
+            setDream(false)
         })
     }
 
+    const [showQuiz, setQuiz] = useState(false)
+
+    // useEffect(() => {
+    //     if (allRooms.indexOf(currentRoom) === 2){
+    //         setQuiz(true)
+    //     } else {
+    //         setQuiz(false)
+    //     }
+    // }, [currentRoom])
+
+    const closeQuiz = () => {
+        setQuiz(false)
+    }
+
+    const [showSliderGame, setSlider]= useState(false)
+
+    useEffect(() => {
+        if (allRooms.indexOf(currentRoom) === 3){
+            setSlider(true)
+        } else {
+            setSlider(false)
+        }
+    }, [currentRoom])
+
+    const closeSlider = () => {
+        setSlider(false)
+    }
+
+    const [showMemoryGame, setMemory]= useState(false)
     return ( 
         <div className="character-content" >
-            {/* { showDream ? 
-                <RandomDream closeChat={handleDreamComplete}/>
-            :  */}
+            { showDream ? 
+                <RandomDream closeDream={handleDreamComplete}/>
+            : 
+            <>
             <motion.div id="room-div-to-change" 
             className="firstroom-content" 
             style={{backgroundImage: `url(${currentRoom.image_url})`}}
@@ -207,12 +242,26 @@ function FirstRoom(props) {
             animate={controls}
             onClick={handlePotentialZoom}
             >
-                
-
+            
+            { showQuiz? 
+                <QuizContainer closeQuiz={closeQuiz}/>
+            :null}
                 {showDirections ? 
                 <Directions closeDirections={closeDirections}/>
-                :null
-                }
+                :null}
+
+                { showSliderGame ? 
+                <div className="modal-box">
+                    <div className="slider-container">
+                        <CloseButton closeBox={closeSlider}/>
+                        <SliderGame  className="slider-game"/>
+                    </div>
+                </div>
+                :null}
+
+                {/* {showMemoryGame ? 
+                <MemoryGame />
+                :null} */}
                     
                 <div className="room-content-div">
                     { currentRoom.locations.map(loc => {
@@ -233,7 +282,8 @@ function FirstRoom(props) {
                     }
                 </div>
             </motion.div>
-            {/* } */}
+            </>
+            }
         </div>
     )
 }
