@@ -46,7 +46,7 @@ class GuessCulprit extends Component {
                 : 
                 <>
                 <RightAnswer />
-                <WrongAnswer />
+                {/* <WrongAnswer /> */}
             </>
             }
             </div>
