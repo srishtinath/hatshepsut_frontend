@@ -59,7 +59,7 @@ const livariants = {
     }
     }; 
 
-    const hints = ["Hint 1", "Hint 2"]
+    const hints = ["Tess didn't have a heart attack", "Tess had some illegitimate children", "Your colleague Gael is extremely jealous of her", "Issa was stealing artifacts from my tomb to make money", "Lord Kit was threatened to be disowned by his father"]
 
     const [showHint, setShowHint] = useState(false)
     const renderRandomHint = () => {
@@ -69,6 +69,7 @@ const livariants = {
     const clueItems = useSelector(state => state.clueItems)
     const userRooms = useSelector(state => state.userRooms)
 
+    let hint = hints[Math.floor(Math.random() * hints.length)];
     return (
         <>
         <motion.ul variants={variants} className="cluelist-ul">
@@ -85,14 +86,14 @@ const livariants = {
         <button className="guess-culprit-btn" onClick={guessCulprit}>Guess the culprit!</button>
         <br></br>
         <button className="go-home-btn" onClick={renderHome}>Home</button>
-        { userRooms.length >= 2 ?
-        <button className="guess-culprit-btn" onClick={renderRandomHint}>Get a hint from Hatshepsut / Tess</button>
+        { userRooms.length >= 1 ?
+        <button className="guess-culprit-btn" onClick={renderRandomHint}>Get a hint from Hat</button>
         :null
         }
 
         { showHint ? 
         <div className="hint-from-hat">
-            {hints.sample}
+            {hint}
         </div>
         : null}
 

@@ -694,7 +694,7 @@ polygon {
 
 .dream-state-chat {
   position: absolute;
-  background-color: rgba(255,255,255, 0.4);
+  // background-color: rgba(255,255,255, 0.4);
   top: 50%;
   left: 50%;
   width: 70%;
@@ -777,6 +777,14 @@ polygon {
   text-align: center;
   color: white;
   z-index: 4;
+}
+
+.ghost-response {
+  text-align: right;
+  // background-color: rgb(225, 137, 66);
+  color: white;
+  padding: 1%;
+  margin: 1%;
 }
 
 .response {
