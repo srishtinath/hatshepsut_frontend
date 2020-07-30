@@ -764,6 +764,15 @@ polygon {
   width: 100%;
   left: 0;
   top:0;
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.tile-number {
+  position: relative;
+  text-align: center;
+  color: white;
+  z-index: 4;
 }
 
 .response {

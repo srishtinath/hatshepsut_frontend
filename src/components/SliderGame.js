@@ -141,8 +141,8 @@ const tilesStyle = {
             <li style={{...style, transform: `translate3d(${translateX}px, ${translateY}px, 0)`}}
               onClick={this.handleClick}
               >
-              <p align="center">{number}</p>
               <img src={ImgSrcArray[number]} className="tile-image" alt="tile-piece" />
+              <p className="tile-number">{number+1}</p>
             </li>
           )}
         </Motion>
