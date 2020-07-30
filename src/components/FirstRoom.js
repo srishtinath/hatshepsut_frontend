@@ -17,7 +17,7 @@ import Tada from 'react-reveal/Tada';
 function FirstRoom(props) {
 
 
-    const [showDirections, setDirections] = useState(true)
+    const [showDirections, setDirections] = useState(false)
     const [showCharacterChat, setCharacterChat] = useState(false)
     const [numberOfLocations, setLocationNumber] = useState(0)
     const [clickCount, setClickCount] = useState(0)
@@ -35,10 +35,6 @@ function FirstRoom(props) {
     
 
     useEffect(() => {
-        if (!currentUser.user_rooms){
-            setDirections(true)
-        }
-
         let parentDiv = document.getElementById("room-div-to-change")
         let roomCenterX = (parentDiv.offsetWidth/2)
         let roomCenterY = (parentDiv.offsetHeight/2)
@@ -52,16 +48,25 @@ function FirstRoom(props) {
     }, [currentRoom.locations.length])
 
     useEffect(() => {
-        setDirections(false)
-    }, [currentUser.user_rooms])
-
-    useEffect(() => {
         setClickCount(0)
     }, [currentRoom])
 
     const showCharacterChatMethod = (e) => {setCharacterChat(!showCharacterChat)}
 
-    const closeDirections = () => {setDirections(!showDirections)}
+    const closeDirections = () => {setDirections(false)}
+
+    useEffect(() => {
+        if(userRooms.length === 0){
+            setDirections(true)
+        }
+    }, [])
+
+    useEffect(() => {
+        if(clickCount > 1){
+            setDirections(false)
+        }
+    }, [clickCount])
+    
 
     const handleRoomComplete = (e) => {
         console.log(userRooms.length)
@@ -132,7 +137,7 @@ function FirstRoom(props) {
                 transition:{delay: 0.3,
                     type: "spring",
                     stiffness: 400,
-                    damping: 40}
+                    damping: 60}
             })
         }
     }
@@ -149,50 +154,66 @@ function FirstRoom(props) {
     }, [clickX, clickY])
 
 
-    useEffect(()=> {
+    function setAnimation(){
         controls.start({
-            // scale: scale,
-            // x: `${offsetX}%`,
-            // y: `${offsetY}%`,
+            scale: scale,
+            x: `${offsetX}%`,
+            y: `${offsetY}%`,
             transition:{delay: 0.3,
                 type: "spring",
                 stiffness: 400,
-                damping: 40}
+                damping: 60}
             })
             console.log(offsetX, offsetY)
-    }, [clickX, clickY])
+    })
 
     useEffect(() => {
-        if (currentUser.user_rooms === 2){
+        if (userRooms.length === 2){
             setDream(true)
-        } else (
+            console.log("Effect recorded", userRooms.length)
+        } else {
             setDream(false)
-        )
-    }, [currentUser.user_rooms])
-
+            console.log("dream set to false")
+        }
+    }, [userRooms])
 
     const controls = useAnimation()
 
+    const handleDreamComplete = () => {
+        fetch("http://localhost:3000/user_rooms", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            }, 
+            body: JSON.stringify({
+                user_id: currentUser.id,
+                room_id: allRooms[4].id
+            })
+        }).then(r => r.json())
+        .then((userRoomObj) => {
+            setNextRoom()
+        })
+    }
+
     return ( 
         <div className="character-content" >
-        { showDream ? 
-            <RandomDream />
-            : 
-                <>
-                <motion.div id="room-div-to-change" 
-                className="firstroom-content" 
-                style={{backgroundImage: `url(${currentRoom.image_url})`}}
-                initial={false}
-                animate={controls}
-                onClick={handlePotentialZoom}
-                >
+            {/* { showDream ? 
+                <RandomDream closeChat={handleDreamComplete}/>
+            :  */}
+            <motion.div id="room-div-to-change" 
+            className="firstroom-content" 
+            style={{backgroundImage: `url(${currentRoom.image_url})`}}
+            initial={false}
+            animate={controls}
+            onClick={handlePotentialZoom}
+            >
                 
 
                 {showDirections ? 
                 <Directions closeDirections={closeDirections}/>
                 :null
                 }
-                
+                    
                 <div className="room-content-div">
                     { currentRoom.locations.map(loc => {
                         return (
@@ -202,20 +223,19 @@ function FirstRoom(props) {
                         </div>)
                     })}
 
-                { (numberOfLocations) <= (clickCount) ? 
-                <>
-                    <Tada>
-                        <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
-                    </Tada>
-                </>
-                : null  
-                }
+                    { numberOfLocations <= clickCount ? 
+                    <>
+                        <Tada>
+                            <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
+                        </Tada>
+                    </>
+                    : null  
+                    }
                 </div>
-        </motion.div>
-        </>
-        }
-
-    </div>)
+            </motion.div>
+            {/* } */}
+        </div>
+    )
 }
 
 

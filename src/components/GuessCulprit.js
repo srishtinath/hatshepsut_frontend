@@ -26,13 +26,14 @@ class GuessCulprit extends Component {
     }
 
     render() { 
+        let filteredCharacters = this.props.allCharacters.filter(char => char.display == true)
         return ( 
             <div className="home-content">
             {this.state.showForm ? 
             <>
                 <form onSubmit={this.handleguess}>
                     <label>So... who do you think did it?</label>
-                            {this.props.allCharacters.map(character => 
+                            {filteredCharacters.map(character => 
                                 <p key={character.id}>
                                 <input name="character" type="radio" value={character.name} />
                                 <label>{character.name}</label>

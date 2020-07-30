@@ -1,123 +1,89 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import {useSelector } from 'react-redux'
 import Fade from 'react-reveal/Fade';
 import Bounce from 'react-reveal/Bounce';
 
 
 
-class CharacterChat extends Component {
+function CharacterChat(props) {
 
-    state = {
-        chatIndex: 0,
-        chatHistory: [],
-        sortedChats: [],
-        chatOption: {}
-    }
+    const [chatIndex, setChatIndex] = useState(0)
+    const [chatHistory, setChatHistory] = useState([])
+    const [sortedChats, setSortedChats] = useState([])
+    const [chatOptions, setChatOptions]= useState({})
+   
+    const character = useSelector(state => state.currentCharacter)
 
-    componentDidMount(){
-        let character = this.props.currentCharacter
+    useEffect(() => {
         let sortedChatsArray
-        if (character.chats){
-            sortedChatsArray = character.chats.sort(function(chatA,chatB){return chatA.id - chatB.id})
-            this.setState({
-                sortedChats: sortedChatsArray,
-                chatOption: sortedChatsArray[this.state.chatIndex],
-                chatHistory: [["response", sortedChatsArray[this.state.chatIndex].response]]
-            }, console.log(this.state))
-        }
-    }
+        sortedChatsArray = character.chats.sort(function(chatA,chatB){return chatA.id - chatB.id})
+        setSortedChats(sortedChatsArray)
+        setChatOptions(sortedChatsArray[chatIndex])
+        setChatHistory([["response", sortedChatsArray[chatIndex].response]])
+    }, [character.chats])
 
-    componentDidUpdate(prevProps){
-        if (this.props.currentCharacter !== prevProps.currentCharacter){
-            let character = this.props.currentCharacter
-            let sortedChatsArray
-            console.log(character)
-            if (character.chats){
-                sortedChatsArray = character.chats.sort(function(chatA,chatB){return chatA.id - chatB.id})
-                this.setState({
-                    sortedChats: sortedChatsArray,
-                    chatOption: sortedChatsArray[this.state.chatIndex],
-                    chatHistory: [["response", sortedChatsArray[this.state.chatIndex].response]]
-                }, console.log(this.state))
-            }
-        }
-    }
 
-    handleChatResponse = (option) => {
-        let changedHistory = this.state.chatHistory
-        let nextResponse = this.state.sortedChats.find(response => response.id === option.nextResponse_id)
+    const handleChatResponse = (option) => {
+        let changedHistory = chatHistory
+        let nextResponse = sortedChats.find(response => response.id === option.nextResponse_id)
         changedHistory.push(["option", option.text])
         if (nextResponse){
             changedHistory.push(["response", nextResponse.response])
-            this.setState({
-                chatIndex: nextResponse.id,
-                chatOption: nextResponse
-            })
+            setChatIndex(nextResponse.id)
+            setChatOptions(nextResponse)
         } else {
-            this.setState({
-                chatIndex: "",
-                chatOption: {}
-            })
+            setChatIndex("")
+            setChatOptions({})
         }
-        this.setState({
-            chatHistory: changedHistory
-        })
+        setChatHistory(changedHistory)
     }
 
-    render() { 
-        let character = this.props.currentCharacter
-        return ( 
-            <>
-            <div className="character-chat-content" key="chat-content-1">
-                { character.name }
-                <br></br>
-                { character.description }
-                <p></p>
-                {this.state.sortedChats ? 
-                    <div key="chat-content-2">
-                        {this.state.chatHistory.map(textArray => 
+    return ( 
+            <div className="chat-content" key={298237}>
+                <div key={876757687687}>
+                    <div className="character-chat-content" key={9848946}>
+                    <div className="chat-intro" key={8372642754267354}>
+                        { character.name }
+                        <br></br>
+                        { character.description }
+                        <p></p>
+                    </div>
+                    <div key={234} className="chat-div">
+                        {chatHistory.map(textArray => 
                             textArray[0] === "option" ? 
-                            <div key={textArray.index}>
+                            <div key={chatHistory.indexOf(textArray)}>
                                 <Bounce right> 
                                     <p className={textArray[0]}>{textArray[1]}</p>
                                 </Bounce>
                             </div>
                             : 
-                            <div key={textArray.index + Math.random()}>
+                            <div key={chatHistory.indexOf(textArray)}>
                                 <Bounce left>
                                 <p className={textArray[0]}>{textArray[1]}</p>
                                 </Bounce>
                             </div>
                         )}
-                        { this.state.chatOption.chat_options ? 
+                        { chatOptions.chat_options ? 
                         <div className="character-options-ul">
-                         {this.state.chatOption.chat_options.map(option => {
-                             return (
-                                 <div key={option.id} 
-                                onClick={()=> this.handleChatResponse(option)} 
+                        {chatOptions.chat_options.map(option => {
+                            return (
+                                <div key={option.id} 
+                                onClick={()=> handleChatResponse(option)} 
                                 className="character-options-li">
                                     <Fade big >
                                     {option.text}
                                     </Fade>
                                 </div>
-                             )
+                            )
                             })}
                         </div>
                         : null}
                     </div>
-                    : null
-                    }
+                    </div>
             </div>
-            </>
-         );
-    }
-}
-
-let mapStateToProps = (state) => {
-    return {
-        currentCharacter: state.currentCharacter
-    }
+            </div>
+    );
 }
 
 
-export default connect(mapStateToProps)(CharacterChat);
+export default CharacterChat;

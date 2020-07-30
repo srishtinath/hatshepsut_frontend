@@ -26,7 +26,7 @@ const Location = (props) => {
     //   );
 
     const variants = {
-        // scale: 0.25,
+        scale: 0.25,
         // x: `${-props.offsetX/2}%`,
         // y: `${-props.offsetY/2}%`,
         transition: {

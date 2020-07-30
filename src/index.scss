@@ -34,6 +34,16 @@ code {
   margin: auto;
 }
 
+.links-home {
+  text-align: center;
+  align-items: center;
+  background-color: rgba(255,255,255, 0.6);
+  max-width: 70%;
+  margin: 5% auto;
+  text-align: center;
+  padding: 1% 5%;
+}
+
 .login-form {
   position: relative;
   max-width: 70%;
@@ -44,7 +54,7 @@ code {
 
 .intro-box {
   background-color: rgba(255,255,255, 0.6);
-  width: 70%;
+  width: 80%;
   margin: auto;
   padding: 5%;
 }
@@ -61,6 +71,7 @@ code {
   float: right;
   padding: 2%;
 }
+
 
 .progress-tracker {
   position: fixed;
@@ -164,7 +175,7 @@ code {
   /* right: 0; */
   height: 100px;
   margin: auto;
-  width: 20%;
+  width: 60%;
 }
 
 .home-content {
@@ -279,46 +290,68 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   height: 600px;
 }
 
+
 .slide2-content{
-  text-align: left;
+  position: relative;
+  text-align: center;
+  width: 100%;
 }
 
 .slide2-div {
   display: flex;
   justify-content: stretch;
-  /* width: 100%; */
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
-.set-char {
-  width: 40%;
-  height: 600px;
-  display: block;
-}
+
 
 .set-char:hover .char-description{
   opacity: 0.9;
 }
+.char-container {
+  position: relative;
+  display: block;
+  width: 100%;
+}
 
 .char-description {
-  opacity: 0;
+  position: absolute;
   height: 20%;
-  width: 300%;
+  width: 100%;
   transition: transform .5s;
 }
 
+.char-description-box {
+  position: absolute;
+  opacity: 0;
+}
+
+.set-char {
+  position: relative;
+  top: 10%;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
 .set-char-img-div {
-  height: 80%;
+  height: 90%;
 }
 
 .set-char-img {
-  height: 90%;
+  position: relative;
+  top: 15%;
+  padding-top: 3%;
+  height: 95%;
   transition: transform .5s ease;
 }
 
 .set-char-img:hover {
-  transform: scale(1.25);
+  transform: scale(1.15) translateY(100px);
 }
 
 .slide3 {
@@ -329,19 +362,39 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   height: 600px;
 }
 
-.indicates-scroll {
+.slide3-content {
   position: absolute;
-  bottom: 12%;
-  height: 24px;
-  width: 24px;
-  padding: none;
-  margin: none;
-  left: 38.5%;
-  display: inline-block;
-  text-align: center;
-  font-weight: 900;
-  font-size: 4vw;
-  color: rgb(228, 186, 81);
+  left: 39%;
+  bottom: -3%;
+  z-index: 7;
+  transform: translate(-50%, -50%);
+}
+
+#more-arrows{
+  width: 70px;
+  height: 60px;
+  animation-name: polygon;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes polygon {
+  0% {opacity: 0;}
+  50% {opacity:1}
+  100% {opacity: 0;}
+}
+
+polygon {
+  fill: rgb(228, 186, 81);
+  transition: all .2s ease-out;
+    
+  &.arrow-middle {
+	  opacity: 0.75;
+	}
+	&.arrow-top {
+	  opacity: 0.5
+	}
+	 
 }
 
 .slide3-slidecontent {
@@ -356,15 +409,34 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   height: 600px;
 }
 
+.grim-reaper{
+  position: relative;
+  float: right;
+  width: 40%;
+}
 
 .room-background {
   position: absolute;
   max-width: 100%;
 }
 
+.indicate-progress {
+  position: fixed;
+  width: 20vw;
+  height: 5vh;
+  bottom: 12%;
+  left: 12%;
+  padding: 2%;
+  text-align: center;
+  z-index: 4;
+  border-radius: 10px;
+  color: rgb(228, 186, 81);
+  text-shadow: 2px 2px 6px white;
+
+}
+
 .instructions-div {
   position: fixed;
-  background-color: rgba(255,255,255, 0.7);
   width: 20vw;
   height: 10vh;
   bottom: 0%;
@@ -373,14 +445,33 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   text-align: center;
   z-index: 4;
   border-radius: 10px;
+  color: rgb(156, 56, 36);
+  text-shadow: 2px 2px 6px white;
+
+}
+
+.indicate-cluelist {
+  position: fixed;
+  width: 20vw;
+  height: 5vh;
+  top: 4%;
+  right: 4%;
+  padding: 2%;
+  text-align: center;
+  z-index: 4;
+  border-radius: 10px;
+  color: rgb(156, 56, 36);
+  text-shadow: 2px 2px 6px white;
 }
 
 .close-directions {
-  position: relative;
-  float: left;
-  left: -8%;
-  top: -40%;
-  width: 10%;
+  position: absolute;
+  left: 50%;
+  bottom: 0%;
+  width: 10%;  
+  transform: translate(-50%, -50%);
+  font-weight: bolder;
+  z-index: 15;
 }
 
 #close-items-btn {
@@ -460,7 +551,8 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 .go-back-btn {
   position: absolute;
   bottom: 5%;
-  left: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .location-image {
@@ -521,7 +613,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 
 .character-chat-content {
   position: absolute;
-  background-color: rgba(255,255,255, 0.2);
+  background-color: rgba(255,255,255, 1);
   text-align: right;
   width: 70%;
   height: 70%;
@@ -533,12 +625,18 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   padding: 2%;
   z-index: 5;
 }
-/* 
-.character-chat-img {
-  width: 50%;
-  left: -5%;
-  transition: transform .6s ease; */
-/* } */
+
+.chat-intro {
+  position: relative;
+  bottom: 0;
+}
+
+.chat-content{
+  // background-color: rgba(255,255,255, 0.4);
+}
+
+.chat-div{
+}
 
 .character-div {
   display: flex;
@@ -550,7 +648,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0,0,0, 0.4);
+  background-color: rgba(0,0,0, 0.2);
   z-index:4;
 }
 
@@ -576,18 +674,34 @@ div[class*="slidecontent"]::-webkit-scrollbar {
   z-index: 2;
 }
 
-.dream {
-  position: absolute;
-  width: 20%;
-  bottom: 2%;
-}
-
 .random-dream {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-size: 100%;
   z-index: 14;
 }
 
 .random-dream-character {
   z-index: 15;
+}
+
+.dream {
+  position: absolute;
+  width: 25%;
+  bottom: 2%;
+}
+
+.dream-state-chat {
+  position: absolute;
+  background-color: rgba(255,255,255, 0.4);
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  transform: translate(-50%, -50%);
+
 }
 
 .PyramidRoom1 {
@@ -623,7 +737,7 @@ div[class*="slidecontent"]::-webkit-scrollbar {
 }
 
 .character-options-ul {
-  list-style-type: none;
+  // list-style-type: none;
   display: flex;
   justify-content: space-evenly;
 }

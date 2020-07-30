@@ -27,7 +27,7 @@ function ClueList(props) {
                 delay: 0.3,
                 type: "spring",
                 stiffness: 400,
-                damping: 40
+                damping: 60
                 }
             }
         }

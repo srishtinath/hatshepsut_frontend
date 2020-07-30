@@ -49,10 +49,12 @@ const Character = (props) => {
 
          { zoomState ? 
             <>
-            <div className="modal-box">
-            <div>
-                <CharacterChat room={room} toggleRoom={handleCharacterChat}/>
-                </div>
+
+            <div className="modal-box" key={897896}>
+                
+                    <CharacterChat room={room} toggleRoom={handleCharacterChat}/>
+                    {/* </div> */}
+                {/* </div> */}
             </div>
             </>
             : null}

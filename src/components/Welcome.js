@@ -29,12 +29,14 @@ const Welccome = () => {
             <Slider {...settings}>
             <div >
                 <div className="home-content">
-                    <p>The Hatshepsut Mystery is a murder mystery game.</p>
+                    <p>The Hatshepsut Mystery is a one-player murder mystery game, where you can explore the depths of Hatshepsut's Tomb, while playing detective to find out who killed the victim!</p>
                 </div>
             </div>
-            <div>
-                <NavLink to="/register">Register</NavLink>    
-                <NavLink to="/login">Login</NavLink>    
+            <div className="links-home">
+                <p>
+                <NavLink to="/register">Register</NavLink>    </p>
+                <p>
+                <NavLink to="/login">Login</NavLink>    </p>
             </div>
             </Slider>
         </div>

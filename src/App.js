@@ -15,8 +15,8 @@ import { Switch, Route, withRouter } from 'react-router';
 import GuessCulprit from './components/GuessCulprit';
 
 
-// import Sound from 'react-sound';
-// import SoundFile from './music/Sultan-Palace.mp3'
+import Sound from 'react-sound';
+import SoundFile from './music/Sultan-Palace.mp3'
 
 
 class App extends Component {
@@ -147,13 +147,13 @@ class App extends Component {
   render() { 
           return (
            <>
-           {/* <Sound  */}
-                {/* url={SoundFile} */}
-                {/* playStatus={Sound.status.PLAYING} */}
-                {/* playFromPosition={300 /* in milliseconds */}
-                {/* onLoading={this.handleSongLoading} */}
-                {/* onPlaying={this.handleSongPlaying} */}
-                {/* onFinishedPlaying={this.handleSongFinishedPlaying}/> */}
+           <Sound 
+                url={SoundFile}
+                playStatus={Sound.status.PAUSE}
+                playFromPosition={300} /* in milliseconds */
+                onLoading={this.handleSongLoading}
+                onPlaying={this.handleSongPlaying}
+                onFinishedPlaying={this.handleSongFinishedPlaying}/>
            <div className="body-content">
           <Switch>
               <Route path="/welcome" render={this.renderWelcome} />
