@@ -218,6 +218,7 @@ code {
   border-radius: 5px;
   color: grey;
   text-align: left;
+  opacity: 0.8;
 }
 
 .room-complete:hover {
@@ -515,7 +516,7 @@ polygon {
   width: 80%;
   height: 80%;
   padding: 2%;
-  margin: auto;
+  top: 30%;
   display: grid;
 }
 
@@ -531,8 +532,8 @@ polygon {
 .item-overlay {
   grid-column: 1;
   grid-row: 1;
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 80%;
   opacity: 0;
   transition: .5s ease;
   text-align: center;
@@ -596,18 +597,9 @@ polygon {
   margin: auto;
   padding: auto;
   z-index: 6;
+  border-radius: 10px;
 }
 
-
-.location-items-container {
-  position: fixed;
-  border-style: dotted;
-  bottom: 0;
-  right: 0;
-  width: 60%;
-  height: 60%;
-  display: block;
-}
 .room-content-div {
   display: flex;
 }
@@ -620,7 +612,7 @@ polygon {
   position: absolute;
   height: 100%;
   width: 100%;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .character-chat-content {

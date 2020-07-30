@@ -29,7 +29,23 @@ let userRooms = useSelector(state => state.userRooms)
         }
     }
 
-    const item = {
+    const completeitem = {
+        hidden: {
+            y: 100,
+            opacity: 0,
+            transition: {
+            y: { stiffness: 1000, velocity: -100 }
+            }
+        },
+        visible: {
+            y: 0,
+            opacity: 0.4,
+            transition: {
+            y: { stiffness: 1000 }
+            }
+        }
+    }
+    const incompleteitem = {
         hidden: {
             y: 100,
             opacity: 0,
@@ -49,7 +65,7 @@ let userRooms = useSelector(state => state.userRooms)
     const filteredRooms = allRooms.filter(room => room.display === true)
         return ( 
         <div className="room-index">
-            <h2>Explore</h2>
+            <h2 align="center">Explore</h2>
             <motion.div
             initial="hidden"
             animate="visible"
@@ -58,11 +74,11 @@ let userRooms = useSelector(state => state.userRooms)
         {filteredRooms.map(room => 
             <div key={room.id} className="room-index-img" onClick={() => goToRoom(room)}>  
                 { Boolean(userRooms.find(userRoom => userRoom.room_id === room.id)) ? 
-                <motion.div variants = {item} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-complete">
+                <motion.div variants = {completeitem} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-complete">
                     <p>{room.description} </p>
                 </motion.div>
                 :
-                <motion.div variants = {item} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-incomplete">
+                <motion.div variants = {incompleteitem} style={{backgroundImage: `url(${room.image_url})`, backgroundPosition: "center center"}} className="room-incomplete">
                     <p>{room.description}</p>
                 </motion.div>
             }

@@ -10,6 +10,7 @@ const Items = () => {
    
         return ( 
             <>
+            {/* <p align="center">{currentLocation.name}</p> */}
             {items ? 
             <>
             {items.map(item => 
