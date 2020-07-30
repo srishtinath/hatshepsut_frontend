@@ -1,46 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-
-import { addItemToClueList, setClueItems } from '../actions/cluelist'
+import React from 'react';
+import {useSelector} from 'react-redux'
 import Item from './Item'
 
 
-class Items extends Component {
+const Items = () => {
 
-    componentDidMount(){
-        this.setState({
-            items: this.props.items
-        })
-    }
-
-
-    render() { 
-        // console.log(this.props)
+    const currentLocation = useSelector(state => state.currentLocation)
+    const items = currentLocation.items
+   
         return ( 
             <>
-            {this.props.items ? 
+            {items ? 
             <>
-            {this.props.items.map(item => 
-                < Item item = {item} handleAddToNotepad={this.handleAddToNotepad} key={item.id}/>
+            {items.map(item => 
+                < Item item = {item} key={item.id}/>
                 )}
             </>
             : null}
             </>
          );
-    }
-}
-
-let mapStateToProps = (state) => {
-    return ({
-        cluelist: state.cluelist,
-        clueItems: state.clueItems,
-        currentLocation: state.currentLocation
-    })
-}
-
-let mapDispatchToProps = {
-    addItemToClueList,
-    setClueItems
 }
  
-export default connect(mapStateToProps, mapDispatchToProps)(Items);
+export default Items;

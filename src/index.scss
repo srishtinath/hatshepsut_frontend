@@ -584,18 +584,30 @@ polygon {
 }
 
 .location-items {
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  right: 0;
   background-color: rgba(255,255,255, 0.4);
   display: flex;
-  flex-direction: column;
-  width: 30%;
-  height: 100%;
+  flex-direction: row;
+  width: 50%;
+  height: 50%;
   overflow-y: scroll;
   margin: auto;
   padding: auto;
   z-index: 6;
 }
 
+
+.location-items-container {
+  position: fixed;
+  border-style: dotted;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+  height: 60%;
+  display: block;
+}
 .room-content-div {
   display: flex;
 }

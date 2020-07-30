@@ -5,13 +5,14 @@ import Directions from './Directions'
 import RandomDream from './RandomDream'
 import QuizContainer from './QuizContainer'
 import SliderGame from './SliderGame'
+import Items from './Items'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 
 
-import { setCurrentRoom, setCurrentCharacter, addToUserRoom } from '../actions/room'
+import { setCurrentRoom, setCurrentCharacter, addToUserRoom, setCurrentLocation } from '../actions/room'
 
 import Tada from 'react-reveal/Tada';
 import { CloseButton } from './CloseButton';
@@ -24,15 +25,14 @@ function FirstRoom(props) {
     const [showCharacterChat, setCharacterChat] = useState(false)
     const [numberOfLocations, setLocationNumber] = useState(0)
     const [clickCount, setClickCount] = useState(0)
-    const [offsetX, setOffsetX] = useState(0)
-    const [offsetY, setOffsetY] = useState(0)
     const [showDream, setDream] = useState(false)
-    const [scale, setScale] = useState(1)
+    const [handleZoom, setZoom] = useState(false)
 
     const dispatch = useDispatch()
     let history = useHistory()
     const currentRoom = useSelector(state => state.currentRoom)
     const currentUser = useSelector(state => state.currentUser)
+    const currentLocation = useSelector(state => state.currentLocation)
     const allRooms = useSelector(state => state.allRooms)
     const userRooms = useSelector(state => state.userRooms)
     
@@ -82,6 +82,7 @@ function FirstRoom(props) {
         if (e.target.innerText === "Guess the culprit!"){
             history.push('/guess')
         }
+        props.resetClickCount()
     }
 
     const addUserRoomState = () => {
@@ -118,21 +119,25 @@ function FirstRoom(props) {
     const lastRoom = allRooms[allRooms.length-1]
 
     
-    const [clickX, setClickX] = useState(0)
-    const [clickY, setClickY] = useState(0)
-
-    // useEffect((e) => {
-    //     console.log(e.clientX, e.clientY )
-    // }, [clickX, clickY])
-    
-    
     
     const handlePotentialZoom = (e) => {
         if (e.target.className === "location-image-invisible"){
-            // console.log(offsetX, offsetY)
-            setClickX(e.clientX)
-            setClickY(e.clientY)
-            setOffsets()
+            let parentDiv = document.getElementById("room-div-to-change")
+            let roomCenterX = (parentDiv.offsetWidth/2)
+            let roomCenterY = (parentDiv.offsetHeight/2)
+            
+            let offsetX = ((roomCenterX - e.clientX)/roomCenterX * 100 * 1.75)
+            let offsetY = ((roomCenterY - e.clientY)/roomCenterY * 100 * 1.75)
+            controls.start({
+                scale: 4,
+                x: `${offsetX}%`,
+                y: `${offsetY}%`,
+                transition:{delay: 0.3,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 60}
+                })
+                console.log(offsetX, offsetY)
         } else if (e.target.id === "close-items-btn"){
             controls.start({
                 scale: 1,
@@ -146,30 +151,29 @@ function FirstRoom(props) {
         }
     }
 
-    function setOffsets(){
-        let parentDiv = document.getElementById("room-div-to-change")
-        let roomCenterX = (parentDiv.offsetWidth/2)
-        let roomCenterY = (parentDiv.offsetHeight/2)
-        console.log(roomCenterX, roomCenterY)
-        console.log(clickX, clickY )
-        setOffsetX((roomCenterX - clickX)/roomCenterX * 100 * 1.75)
-        setOffsetY((roomCenterY - clickY)/roomCenterY * 100 * 1.75)
-        setScale(4)
-    }
+    useEffect(() => {
+        if (props.zoomState){
+            setZoom(true)
+        } else {
+            setZoom(false)
+        }
+        // console.log(props.zoomState, "PROPS ZOOMSTATE")
+    }, [props.zoomState])
 
-
-    useEffect(()=> {
-        controls.start({
-            scale: scale,
-            x: `${offsetX}%`,
-            y: `${offsetY}%`,
-            transition:{delay: 0.3,
-                type: "spring",
-                stiffness: 400,
-                damping: 60}
+    useEffect(() =>  {
+        if (!handleZoom){
+            controls.start({
+                scale: 1,
+                x: 0,
+                y: 0,
+                transition:{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 60}
             })
-            console.log(offsetX, offsetY)
-    }, [offsetX, offsetY, scale])
+        }
+        // console.log(handleZoom, "HANDLEZOOM")
+    }, [handleZoom])
 
     useEffect(() => {
         if (userRooms.length === 1){
@@ -202,14 +206,6 @@ function FirstRoom(props) {
 
     const [showQuiz, setQuiz] = useState(false)
 
-    // useEffect(() => {
-    //     if (allRooms.indexOf(currentRoom) === 2){
-    //         setQuiz(true)
-    //     } else {
-    //         setQuiz(false)
-    //     }
-    // }, [currentRoom])
-
     const closeQuiz = () => {
         setQuiz(false)
     }
@@ -228,7 +224,6 @@ function FirstRoom(props) {
         setSlider(false)
     }
 
-    const [showMemoryGame, setMemory]= useState(false)
     return ( 
         <div className="character-content" >
             { showDream ? 
@@ -259,21 +254,18 @@ function FirstRoom(props) {
                     </div>
                 </div>
                 :null}
-
-                {/* {showMemoryGame ? 
-                <MemoryGame />
-                :null} */}
                     
                 <div className="room-content-div">
                     { currentRoom.locations.map(loc => {
                         return (
                         <div key={loc.id} >
-                            <Location location={loc} closeZoom={closeZoom} offsetX={offsetX} offsetY={offsetY}/>
+                            <Location location={loc} closeZoom={closeZoom} toggleItems={props.toggleItems}/>
+                            {/* <Items location={currentLocation} /> */}
                             <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/>
                         </div>)
                     })}
 
-                    { numberOfLocations <= clickCount ? 
+                    { numberOfLocations <= props.clickCount ? 
                     <>
                         <Tada>
                             <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
