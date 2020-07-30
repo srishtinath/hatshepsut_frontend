@@ -1,6 +1,17 @@
-import React, { Component } from 'react';
+import React, { Image, Component } from 'react';
 import {Motion, spring} from 'react-motion'
 import * as _ from 'underscore'
+import {CloseButton} from './CloseButton'
+
+import Slider0 from '../sliderimages/Slider0.png'
+import Slider1 from '../sliderimages/Slider1.png'
+import Slider2 from '../sliderimages/Slider2.png'
+import Slider3 from '../sliderimages/Slider3.png'
+import Slider4 from '../sliderimages/Slider4.png'
+import Slider5 from '../sliderimages/Slider5.png'
+import Slider6 from '../sliderimages/Slider6.png'
+import Slider7 from '../sliderimages/Slider7.png'
+import Slider8 from '../sliderimages/Slider8.png'
 
 const tilesStyle = {
     listStyle: 'none',
@@ -10,7 +21,7 @@ const tilesStyle = {
   }
   
   const tileStyle = {
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
     boxShadow: 'inset 0 0 1px 0 black',
     boxSizing: 'border-box',
     display: 'block',
@@ -121,15 +132,17 @@ const tilesStyle = {
         ...(number === hole ? holeStyle : {}),
         width,
         height
-      }
+          }
       
+    const ImgSrcArray = [Slider0, Slider1, Slider2, Slider3, Slider4, Slider5, Slider6, Slider7, Slider8]
       return (
         <Motion style={motionStyle}>
           {({translateX, translateY}) => (
             <li style={{...style, transform: `translate3d(${translateX}px, ${translateY}px, 0)`}}
               onClick={this.handleClick}
               >
-              {number}
+              <p align="center">{number}</p>
+              <img src={ImgSrcArray[number]} className="tile-image" alt="tile-piece" />
             </li>
           )}
         </Motion>
@@ -142,10 +155,17 @@ const tilesStyle = {
       super(props)
       
       const {rows, cols} = props
-      this.state = {numbers: _.range(0, rows * cols)}
+      this.state = {numbers: _.range(0, rows * cols), solved: false, showClose: false}
       
+
       this.handleTileClick = this.handleTileClick.bind(this)
       this.handleButtonClick = this.handleButtonClick.bind(this)
+    }
+
+    componentDidMount(){
+        if (this.state.solved){
+            this.setState({showClose: true})
+        }
     }
     
     handleTileClick (index) {
@@ -187,6 +207,7 @@ const tilesStyle = {
       
       return (
         <div>
+            <CloseButton closeBox={this.props.closeBox}/>
           <ul style={style}>
             {numbers.map((number, index) => (
               <Tile {...this.props} index={index} number={number} key={number}
@@ -209,7 +230,7 @@ const tilesStyle = {
     render () {
       return (
         <Tiles rows={3} cols={3} hole={8}
-          width={300} height={300}
+          width={300} height={300} closeBox={this.props.closeBox}
         />
       )
     }

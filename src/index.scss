@@ -759,6 +759,13 @@ polygon {
   box-shadow: 5px 5px rgba(156, 47, 51, 0.4);
 }
 
+.tile-image {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top:0;
+}
+
 .response {
   text-align: left;
   background-color: rgb(225, 137, 66);
