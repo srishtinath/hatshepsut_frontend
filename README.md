@@ -10,11 +10,12 @@ Backend repo: https://github.com/srishtinath/hatshepsut_backend
 
 # Installation
 
-1. Clone this repo, and the back-end repo
-2. Cd into the backend directory, and run ```rails s```; the server port should be 3000
-3. Cd into the frontend directory
-2. Run ``` npm install ```
-3. Run ``` npm start``` and run on port 3001
+1. Clone both this repo, and the back-end repo
+2. Cd into the backend directory, and run ```install``` to install all dependent gems
+3. Run ```rails s```; the server port should be 3000
+4. Cd into the frontend directory
+5. Run ``` npm install ```
+6. Run ``` npm start``` and run on port 3001
 
 # Component Tree:
 
