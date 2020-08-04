@@ -195,7 +195,7 @@ function FirstRoom(props) {
             }, 
             body: JSON.stringify({
                 user_id: currentUser.id,
-                room_id: allRooms[4].id
+                room_id: allRooms[1].id
             })
         }).then(r => r.json())
         .then((userRoomObj) => {
@@ -213,7 +213,7 @@ function FirstRoom(props) {
     const [showSliderGame, setSlider]= useState(false)
 
     useEffect(() => {
-        if (allRooms.indexOf(currentRoom) === 3){
+        if (allRooms.indexOf(currentRoom) === 4){
             setSlider(true)
         } else {
             setSlider(false)

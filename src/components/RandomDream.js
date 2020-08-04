@@ -7,7 +7,7 @@ import Fade from 'react-reveal/Fade';
 const RandomDream =(props)=> {
     
     const allRooms = useSelector(state => state.allRooms)
-    const room=allRooms[4]
+    const room=allRooms[1]
 
     const completeDream = () => {
         props.closeDream()
