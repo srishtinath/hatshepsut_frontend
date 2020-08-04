@@ -23,4 +23,4 @@ The Hatshepsut Mystery is a one-player murder mystery-style game that reveals ad
 
 # Acknowledgements: 
 
-- [Slider Game] (https://codepen.io/unindented/pen/QNWdRQ)
+- (https://codepen.io/unindented/pen/QNWdRQ "Slider Game")
