@@ -5,6 +5,7 @@ import Directions from './Directions'
 import RandomDream from './RandomDream'
 import QuizContainer from './QuizContainer'
 import SliderGame from './SliderGame'
+import MemoryGame from './MemoryGame'
 import Items from './Items'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -224,9 +225,23 @@ function FirstRoom(props) {
         setSlider(false)
     }
 
+    const [showMemoryGame, setMemory]= useState(true)
+
+    // useEffect(() => {
+    //     if (allRooms.indexOf(currentRoom) === 1){
+    //         setSlider(true)
+    //     } else {
+    //         setSlider(false)
+    //     }
+    // }, [currentRoom])
+
+    const closeMemory = () => {
+        setSlider(false)
+    }
+
     return ( 
         <div className="character-content" >
-            { showDream ? 
+            {/* { showDream ? 
                 <RandomDream closeDream={handleDreamComplete}/>
             : 
             <>
@@ -236,16 +251,20 @@ function FirstRoom(props) {
             initial={false}
             animate={controls}
             onClick={handlePotentialZoom}
-            >
+            > */}
             
-            { showQuiz? 
+            {/* { showQuiz? 
                 <QuizContainer closeQuiz={closeQuiz}/>
-            :null}
-                {showDirections ? 
+            :null} */}
+                {/* {showDirections ? 
                 <Directions closeDirections={closeDirections}/>
+                :null} */}
+
+                {showMemoryGame ?
+                <MemoryGame closeMemory={closeMemory}/>
                 :null}
 
-                { showSliderGame ? 
+                {/* { showSliderGame ? 
                 <div className="modal-box">
                     <div className="slider-container">
                         <p align="center">Congratulations! You have reached the pyramid! But it looks like there's a puzzle 
@@ -253,30 +272,30 @@ function FirstRoom(props) {
                         <SliderGame  className="slider-game" closeBox={closeSlider}/>
                     </div>
                 </div>
-                :null}
+                :null} */}
                     
-                <div className="room-content-div">
-                    { currentRoom.locations.map(loc => {
-                        return (
-                        <div key={loc.id} >
-                            <Location location={loc} closeZoom={closeZoom} toggleItems={props.toggleItems}/>
+                {/* <div className="room-content-div"> */}
+                    {/* { currentRoom.locations.map(loc => { */}
+                        {/* return ( */}
+                        {/* <div key={loc.id} > */}
+                            {/* <Location location={loc} closeZoom={closeZoom} toggleItems={props.toggleItems}/> */}
                             {/* <Items location={currentLocation} /> */}
-                            <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/>
-                        </div>)
-                    })}
+                            {/* <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/> */}
+                        {/* </div>) */}
+                    {/* })} */}
 
-                    { numberOfLocations <= props.clickCount ? 
-                    <>
-                        <Tada>
-                            <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
-                        </Tada>
-                    </>
-                    : null  
-                    }
-                </div>
-            </motion.div>
-            </>
-            }
+                    {/* { numberOfLocations <= props.clickCount ?  */}
+                    {/* <> */}
+                        {/* <Tada> */}
+                            {/* <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button> */}
+                        {/* </Tada> */}
+                    {/* </> */}
+                    {/* : null   */}
+                    {/* } */}
+                {/* </div> */}
+            {/* </motion.div> */}
+            {/* </> */}
+            {/* } */}
         </div>
     )
 }

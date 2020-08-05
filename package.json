@@ -13,6 +13,7 @@
     "@types/react-transition-group": "^4.4.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
+    "deepcopy": "^2.0.0",
     "framer": "^1.2.5",
     "framer-motion": "^2.1.4",
     "history": "^5.0.0",
@@ -34,7 +35,8 @@
     "redux": "^4.0.5",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.1",
-    "underscore": "^1.10.2"
+    "underscore": "^1.10.2",
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
