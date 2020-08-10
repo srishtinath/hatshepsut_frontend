@@ -646,7 +646,7 @@ polygon {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0,0,0, 0.2);
+  background-color: rgba(0,0,0, 0.3);
   z-index:4;
 }
 
@@ -720,6 +720,7 @@ polygon {
 .slider-game {
   padding: 1%;
 }
+
 
 .PyramidRoom2 {
   position: absolute;
@@ -822,15 +823,15 @@ button:hover {
   /* margin: 1%; */
 }
 
-  
-$card-border-radius: 15px;
 
-// @mixin border-radius($radius) {
-// 	border-radius: $radius;
-// 	@include media-breakpoint-down(md) {
-// 		border-radius: $radius / 3;
-// 	}
-// }
+.memory-container {
+  position: relative;
+  background-color: rgba(255,255,255, 0.6);
+  width: 80%;
+  height: 80%;
+  top: 5%;
+  margin: auto;
+}
 
 .card-container, .card, .card .side {
 	width: 100%;
@@ -840,20 +841,19 @@ $card-border-radius: 15px;
 	cursor: pointer;
 	perspective: 600px;
 }
+
 .card {
-	// @include border-radius($card-border-radius);
 	position: relative;
-	// transition: transform .8s, box-shadow $animation-duration, border-color $animation-duration;
+	transition: transform .8s;
 	transform-style: preserve-3d;
-	box-shadow: 0 0 3px rgba(black, .15);
-	border: 2px solid #bababa;
+	box-shadow: 0 0 3px rgba(#bababa, .15);
 
 	.side {
-		// -webkit-backface-visibility: hidden;
-		// backface-visibility: hidden;
-		// @include border-radius(8px);
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
 	}
 	.front {
+    margin: 1%;
 	}
 	.back {
 		transform: rotateY(180deg);
@@ -862,79 +862,57 @@ $card-border-radius: 15px;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(45deg, #1fa5ff 25%, #1053ff 25%, #1053ff 50%, #1fa5ff 50%, #1fa5ff 75%, #1053ff 75%, #1053ff 100%);
-		background-size: 56px 56px;}}
-		// &::before, &::after {
-		// 	@include border-radius(10px);
-		// 	content: "";
-		// 	position: absolute;
-		// 	top: 0;
-		// 	bottom: 0;
-		// 	left: 0;
-		// 	right: 0;
-		// 	background: linear-gradient(#20E4A4, #2CC9CC);
-		// 	opacity: .8;
-		// }
-		// &::after {
-		// 	opacity: 0;
-		// 	transition: opacity 0.6;
-    // }
+		background: linear-gradient(#e66465, #9198e5);
+}}
     
 .card-container:hover .card {
-	border: 2px solid black;
-	box-shadow: 0 0 10px rgba(black, .6);
+	// border: 2px solid #bababa;
+	box-shadow: 0 0 10px rgba(#bababa, .6);
 
 	.back::after {
 		opacity: .5;
 	}
 }
 .card-container:hover .card.flipped {
-	border: 2px solid darken(black, 5%);
+	border: 2px solid darken(#bababa, 5%);
 }
 
 .card.flipped {
-	border: 2px solid darken(black, 10%);
+	// border: 2px solid darken(#bababa, 10%);
 	transform: rotateY(180deg);
 }
 
 .game {
 	height: 100vh;
-	width: 100vw;
-	display: flex;
+	width: 90vw;
+  display: flex;
+  flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 0;
+  padding: 0;
+  position: absolute;
+  left: 2%;
+  right: 2%;
 }
-// // OH god...
+
 .game .cards-container {
-	// width: calc(100vw - ($spacer * 12));
-  // height: calc(100vh - ($spacer * 12));
-  width: 400px;
-  height: 400px;
-	// margin: $spacer * 6;
+  width: 90vw;
+  height: 80vh;
+	// margin: 0;
 	display: grid;
-	grid-template-columns: repeat(6, auto);
-	grid-template-rows: repeat(3, 1fr);
-	// grid-gap: $spacer;
-
-	@media screen and (max-width: 450px) and (min-height: 650px) {
-		grid-template-columns: repeat(4, auto);
-		grid-template-rows: repeat(5, 1fr);
-	}
-
-	@media screen and (min-width: 1400px) and (max-height: 800px) {
-		grid-template-columns: repeat(9, auto);
-		grid-template-rows: repeat(2, 1fr);
-	}
-	@media screen and (min-width: 600px) and (max-height: 500px) {
-		grid-template-columns: repeat(9, auto);
-		grid-template-rows: repeat(2, 1fr);
-	}
+	grid-template-columns: repeat(8, 10%);
+  grid-template-rows: repeat(2, 200px);
+  grid-gap: 10px;
 }
-// 	// @include media-breakpoint-down(md) {
-// 	// 	width: calc(100vw - ($spacer * 2));
-// 	// 	height: calc(100vh - ($spacer * 2));
-// 	// 	margin: $spacer;
-// 	// 	grid-gap: $spacer / 2;
-// 	// }
-// }
+
+.memory-won-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.memory-intro {
+  position: absolute;
+  left: 0;
+  top: 1%;
+}

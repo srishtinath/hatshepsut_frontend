@@ -105,6 +105,7 @@ class Setting extends Component {
                             <li>Atif, the Egyptian guide who had been helping you translate some of the symbols you found and serving as a liaison with the locals, woke you up frantically.</li>
                             <li>When asked what was the matter, Atif explained that Tess had been found dead in her tent.</li>
                             <li>They didn't know how she had died or who had killed her, but he wanted your help in figuring out.</li>
+                            <li>It looks like it was a heart attack... but he knows she had many enemies. She could have been poisoned, or died of natural causes.</li>
                             <li>He explained that Luxos was still a lawless town, and the Valley of Kings an anarchic place with no enforcement to come and investigate her death.</li>
                         </ul>
                         </Slide>

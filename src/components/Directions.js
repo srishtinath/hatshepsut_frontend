@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion, useCycle } from "framer-motion";
-import { CloseButton } from "./CloseButton";
+import { motion } from "framer-motion";
 
 const Directions = (props) => {
       

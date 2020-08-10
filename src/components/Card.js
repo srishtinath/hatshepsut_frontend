@@ -6,7 +6,7 @@ export default function Card({imageURL, isFlipped, onClick}) {
 	<div className="card-container" onClick={onClick}>
 		<div className={"card" + (isFlipped ? " flipped" : "")}>
 			<Image className="side front" src={imageURL}/>
-			{/* <div className="side back"/> */}
+			<div className="side back"/>
 		</div>
 	</div>);
 }

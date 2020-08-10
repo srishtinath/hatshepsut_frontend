@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import cardImages from "../cards.js";
 import Card from "./Card";
 import deepcopy from "deepcopy";
+import { CloseButton } from "./CloseButton.js";
 
-// import images from '../static'
 
 function shuffleArray(array) {
 	return array.sort(() => .5 - Math.random());
@@ -18,7 +18,6 @@ function generateCards(count) {
 		.slice(0, count / 2)
 		.map(imageURL => ({
 			id: uuidv4(),
-			// imageURL: "../static/images/cards/" + imageURL,
 			imageURL: imageURL,
 			isFlipped: false,
 			canFlip: true
@@ -28,13 +27,15 @@ function generateCards(count) {
 	return shuffleArray(cards);
 }
 
-export default function Game({fieldWidth=6, fieldHeight=3}) {
+export default function Game(props, {fieldWidth=6, fieldHeight=3}) {
 	const totalCards = fieldWidth * fieldHeight;
 
 	const [cards, setCards] = useState(generateCards(totalCards));
 	const [canFlip, setCanFlip] = useState(false);
 	const [firstCard, setFirstCard] = useState(null);
 	const [secondCard, setSecondCard] = useState(null);
+	const [gameWon, setGameWon] = useState(false)
+	const [matchedCards, setMatches] = useState(0)
 
 	function setCardIsFlipped(cardID, isFlipped) {
 		setCards(prev => prev.map(c => {
@@ -60,6 +61,7 @@ export default function Game({fieldWidth=6, fieldHeight=3}) {
 			}
 			setTimeout(() => setCanFlip(true), cards.length * 100);
 		}, 3000);
+		setGameWon(false)
 	}, []);
 
 
@@ -74,6 +76,7 @@ export default function Game({fieldWidth=6, fieldHeight=3}) {
 		setCardIsFlipped(firstCard.id, false);
 		setCardIsFlipped(secondCard.id, false);
 		resetFirstAndSecondCards();
+		setMatches(matchedCards + 2)
 	}
 	function onFailureGuess() {
 		const firstCardID = firstCard.id;
@@ -110,10 +113,39 @@ export default function Game({fieldWidth=6, fieldHeight=3}) {
 		(firstCard) ? setSecondCard(card) : setFirstCard(card);
 	}
 
-	return <div className="game container-md">
-		<p>Hello from the memory game!</p>
-		{/* <div className="cards-container"> */}
+	function checkGameWon(cardClasses) {
+		let hiddenCards = cardClasses.filter(cardClass => cardClass === "card flipped")
+		if (hiddenCards.length === 0 && matchedCards !== 0){
+			console.log(gameWon)
+			setGameWon(true)
+		} else {
+			setGameWon(false)
+		}
+	}
+
+	useEffect(() => {
+		let cardContainers = Array.from(document.getElementsByClassName("card-container"))
+		let cardContainList = cardContainers.map(cardContain => cardContain.childNodes[0].className)
+		checkGameWon(cardContainList)
+	}, [cards])
+
+	return (
+		<>
+	<div className="game container-md">		
+	{ gameWon ? 
+		<div className="memory-won-container">
+			<p>Congratulations! You may now enter...</p>
+			<CloseButton closeBox={props.closeMemory}/>
+		</div>
+		:
+		<> 
+		<p className="memory-intro">Welcome to the Tomb Antechamber! Solving this next game will grant you entry...</p>
+		<div className="cards-container">
 			{cards.map(card => <Card onClick={() => onCardClick(card)} key={card.id} {...card}/>)}
-		{/* </div> */}
-	</div>;
+		</div>
+		</>
+	}
+	</div>
+	</>
+	);
 }

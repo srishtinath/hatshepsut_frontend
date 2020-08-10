@@ -86,7 +86,7 @@ let userRooms = useSelector(state => state.userRooms)
 
             )}
             </motion.div>
-            {userRooms.length >= allRooms.length ? 
+            {userRooms.length === allRooms.length ? 
             <button className="guess-culprit" onClick={guessCulprit}>Guess the culprit!</button>
             : null}
         </div> 

@@ -227,44 +227,38 @@ function FirstRoom(props) {
 
     const [showMemoryGame, setMemory]= useState(true)
 
-    // useEffect(() => {
-    //     if (allRooms.indexOf(currentRoom) === 1){
-    //         setSlider(true)
-    //     } else {
-    //         setSlider(false)
-    //     }
-    // }, [currentRoom])
+    useEffect(() => {
+        if (allRooms.indexOf(currentRoom) === 6){
+            setMemory(true)
+        } else {
+            setMemory(false)
+        }
+    }, [currentRoom])
 
     const closeMemory = () => {
-        setSlider(false)
+        console.log("Hello")
+        setMemory(false)
     }
 
     return ( 
         <div className="character-content" >
-            {/* { showDream ? 
+            { showDream ? 
                 <RandomDream closeDream={handleDreamComplete}/>
             : 
-            <>
             <motion.div id="room-div-to-change" 
             className="firstroom-content" 
             style={{backgroundImage: `url(${currentRoom.image_url})`}}
             initial={false}
             animate={controls}
             onClick={handlePotentialZoom}
-            > */}
+            >
             
-            {/* { showQuiz? 
-                <QuizContainer closeQuiz={closeQuiz}/>
-            :null} */}
-                {/* {showDirections ? 
+                {showDirections ? 
                 <Directions closeDirections={closeDirections}/>
-                :null} */}
-
-                {showMemoryGame ?
-                <MemoryGame closeMemory={closeMemory}/>
                 :null}
 
-                {/* { showSliderGame ? 
+
+                { showSliderGame ? 
                 <div className="modal-box">
                     <div className="slider-container">
                         <p align="center">Congratulations! You have reached the pyramid! But it looks like there's a puzzle 
@@ -272,30 +266,41 @@ function FirstRoom(props) {
                         <SliderGame  className="slider-game" closeBox={closeSlider}/>
                     </div>
                 </div>
-                :null} */}
-                    
-                {/* <div className="room-content-div"> */}
-                    {/* { currentRoom.locations.map(loc => { */}
-                        {/* return ( */}
-                        {/* <div key={loc.id} > */}
-                            {/* <Location location={loc} closeZoom={closeZoom} toggleItems={props.toggleItems}/> */}
-                            {/* <Items location={currentLocation} /> */}
-                            {/* <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/> */}
-                        {/* </div>) */}
-                    {/* })} */}
+                :null}
 
-                    {/* { numberOfLocations <= props.clickCount ?  */}
-                    {/* <> */}
-                        {/* <Tada> */}
-                            {/* <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button> */}
-                        {/* </Tada> */}
-                    {/* </> */}
-                    {/* : null   */}
-                    {/* } */}
-                {/* </div> */}
-            {/* </motion.div> */}
-            {/* </> */}
-            {/* } */}
+                {showMemoryGame ?
+                <div className="modal-box">
+                    <div className="memory-container">
+                        <MemoryGame closeMemory={closeMemory}/>
+                    </div>
+                </div>
+                :null}
+                    
+
+                    {/* /* { showQuiz? 
+                <QuizContainer closeQuiz={closeQuiz}/>
+            :null} */ }
+                <div className="room-content-div">
+                    { currentRoom.locations.map(loc => {
+                        return ( 
+                        <div key={loc.id} > 
+                            <Location location={loc} closeZoom={closeZoom} toggleItems={props.toggleItems}/> 
+                            <Items location={currentLocation} /> 
+                            <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/> 
+                        </div>) 
+                    })} 
+
+                    { numberOfLocations <= props.clickCount ?  
+                     <> 
+                         <Tada>
+                             <button className="next-room-btn" onClick={handleRoomComplete}>{currentRoom.id === lastRoom.id ? "Guess the culprit!" : "Go to next room!" }</button>
+                         </Tada>
+                     </>
+                     : null  
+                     }
+                 </div>
+             </motion.div>
+             }
         </div>
     )
 }
