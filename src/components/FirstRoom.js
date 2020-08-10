@@ -261,7 +261,7 @@ function FirstRoom(props) {
                 { showSliderGame ? 
                 <div className="modal-box">
                     <div className="slider-container">
-                        <p align="center">Congratulations! You have reached the pyramid! But it looks like there's a puzzle 
+                        <p className="slider-intro">Congratulations! You have reached the pyramid! But it looks like there's a puzzle 
                             you need to solve before being able to get inside...Click Start to begin!</p>
                         <SliderGame  className="slider-game" closeBox={closeSlider}/>
                     </div>

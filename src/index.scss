@@ -717,11 +717,22 @@ polygon {
   padding: 2%;
 }
 
+.slider-intro {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 3%;
+}
+
 .slider-game {
   padding: 1%;
 }
 
-
+.slider-game-btn {
+  position: absolute;
+  right: 1%;
+  top: 0;
+}
 .PyramidRoom2 {
   position: absolute;
   width: 14%;
@@ -833,6 +844,12 @@ button:hover {
   margin: auto;
 }
 
+.memory-close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .card-container, .card, .card .side {
 	width: 100%;
 	height: 100%;
@@ -907,8 +924,10 @@ button:hover {
 
 .memory-won-container {
   position: absolute;
+  width: 85%;
   top: 0;
   left: 0;
+  text-align: center;
 }
 
 .memory-intro {

@@ -65,6 +65,7 @@ const tilesStyle = {
         return false
       }
     }
+
     return true
   }
   
@@ -155,19 +156,17 @@ const tilesStyle = {
       super(props)
       
       const {rows, cols} = props
-      this.state = {numbers: _.range(0, rows * cols), solved: false, showClose: false}
+      this.state = {
+        numbers: _.range(0, rows * cols), 
+        solved: false, 
+      }
       
 
       this.handleTileClick = this.handleTileClick.bind(this)
       this.handleButtonClick = this.handleButtonClick.bind(this)
     }
-
-    componentDidMount(){
-        if (this.state.solved){
-            this.setState({showClose: true})
-        }
-    }
     
+
     handleTileClick (index) {
       this.swap(index)
     }
@@ -207,7 +206,10 @@ const tilesStyle = {
       
       return (
         <div>
-            <CloseButton closeBox={this.props.closeBox}/>
+          {solved ? 
+            <CloseButton closeBox={this.props.closeBox} className="slider-game-btn"/> 
+            : null
+            }
           <ul style={style}>
             {numbers.map((number, index) => (
               <Tile {...this.props} index={index} number={number} key={number}
@@ -221,6 +223,7 @@ const tilesStyle = {
           >
             {solved ? 'Start' : 'Restart'}
           </button>
+          
         </div>
       )
     }
