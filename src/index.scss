@@ -146,12 +146,16 @@ code {
 
 .hint-from-hat {
   position: absolute;
-  width: 40%;
-  background-color: rgba(255,255,255, 0.6);
-  margin: 5% auto;
+  width: 100%;
+  margin: auto;
   padding: 5%;
-  top: 0;
-  left: 0;
+  bottom: 6%;
+  right: 100%;
+  border-radius: 10px;
+  text-align: right;
+  color: rgb(225, 137, 66);
+  font-style: italic;
+	text-shadow: 0 0 8px #bababa;
 }
 
 .next-room-btn {

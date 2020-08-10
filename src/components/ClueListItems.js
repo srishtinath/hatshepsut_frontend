@@ -59,11 +59,22 @@ const livariants = {
     }
     }; 
 
-    const hints = ["Tess didn't have a heart attack", "Tess had some illegitimate children", "Your colleague Gael is extremely jealous of her", "Issa was stealing artifacts from my tomb to make money", "Lord Kit was threatened to be disowned by his father"]
+    const hints = ["Tess didn't have a heart attack", "Tess had some illegitimate children", "Your colleague Gael is extremely jealous of Tess", "Isra was stealing artifacts from my tomb to make money", "Lord Kit was threatened to be disowned by his father"]
 
     const [showHint, setShowHint] = useState(false)
     const renderRandomHint = () => {
         setShowHint(!showHint)   
+    }
+
+    const hintTarget = {
+        x: [0, -50, -100, -150, -100, -50, 0, 0],
+        y: [0, 20, 100, 0, -50, -15, -5, 0, 0],
+        // scale: [1, 1.5, 1],
+        transition: {
+            loop: Infinity,
+            ease: "easeOut",
+            duration: 10
+          }
     }
 
     const clueItems = useSelector(state => state.clueItems)
@@ -87,14 +98,14 @@ const livariants = {
         <br></br>
         <button className="go-home-btn" onClick={renderHome}>Home</button>
         { userRooms.length >= 1 ?
-        <button className="guess-culprit-btn" onClick={renderRandomHint}>Get a hint from Hat</button>
+        <button className="guess-culprit-btn" onClick={renderRandomHint}>{showHint ? "Close hint" : "Get a hint from Hat"}</button>
         :null
         }
 
         { showHint ? 
-        <div className="hint-from-hat">
+        <motion.div className="hint-from-hat" animate={hintTarget}>
             {hint}
-        </div>
+        </motion.div>
         : null}
 
         </>
