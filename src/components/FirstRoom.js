@@ -13,11 +13,9 @@ import { useHistory } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 
 
-import { setCurrentRoom, setCurrentCharacter, addToUserRoom, setCurrentLocation } from '../actions/room'
+import { setCurrentRoom, addToUserRoom } from '../actions/room'
 
 import Tada from 'react-reveal/Tada';
-import { CloseButton } from './CloseButton';
-
 
 function FirstRoom(props) {
 
@@ -36,16 +34,6 @@ function FirstRoom(props) {
     const currentLocation = useSelector(state => state.currentLocation)
     const allRooms = useSelector(state => state.allRooms)
     const userRooms = useSelector(state => state.userRooms)
-    
-
-    // useEffect(() => {
-    //     let parentDiv = document.getElementById("room-div-to-change")
-    //     let roomCenterX = (parentDiv.offsetWidth/2)
-    //     let roomCenterY = (parentDiv.offsetHeight/2)
-    //     setOffsetX(roomCenterX)
-    //     setOffsetY(roomCenterY)
-    //     setScale(1)
-    // }, [])
 
     useEffect(()=>{
         setLocationNumber(currentRoom.locations.length)
@@ -182,7 +170,7 @@ function FirstRoom(props) {
             console.log("Effect recorded", userRooms.length)
         } else {
             setDream(false)
-            console.log("dream set to false")
+            // console.log("dream set to false")
         }
     }, [userRooms])
 
@@ -203,12 +191,6 @@ function FirstRoom(props) {
             setNextRoom()
             setDream(false)
         })
-    }
-
-    const [showQuiz, setQuiz] = useState(false)
-
-    const closeQuiz = () => {
-        setQuiz(false)
     }
 
     const [showSliderGame, setSlider]= useState(false)
@@ -238,6 +220,20 @@ function FirstRoom(props) {
     const closeMemory = () => {
         console.log("Hello")
         setMemory(false)
+    }
+
+    const [showQuiz, setQuiz] = useState(false)
+
+    useEffect(() => {
+        if (allRooms.indexOf(currentRoom) === 7){
+            setQuiz(true)
+        } else {
+            setQuiz(false)
+        }
+    }, [currentRoom])
+
+    const closeQuiz = () => {
+        setQuiz(false)
     }
 
     return ( 
@@ -275,11 +271,15 @@ function FirstRoom(props) {
                     </div>
                 </div>
                 :null}
-                    
 
-                    {/* /* { showQuiz? 
-                <QuizContainer closeQuiz={closeQuiz}/>
-            :null} */ }
+                { showQuiz ? 
+                    <div className="modal-box">
+                        <div className="quiz-container">
+                            <QuizContainer closeQuiz={closeQuiz}/>
+                        </div>
+                    </div>
+                :null}
+
                 <div className="room-content-div">
                     { currentRoom.locations.map(loc => {
                         return ( 

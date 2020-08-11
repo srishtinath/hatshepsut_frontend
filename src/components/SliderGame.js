@@ -1,4 +1,4 @@
-import React, { Image, Component } from 'react';
+import React, { Component } from 'react';
 import {Motion, spring} from 'react-motion'
 import * as _ from 'underscore'
 import {CloseButton} from './CloseButton'

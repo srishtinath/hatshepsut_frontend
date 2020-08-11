@@ -7,7 +7,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import Flash from 'react-reveal/Flash';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 

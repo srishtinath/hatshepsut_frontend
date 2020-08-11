@@ -817,6 +817,70 @@ polygon {
   padding: 1%;
 }
 
+.quiz-container {
+  position: relative;
+  width: 60%;
+  height: 60%;
+  margin: auto;
+  padding: 1%;
+  top: 10%;
+  background-color: rgba(255,255,255, 0.6);
+}
+
+.quiz-close-btn {
+  position: absolute;
+  top: 0;
+  right: 1%;
+}
+
+#answers ul{
+  list-style-type: none;
+  padding: 0;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#answers li {
+  background-color: #fff;
+  border: 2px solid #0094da;
+  width: 40%;
+  display: flex;
+  margin: 2%;
+  padding: 1%;
+  transition: color .3s ease, border-color .3s ease, transform .3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+#answers li:after{
+  display: block;
+}
+
+#answers li:hover {
+  transform: scale(1.03);
+}
+
+
+#answers li.right {
+  border-color: #1ea55b;
+  color: #1ea55b;
+}
+
+#answers li.wrong {
+  border-color: #dc0a0a;
+  color: #dc0a0a;
+}
+
+#submit {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.quiz-content {
+  // background-color: rgba(255,255,255, 0.6);
+}
+
 button {
   background-color: rgb(228, 186, 81);
   border: none;

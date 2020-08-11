@@ -11,8 +11,8 @@ function shuffleArray(array) {
 }
 
 function generateCards(count) {
-	if (count % 2 !== 0){
-		throw "Count must be even: 2, 4, 6, etc. but it is " + count;}
+	// if (count % 2 !== 0){
+	// 	throw ("Count must be even: 2, 4, 6, etc. but it is " + count);}
 
 	const cards = shuffleArray(cardImages)
 		.slice(0, count / 2)
@@ -105,7 +105,7 @@ export default function Game(props, {fieldWidth=6, fieldHeight=3}) {
 		if (!card.canFlip)
 			return;
 
-		if ((firstCard && (card.id === firstCard.id) || (secondCard && (card.id === secondCard.id))))
+		if ((firstCard && (card.id === firstCard.id)) || (secondCard && (card.id === secondCard.id)))
 			return;
 
 		setCardIsFlipped(card.id, false);
@@ -132,7 +132,7 @@ export default function Game(props, {fieldWidth=6, fieldHeight=3}) {
 	return (
 		<>
 	<div className="game container-md">		
-	{ !gameWon ? 
+	{ gameWon ? 
 		<div className="memory-won-container">
 			<CloseButton closeBox={props.closeMemory} className="memory-close-btn"/>
 			<p>Congratulations! You may now enter...</p>

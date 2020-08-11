@@ -1,33 +1,24 @@
 import React, { Component } from 'react';
 import Quiz from './Quiz'
-import Result from './Result'
-import PropTypes from 'prop-types';
-
-import Question from './Question';
+import quizQuestions from './quizQuestions';
 
 class QuizContainer extends Component {
     constructor(props) {
         super(props);
       
         this.state = {
-          counter: 0,
-          questionId: 1,
-          question: '',
-          answerOptions: [],
-          answer: '',
-          answersCount: {},
-          result: ''
+         showQuiz: false
         };
       }
 
-    //   componentDidMount() {
-    //     const shuffledAnswerOptions = quizQuestions.map((question) => this.shuffleArray(question.answers));  
+      componentDidMount() {
+        const shuffledAnswerOptions = quizQuestions.map((question) => this.shuffleArray(question.answers));  
       
-    //     this.setState({
-    //       question: quizQuestions[0].question,
-    //       answerOptions: shuffledAnswerOptions[0]
-    //     });
-    //   }
+        this.setState({
+          question: quizQuestions[0].question,
+          answerOptions: shuffledAnswerOptions[0]
+        });
+      }
 
       shuffleArray(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
@@ -48,34 +39,33 @@ class QuizContainer extends Component {
         return array;
       };
 
+    showQuiz = () => {
+      this.setState({
+        showQuiz: true
+      })
+    }
+
 renderQuiz() {
     return (
-      <Quiz
-        answer={this.state.answer}
-        answerOptions={this.state.answerOptions}
-        questionId={this.state.questionId}
-        question={this.state.question}
-        // questionTotal={quizQuestions.length}
-        onAnswerSelected={this.handleAnswerSelected}
-      />
-    );
-  }
-  
-  renderResult() {
-    return (
-      <Result quizResult={this.state.result} />
+      <Quiz closeQuiz={this.props.closeQuiz} />
     );
   }
     render() { 
         return (
-    <div className="App">
-      <div className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h2>React Quiz</h2>
-      </div>
-      {this.state.result ? this.renderResult() : this.renderQuiz()}
-    </div>
-  );
+          <>
+          <div className="quiz-content">
+            <h2>Hatshepsut's Final Resting Place</h2>
+            <p>Answer more than 80% of questions correctly to get to the Queen's tomb...</p>
+          </div>
+          {this.state.showQuiz ? 
+          <>
+          {this.renderQuiz()}
+          </>
+          : 
+          <button onClick={this.showQuiz}>Begin!</button>
+          }
+          </>
+      );
     }
 }
  
