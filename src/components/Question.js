@@ -4,7 +4,6 @@ import Answers from './Answers'
 const Question = (props) => {
 
     const [showButton, setButton] = useState(false)
-    const [questionAnswered, setQuestionAnswered] = useState(false)
     const [question, setQuestion] = useState("")
     const [answers, setAnswers] = useState([])
     const [correct, setCorrect] = useState(0)
@@ -21,7 +20,6 @@ const Question = (props) => {
 
     const handleShowButton = () => {
         setButton(true)
-        setQuestionAnswered(true)
     }
 
     const nextQuestion = () => {
@@ -37,7 +35,7 @@ const Question = (props) => {
 
     return (
         <>
-        <h4>Question {nr} of {total}</h4>
+        <h4>Question {nr + 1} of {total}</h4>
         <h5>{question}</h5>
 
         <Answers 
@@ -45,12 +43,11 @@ const Question = (props) => {
         answers={answers} 
         correct={correct} 
         showButton={handleShowButton} 
-        isAnswered={questionAnswered} 
         increaseScore={handleIncreaseScore}/>
 
         <div id="submit">
             {showButton ? 
-            <button className="fancy-btn" onClick={nextQuestion} >{nr===total ? 'Finish quiz' : 'Next question'}</button> 
+            <button className="fancy-btn" onClick={nextQuestion} >{nr>=(total-1) ? 'Finish quiz' : 'Next question'}</button> 
             : null
             }
         </div>

@@ -9,6 +9,10 @@ function Answers(props) {
         setIsAnswered(props.isAnswered)
         setClassNames(['', '', '', ''])
     }, [])
+        
+    useEffect(() => {
+        setClassNames(['', '', '', ''])
+    }, [props.answers])
     
     const checkAnswer = (e) => {        
         if(!isAnswered) {
@@ -18,11 +22,11 @@ function Answers(props) {
             let updatedClassNames = classNames;
 
             if(answer === correct){
-                updatedClassNames[answer-1] = 'right';
+                updatedClassNames[answer] = 'right';
                 increaseScore();
             }
             else {
-                updatedClassNames[answer-1] = 'wrong';
+                updatedClassNames[answer] = 'wrong';
             }
             
             setClassNames(updatedClassNames)
@@ -34,10 +38,10 @@ function Answers(props) {
     return (
         <div id="answers">
             <ul>
-                <li onClick={checkAnswer} type="radio" className={classNames[0]} data-id="1" > {answers[0]}</li>
-                <li onClick={checkAnswer} type="radio" className={classNames[1]} data-id="2" > {answers[1]}</li>
-                <li onClick={checkAnswer} type="radio" className={classNames[2]} data-id="3" > {answers[2]}</li>
-                <li onClick={checkAnswer} type="radio" className={classNames[3]} data-id="4" > {answers[3]}</li>
+                <li onClick={checkAnswer} className={classNames[0]} data-id="0" > {answers[0]}</li>
+                <li onClick={checkAnswer} className={classNames[1]} data-id="1" > {answers[1]}</li>
+                <li onClick={checkAnswer} className={classNames[2]} data-id="2" > {answers[2]}</li>
+                <li onClick={checkAnswer} className={classNames[3]} data-id="3" > {answers[3]}</li>
             </ul>
         </div>
     );
