@@ -1,7 +1,6 @@
 import React, {useState, useEffect}from 'react';
 import { motion } from "framer-motion";
 import {useSelector} from 'react-redux'
-import Fade from 'react-reveal/Fade';
 
 
 const RandomDream =(props)=> {
@@ -13,7 +12,8 @@ const RandomDream =(props)=> {
         props.closeDream()
     }
 
-    const [chats, setChats] = useState([])
+    const [chats, setChats] = useState()
+
     useEffect(() => {
         let charId = room.character.id
         fetch(`http://localhost:3000/characters/${charId}`)
@@ -32,7 +32,31 @@ const RandomDream =(props)=> {
           }
     }
 
+    const containerVariants = {
+        start: { 
+        },
+        end: { 
+            transition: 
+            { 
+                 staggerChildren: 3
+            } 
+        }
+      }
+      
+
+      const textVariants = {
+        start: {
+            x: 500,
+            opacity: 0,
+          },
+        end: {
+            x: 0,
+            opacity: 1,
+        },
+      }
+
         return ( 
+            <>
             <div className="random-dream" style={{ backgroundImage: `url(${room.image_url})`, backgroundSize: "100%"}}>
                 <div className="random-dream-character" >
                     <motion.img 
@@ -41,19 +65,26 @@ const RandomDream =(props)=> {
                     className={room.name} 
                     animate={woman}/>
                 </div>
-                <div className="dream-state-chat">
-                    <div>{chats ? 
-                    <>
-                    {chats.map(chat => 
-                    <Fade cascade bottom>
-                        <p className="ghost-response" key={chat.id}>{chat.response}</p>
-                    </Fade>
-                    )}
-                    </>
-                     : null }</div>
+                <div className="dream-state-chat" >
+                        {chats ? 
+                        <>
+                        <motion.div variants={ containerVariants }
+                            initial={ "start" }
+                            animate={ "end" }>
+                            {chats.map((chat, i) => 
+                                    <motion.div className="ghost-response" key={i} variants={ textVariants }
+                                    >
+                                    {chat.response}</motion.div>
+                            )}
+                        </motion.div>
+                        </>
+                     : null }
                 </div>
-            <button onClick={completeDream} className="go-back-btn">Go back to exploring...</button>
             </div>
+            <div>
+                <button onClick={completeDream} className="go-back-btn">Go back to exploring...</button>
+            </div>
+            </>
          );
 }
 

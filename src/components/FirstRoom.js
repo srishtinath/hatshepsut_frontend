@@ -126,7 +126,6 @@ function FirstRoom(props) {
                     stiffness: 400,
                     damping: 60}
                 })
-                console.log(offsetX, offsetY)
         } else if (e.target.id === "close-items-btn"){
             controls.start({
                 scale: 1,
@@ -285,7 +284,6 @@ function FirstRoom(props) {
                         return ( 
                         <div key={loc.id} > 
                             <Location location={loc} closeZoom={closeZoom} toggleItems={props.toggleItems}/> 
-                            <Items location={currentLocation} /> 
                             <Character room={currentRoom} showCharacterChat={showCharacterChatMethod} zoomState={showCharacterChat}/> 
                         </div>) 
                     })} 

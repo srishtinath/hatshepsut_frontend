@@ -60,7 +60,7 @@ class Item extends Component {
                 <img src={this.props.item.image_url} alt={this.props.item.name} className="item-image"/>
             </div>
             <div className="item-overlay">
-            <p>{this.props.item.description}</p>
+            {/* <p>{this.props.item.description}</p> */}
             <button 
             onClick={(event) => this.handleAddToNotepad(this.props.item.id)} 
             className="add-notepad-btn"

@@ -83,11 +83,11 @@ class GuessCulprit extends Component {
                 </>
                 : 
                 <>
-                { this.state.showWrong ? 
-                <WrongAnswer handleWrong={this.handleWrong} guesses={this.state.numberOfGuesses}/>
-                :
-                <RightAnswer />
-                }
+                    { this.state.showWrong ? 
+                        <WrongAnswer handleWrong={this.handleWrong} guesses={this.state.numberOfGuesses}/>
+                    :
+                        <RightAnswer />
+                    }
             </>
             }
             </div>
