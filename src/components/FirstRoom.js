@@ -93,7 +93,7 @@ function FirstRoom(props) {
     }
 
     const addUserRoomState = () => {
-        fetch("http://hatshepsut.herokuapp.com/user_rooms", {
+        fetch("https://hatshepsut.herokuapp.com/user_rooms", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -194,7 +194,7 @@ function FirstRoom(props) {
     const controls = useAnimation()
 
     const handleDreamComplete = () => {
-        fetch("http://hatshepsut.herokuapp.com/user_rooms", {
+        fetch("https://hatshepsut.herokuapp.com/user_rooms", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

@@ -16,7 +16,7 @@ const RandomDream =(props)=> {
 
     useEffect(() => {
         let charId = room.character.id
-        fetch(`http://hatshepsut.herokuapp.com/characters/${charId}`)
+        fetch(`https://hatshepsut.herokuapp.com/characters/${charId}`)
         .then(r=> r.json())
         .then(fetchedCharacter => setChats(fetchedCharacter.chats))
     }, [])

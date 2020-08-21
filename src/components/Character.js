@@ -16,7 +16,7 @@ const Character = (props) => {
         console.log(e.target.classList)
 
         if (!zoomState){
-            fetch(`http://hatshepsut.herokuapp.com/characters/${room.character.id}`)
+            fetch(`https://hatshepsut.herokuapp.com/characters/${room.character.id}`)
             .then(r => r.json())
             .then(characterFetched => {
                 dispatch(setCurrentCharacter(characterFetched))

@@ -22,7 +22,7 @@ class App extends Component {
 
   componentDidMount(){
     if (localStorage.token){
-      fetch("http://hatshepsut.herokuapp.com/users/stay_logged_in", {
+      fetch("https://hatshepsut.herokuapp.com/users/stay_logged_in", {
         headers: {
           "Authorization": localStorage.token
         }
@@ -30,17 +30,17 @@ class App extends Component {
       .then(r => r.json())
       .then(this.handleLoginResponse)
     }
-      fetch("http://hatshepsut.herokuapp.com/characters")
+      fetch("https://hatshepsut.herokuapp.com/characters")
       .then(r=> r.json())
       .then(charactersFetched => this.props.setAllCharacters(charactersFetched))
       
-      fetch("http://hatshepsut.herokuapp.com/rooms")
+      fetch("https://hatshepsut.herokuapp.com/rooms")
       .then(r=> r.json())
       .then(roomsFetched => this.props.setAllRooms(roomsFetched))
 }
   handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
-    fetch("http://hatshepsut.herokuapp.com/users/login", {
+    fetch("https://hatshepsut.herokuapp.com/users/login", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -53,7 +53,7 @@ class App extends Component {
 
   handleRegisterSubmit = (userInfo) => {
     console.log("Register form has been submitted")
-    fetch("http://hatshepsut.herokuapp.com/users", {
+    fetch("https://hatshepsut.herokuapp.com/users", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
