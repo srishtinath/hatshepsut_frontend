@@ -29,7 +29,7 @@ const variants = {
 let entryId = useSelector(state => state.cluelistId)
 const dispatch = useDispatch()
 const handleRemoveFromNotepad = (item) => {
-        fetch(`http://hatshepsut.herokuapp.com/clue_lists/${entryId}/deleteItem/${item.id}`, {
+        fetch(`https://hatshepsut.herokuapp.com/clue_lists/${entryId}/deleteItem/${item.id}`, {
             method: "DELETE",
             headers: {
                 "content-type":"application/json",
