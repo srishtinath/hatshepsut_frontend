@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/hatshepsut_frontend/precache-manifest.ce8d6215f37f8eb286319cf1ed4beee9.js"
+  "/hatshepsut_frontend/precache-manifest.a9711118b348ddc095b5570384bb49df.js"
 );
 
 self.addEventListener('message', (event) => {
