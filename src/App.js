@@ -149,7 +149,7 @@ class App extends Component {
               <Route path="/login" render={this.renderForm} />
               <Route path="/register" render={this.renderForm} />
               <Route path="/guess" render={this.renderGuess} />
-              {/* <Route render={this.renderHome} /> */}
+              <Route render={this.renderWelcome} />
           </Switch>
           </div>
           { this.state.token ? 
