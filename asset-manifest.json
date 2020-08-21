@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/hatshepsut_frontend/static/css/main.b2f999cd.chunk.css",
+    "main.js": "/hatshepsut_frontend/static/js/main.9ded1b87.chunk.js",
+    "main.js.map": "/hatshepsut_frontend/static/js/main.9ded1b87.chunk.js.map",
+    "runtime-main.js": "/hatshepsut_frontend/static/js/runtime-main.cc4a120d.js",
+    "runtime-main.js.map": "/hatshepsut_frontend/static/js/runtime-main.cc4a120d.js.map",
+    "static/css/2.9b633cd0.chunk.css": "/hatshepsut_frontend/static/css/2.9b633cd0.chunk.css",
+    "static/js/2.93d507b9.chunk.js": "/hatshepsut_frontend/static/js/2.93d507b9.chunk.js",
+    "static/js/2.93d507b9.chunk.js.map": "/hatshepsut_frontend/static/js/2.93d507b9.chunk.js.map",
+    "index.html": "/hatshepsut_frontend/index.html",
+    "precache-manifest.ce8d6215f37f8eb286319cf1ed4beee9.js": "/hatshepsut_frontend/precache-manifest.ce8d6215f37f8eb286319cf1ed4beee9.js",
+    "service-worker.js": "/hatshepsut_frontend/service-worker.js",
+    "static/css/2.9b633cd0.chunk.css.map": "/hatshepsut_frontend/static/css/2.9b633cd0.chunk.css.map",
+    "static/css/main.b2f999cd.chunk.css.map": "/hatshepsut_frontend/static/css/main.b2f999cd.chunk.css.map",
+    "static/js/2.93d507b9.chunk.js.LICENSE.txt": "/hatshepsut_frontend/static/js/2.93d507b9.chunk.js.LICENSE.txt",
+    "static/media/GrimReaper.png": "/hatshepsut_frontend/static/media/GrimReaper.826cf585.png",
+    "static/media/Room1Lantern.png": "/hatshepsut_frontend/static/media/Room1Lantern.901421c1.png",
+    "static/media/Room1WallInset.png": "/hatshepsut_frontend/static/media/Room1WallInset.1802c80e.png",
+    "static/media/Room5Jar.png": "/hatshepsut_frontend/static/media/Room5Jar.e065e669.png",
+    "static/media/Room5Sand.png": "/hatshepsut_frontend/static/media/Room5Sand.ed250bbf.png",
+    "static/media/Room7Statue.png": "/hatshepsut_frontend/static/media/Room7Statue.cd17d816.png",
+    "static/media/Room8CanopicJar.png": "/hatshepsut_frontend/static/media/Room8CanopicJar.cae02807.png",
+    "static/media/Room8Vase.png": "/hatshepsut_frontend/static/media/Room8Vase.3e97e404.png",
+    "static/media/Slider0.png": "/hatshepsut_frontend/static/media/Slider0.d72ade6b.png",
+    "static/media/Slider1.png": "/hatshepsut_frontend/static/media/Slider1.bb5cf300.png",
+    "static/media/Slider2.png": "/hatshepsut_frontend/static/media/Slider2.121bc14a.png",
+    "static/media/Slider3.png": "/hatshepsut_frontend/static/media/Slider3.0220c472.png",
+    "static/media/Slider4.png": "/hatshepsut_frontend/static/media/Slider4.235de23c.png",
+    "static/media/Slider5.png": "/hatshepsut_frontend/static/media/Slider5.e5ac9150.png",
+    "static/media/Slider6.png": "/hatshepsut_frontend/static/media/Slider6.aff708a0.png",
+    "static/media/Slider7.png": "/hatshepsut_frontend/static/media/Slider7.8edfbd9d.png",
+    "static/media/slick-theme.css": "/hatshepsut_frontend/static/media/slick.f97e3bbf.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cc4a120d.js",
+    "static/css/2.9b633cd0.chunk.css",
+    "static/js/2.93d507b9.chunk.js",
+    "static/css/main.b2f999cd.chunk.css",
+    "static/js/main.9ded1b87.chunk.js"
+  ]
+}
