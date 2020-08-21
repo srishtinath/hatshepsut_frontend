@@ -32,3 +32,10 @@ export let removeItemFromClueList = (itemObject) => {
     payload: itemObject
   }
 }
+
+export let addResponseToChatHistory = (chatOption) => {
+  return {
+    type: "ADD_CHAT",
+    payload: chatOption
+  }
+}

@@ -884,6 +884,16 @@ polygon {
   // background-color: rgba(255,255,255, 0.6);
 }
 
+.oasis-box {
+  position: absolute;
+  border-style: dashed;
+  height: 100px;
+  width: 100px;
+  right: 2%;
+  cursor: pointer;
+  // top: 50%;
+}
+
 button {
   background-color: rgb(228, 186, 81);
   border: none;

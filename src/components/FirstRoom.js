@@ -26,14 +26,15 @@ function FirstRoom(props) {
     const [clickCount, setClickCount] = useState(0)
     const [showDream, setDream] = useState(false)
     const [handleZoom, setZoom] = useState(false)
+    const [showOasis, setOasis] = useState(false)
 
     const dispatch = useDispatch()
     let history = useHistory()
     const currentRoom = useSelector(state => state.currentRoom)
     const currentUser = useSelector(state => state.currentUser)
-    const currentLocation = useSelector(state => state.currentLocation)
     const allRooms = useSelector(state => state.allRooms)
     const userRooms = useSelector(state => state.userRooms)
+    const chatHistory = useSelector(state => state.chatHistory)
 
     useEffect(()=>{
         setLocationNumber(currentRoom.locations.length)
@@ -59,6 +60,23 @@ function FirstRoom(props) {
         }
     }, [clickCount])
     
+    useEffect(()=> {
+        // if (allRooms.indexOf(currentRoom) === 2){
+        //     setOasis(true)
+        // } else {
+        //     setOasis(false)
+        // }
+        if (allRooms.indexOf(currentRoom) === 2 && chatHistory.includes("I would love for you to lead the way, Miss Hassan.")) {
+            setOasis(true)
+        } else {
+            setOasis(false)
+        }
+        
+    }, [chatHistory, currentRoom])
+
+    const animateOasis = (e) => {
+        console.log("Oasis was clicked")
+    }
 
     const handleRoomComplete = (e) => {
         console.log(userRooms.length)
@@ -278,6 +296,13 @@ function FirstRoom(props) {
                         </div>
                     </div>
                 :null}
+
+                { showOasis ? 
+                    <div className="oasis-box" onClick={animateOasis}>
+                        This is where there's a secret oasis...
+                    </div>
+                    : null
+                }
 
                 <div className="room-content-div">
                     { currentRoom.locations.map(loc => {

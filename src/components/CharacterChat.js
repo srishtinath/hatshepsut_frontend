@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {useSelector } from 'react-redux'
+import {useSelector, useDispatch } from 'react-redux'
 import Fade from 'react-reveal/Fade';
 import Bounce from 'react-reveal/Bounce';
+
+import { addResponseToChatHistory } from '../actions/cluelist'
 
 
 
@@ -22,6 +24,7 @@ function CharacterChat(props) {
         setChatHistory([["response", sortedChatsArray[chatIndex].response]])
     }, [character.chats])
 
+    const dispatch = useDispatch()
 
     const handleChatResponse = (option) => {
         let changedHistory = chatHistory
@@ -36,6 +39,7 @@ function CharacterChat(props) {
             setChatOptions({})
         }
         setChatHistory(changedHistory)
+        dispatch(addResponseToChatHistory(option.text))
     }
 
     return ( 
