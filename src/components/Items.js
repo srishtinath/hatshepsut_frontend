@@ -12,11 +12,11 @@ const Items = () => {
             <>
             {/* <p align="center">{currentLocation.name}</p> */}
             {items ? 
-            <>
+            <div className="item-container">
             {items.map(item => 
                 < Item item = {item} key={item.id}/>
                 )}
-            </>
+            </div>
             : null}
             </>
          );

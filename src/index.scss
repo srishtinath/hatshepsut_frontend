@@ -516,29 +516,39 @@ polygon {
   grid-template-rows: auto;
 }
 
-.item-div {
+.item-container {
   position: relative;
-  width: 80%;
-  height: 80%;
-  padding: 2%;
-  top: 30%;
-  display: grid;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
-.item-div:hover .item-overlay {
+.item-card {
+  position: relative;
+  width: 100px;
+  height: 80%;
+  top: 5%;
+  padding: 2%;
+  margin: 1%;
+  display: grid;
+  background-color: rgba(255,255,255, 0.6);
+  border-radius: 3px;
+}
+
+.item-card:hover .item-overlay {
   opacity: 0.9;
 }
 .item-image {
   max-width: 80%;
-  max-height: 80%;
+  // max-height: 80%;
   margin: auto;
 }
 
 .item-overlay {
   grid-column: 1;
   grid-row: 1;
-  height: 80%;
-  width: 80%;
+  // height: 80%;
+  // width: 80%;
   opacity: 0;
   transition: .5s ease;
   text-align: center;
@@ -549,8 +559,8 @@ polygon {
   position: relative;
   grid-column: 1;
   grid-row: 1;
-  height: 100%;
-  width: 100%;
+  // height: 100%;
+  // width: 100%;
   text-align: center;
 }
 
@@ -565,14 +575,8 @@ polygon {
 .location-image {
   opacity: 1;
   filter: drop-shadow(9px 9px 9px rgba(0,0,0,0.6));
-  // filter: url(shadow.svg#drop-shadow);
 }
 
-// .shadowfilter {
-// 	-webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
-// 	drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
-// 	// filter: url(shadow.svg#drop-shadow);
-// }
 
 .location-image-invisible {
   opacity: 0;
@@ -606,7 +610,6 @@ polygon {
   flex-direction: row;
   width: 50%;
   height: 50%;
-  overflow-y: scroll;
   margin: auto;
   padding: auto;
   z-index: 6;
@@ -893,13 +896,17 @@ polygon {
 
 .oasis-box {
   position: absolute;
-  border-style: dashed;
   height: 100px;
   width: 100px;
-  right: 2%;
+  right: 25%;
+  top: 75%;
+  text-align: center;
   cursor: pointer;
-  opacity: 0;
-  top: 50%;
+}
+
+.oasis-image {
+  position: relative;
+  width: 150%;
 }
 
 button {

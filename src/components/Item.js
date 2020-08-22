@@ -55,9 +55,10 @@ class Item extends Component {
 
     render() { 
         return ( 
-        <div key={this.props.item.id} className="item-div">
+        <div key={this.props.item.id} className="item-card">
             <div className="item-underlay">
                 <img src={this.props.item.image_url} alt={this.props.item.name} className="item-image"/>
+                <p>{this.props.item.name}</p>
             </div>
             <div className="item-overlay">
             <p>{this.props.item.description}</p>

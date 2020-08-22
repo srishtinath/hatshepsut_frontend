@@ -67,7 +67,7 @@ class App extends Component {
 
   handleLoginResponse = (resp) => {
     if (resp.message){
-      console.log(resp.message)
+      alert(resp.message)
     } else {
       localStorage.token = resp.token
       localStorage.cluelistId = resp.user.clue_list.id

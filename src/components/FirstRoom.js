@@ -70,6 +70,7 @@ function FirstRoom(props) {
 
     const animateOasis = (e) => {
         console.log("Oasis was clicked")
+        setOasis(!showOasis)
     }
 
     const handleRoomComplete = (e) => {
@@ -241,6 +242,15 @@ function FirstRoom(props) {
         setQuiz(false)
     }
 
+    const oasisVariants = {
+        scale: [1, 1.15, 1],
+        transition: {
+            loop: Infinity,
+            ease: "easeOut"
+        }
+    }
+
+
     return ( 
         <div className="character-content" >
             { showDream ? 
@@ -285,12 +295,15 @@ function FirstRoom(props) {
                     </div>
                 :null}
 
-                { showOasis ? 
-                    <div className="oasis-box" onClick={animateOasis}>
-                        This is where there's a secret oasis...
-                    </div>
-                    : null
-                }
+                <div className="oasis-box" onClick={animateOasis}>
+                    { showOasis ? 
+                        <motion.img
+                        animate={oasisVariants}
+                        src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1596059262/Room2-New/Room2_Oasis_jcxx8m.png" 
+                        className="oasis-image"/>
+                        : null
+                    }
+                </div>
 
                 <div className="room-content-div">
                     { currentRoom.locations.map(loc => {
