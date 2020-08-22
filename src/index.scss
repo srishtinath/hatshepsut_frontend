@@ -563,8 +563,7 @@ polygon {
 }
 
 .location-image {
-  width: 25%;
-  z-index: 2;
+  opacity: 1;
 }
 
 .location-image-invisible {
@@ -1007,9 +1006,18 @@ button:hover {
 .memory-won-container {
   position: absolute;
   width: 85%;
+  height: 60%;
   top: 0;
   left: 0;
   text-align: center;
+}
+
+.memory-won-text {
+  position: relative;
+  width: 80%;
+  height: 50%;
+  margin: auto;
+  margin-top: 10%;
 }
 
 .memory-intro {

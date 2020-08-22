@@ -132,10 +132,10 @@ export default function Game(props, {fieldWidth=6, fieldHeight=3}) {
 	return (
 		<>
 	<div className="game container-md">		
-	{ gameWon ? 
+	{ !gameWon ? 
 		<div className="memory-won-container">
 			<CloseButton closeBox={props.closeMemory} className="memory-close-btn"/>
-			<p>Congratulations! You may now enter...</p>
+			<p className="memory-won-text">Congratulations! You may now enter...</p>
 		</div>
 		:
 		<> 
