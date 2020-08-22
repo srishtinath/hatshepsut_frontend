@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import RightAnswer from './RightAnswer'
 import WrongAnswer from './WrongAnswer'
 
+import {removeUserRoom} from '../actions/room'
+
 class GuessCulprit extends Component {
     
     state = { 
@@ -20,12 +22,9 @@ class GuessCulprit extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log('You have selected:', this.state.choice)
         this.setState({
             showForm: false,
         })
-        // if wrong
-        console.log(e.target.value)
         if (this.state.choice !== "Riccardo Bonardi"){
             this.setState({
                 numberOfGuesses: this.state.numberOfGuesses + 1
@@ -52,7 +51,13 @@ class GuessCulprit extends Component {
             numberOfGuesses: 0,
             showForm: true
         })
-        // need to remove all user associations
+
+        fetch(`http://localhost:3000/users/wrongGuess/${this.props.currentUser.id}`)
+        .then(r => r.json())
+        .then(message => {
+            console.log(message)
+            this.props.removeUserRoom()
+        })
     }
 
     handleChange = (e) => {
@@ -95,10 +100,15 @@ class GuessCulprit extends Component {
     }
 }
 
+let mapDispatchToProps = {
+    removeUserRoom
+}
+
 let mapStateToProps = (state) => {
     return {
-        allCharacters: state.allCharacters
+        allCharacters: state.allCharacters,
+        currentUser: state.currentUser
     }
 }
  
-export default connect(mapStateToProps)(withRouter(GuessCulprit));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(GuessCulprit));

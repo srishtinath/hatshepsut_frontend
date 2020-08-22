@@ -564,7 +564,15 @@ polygon {
 
 .location-image {
   opacity: 1;
+  filter: drop-shadow(9px 9px 9px rgba(0,0,0,0.6));
+  // filter: url(shadow.svg#drop-shadow);
 }
+
+// .shadowfilter {
+// 	-webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+// 	drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+// 	// filter: url(shadow.svg#drop-shadow);
+// }
 
 .location-image-invisible {
   opacity: 0;

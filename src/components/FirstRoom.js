@@ -6,7 +6,6 @@ import RandomDream from './RandomDream'
 import QuizContainer from './QuizContainer'
 import SliderGame from './SliderGame'
 import MemoryGame from './MemoryGame'
-import Items from './Items'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
@@ -61,11 +60,6 @@ function FirstRoom(props) {
     }, [clickCount])
     
     useEffect(()=> {
-        // if (allRooms.indexOf(currentRoom) === 2){
-        //     setOasis(true)
-        // } else {
-        //     setOasis(false)
-        // }
         if (allRooms.indexOf(currentRoom) === 2 && chatHistory.includes("I would love for you to lead the way, Miss Hassan.")) {
             setOasis(true)
         } else {
@@ -79,7 +73,7 @@ function FirstRoom(props) {
     }
 
     const handleRoomComplete = (e) => {
-        console.log(userRooms.length)
+        // console.log(userRooms.length)
         let allRoomIds = userRooms.map(roomObj => roomObj.room_id)
         if (!allRoomIds.includes(currentRoom.id)){
             addUserRoomState()
@@ -93,7 +87,7 @@ function FirstRoom(props) {
     }
 
     const addUserRoomState = () => {
-        fetch("https://hatshepsut.herokuapp.com/user_rooms", {
+        fetch("http://localhost:3000/user_rooms", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -125,8 +119,6 @@ function FirstRoom(props) {
 
     const lastRoom = allRooms[allRooms.length-1]
 
-    
-    
     const handlePotentialZoom = (e) => {
         if (e.target.className === "location-image-invisible"){
             let parentDiv = document.getElementById("room-div-to-change")
@@ -163,7 +155,6 @@ function FirstRoom(props) {
         } else {
             setZoom(false)
         }
-        // console.log(props.zoomState, "PROPS ZOOMSTATE")
     }, [props.zoomState])
 
     useEffect(() =>  {
@@ -178,23 +169,20 @@ function FirstRoom(props) {
                     damping: 60}
             })
         }
-        // console.log(handleZoom, "HANDLEZOOM")
     }, [handleZoom])
 
     useEffect(() => {
         if (userRooms.length === 1){
             setDream(true)
-            console.log("Effect recorded", userRooms.length)
         } else {
             setDream(false)
-            // console.log("dream set to false")
         }
     }, [userRooms])
 
     const controls = useAnimation()
 
     const handleDreamComplete = () => {
-        fetch("https://hatshepsut.herokuapp.com/user_rooms", {
+        fetch("http://localhost:3000/user_rooms", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

@@ -22,7 +22,7 @@ class App extends Component {
 
   componentDidMount(){
     if (localStorage.token){
-      fetch("https://hatshepsut.herokuapp.com/users/stay_logged_in", {
+      fetch("http://localhost:3000/users/stay_logged_in", {
         headers: {
           "Authorization": localStorage.token
         }
@@ -30,17 +30,17 @@ class App extends Component {
       .then(r => r.json())
       .then(this.handleLoginResponse)
     }
-      fetch("https://hatshepsut.herokuapp.com/characters")
+      fetch("http://localhost:3000/characters")
       .then(r=> r.json())
       .then(charactersFetched => this.props.setAllCharacters(charactersFetched))
       
-      fetch("https://hatshepsut.herokuapp.com/rooms")
+      fetch("http://localhost:3000/rooms")
       .then(r=> r.json())
       .then(roomsFetched => this.props.setAllRooms(roomsFetched))
 }
   handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
-    fetch("https://hatshepsut.herokuapp.com/users/login", {
+    fetch("http://localhost:3000/users/login", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -53,7 +53,7 @@ class App extends Component {
 
   handleRegisterSubmit = (userInfo) => {
     console.log("Register form has been submitted")
-    fetch("https://hatshepsut.herokuapp.com/users", {
+    fetch("http://localhost:3000/users", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -116,9 +116,7 @@ class App extends Component {
           <Home logoutUser={this.logoutUser}/>
     )
     } else {
-      this.props.history.push("/login")
-      console.log("boo")
-      // alert login
+        this.props.history.push("/login")
     }
   }
 

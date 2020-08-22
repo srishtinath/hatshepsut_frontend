@@ -87,6 +87,12 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         chatHistory: [...state.chatHistory, action.payload]
       }
+
+    case "REMOVE_ALL_USER_ROOMS":
+      return {
+        ...state,
+        userRooms: []
+      }  
     default: 
       return state
   }
