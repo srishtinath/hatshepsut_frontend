@@ -55,7 +55,7 @@ useEffect(()=> {
                 <p>You got: <strong>{score}</strong> out of <strong>{total}</strong> questions right.</p>
                 { wonQuiz ?
                 <>
-                    <p>Congratulations! You got more than 80 percent of questions correct!</p>
+                    <p>Congratulations! You got at least 80 percent of questions correct!</p>
                     <CloseButton closeBox={props.closeQuiz} className="quiz-close-btn"/>
                 </>
                 : 

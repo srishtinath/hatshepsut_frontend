@@ -24,11 +24,27 @@ class GuessCulprit extends Component {
         e.preventDefault();
         this.setState({
             showForm: false,
+            choice: ""
         })
-        if (this.state.choice !== "Riccardo Bonardi"){
+        if (this.state.choice !== "Riccardo Bonardi" && this.state.numberOfGuesses < 2){
             this.setState({
                 numberOfGuesses: this.state.numberOfGuesses + 1
             })
+        } else if (this.state.numberOfGuesses === 2){
+            if (window.confirm("Are you sure you want to submit? This is your last guess.")){
+                if(this.state.choice !== "Riccardo Bonardi"){
+                    this.resetGame()
+                    this.props.history.push('/home')
+                } else {
+                    this.setState({
+                        showWrong: false
+                    })
+                }
+            } else {
+                this.setState({
+                    showForm: true
+                })
+            }
         } else {
             this.setState({
                 showWrong: false
@@ -65,21 +81,21 @@ class GuessCulprit extends Component {
     }
 
     render() { 
-        let filteredCharacters = this.props.allCharacters.filter(char => char.display === true)
+        let characterChoices = ["Atif Mostafa", "Lord Kit Sharp", "Lady Amelia Sharp", "Gael Vergara", "Isra Hassan", "Riccardo Bonardi", "No one", "Queen Hatshepsut", "Masud Deeb"]
         return ( 
             <div className="home-content">
             {this.state.showForm ? 
             <>
                 <form onSubmit={this.handleSubmit}>
-                    <label>So... who do you think did it? <br></br>You have 3 chances to guess correctly. If you're wrong... you have to start your journey all over again.</label>
-                            {filteredCharacters.map(character => 
+                    <label><h2>So... who do you think did it?</h2> <p>You have 3 chances to guess correctly. If you're wrong... you have to start your journey all over again.</p></label>
+                            {characterChoices.map(character => 
                                 <p key={character.id}>
                                 <input name="character" 
                                 type="radio" 
-                                value={character.name} 
+                                value={character} 
                                 onChange={this.handleChange} 
-                                checked={this.state.choice === character.name}/>
-                                <label>{character.name}</label>
+                                checked={this.state.choice === character}/>
+                                <label>{character}</label>
                                 </p>
                                 )}
                     <button type="submit"> Guess</button>

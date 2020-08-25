@@ -195,7 +195,6 @@ function FirstRoom(props) {
             })
         }).then(r => r.json())
         .then((userRoomObj) => {
-            setNextRoom()
             setDream(false)
         })
     }

@@ -4,12 +4,18 @@ import Confetti from 'react-confetti'
 
 const RightAnswer = () => {
     return ( 
-        <div>
+        <div className="right-answer">
             <Confetti
             numberOfPieces={200}
-            // onConfettiComplete={null}
             />
+            <div className="right-text">            
             <h1>Right Answer!</h1>
+            <p>Congratulations! You figured it out! The ghost of Professor Tess Ali, 
+                your friend, lover, confidant in this journey can now be laid to rest.</p>
+            <p>How did he do it?</p>
+            <p>What will happen to the treasure now?</p>
+            <p>The fate of the rest...</p>
+            </div>
         </div>
      );
 }

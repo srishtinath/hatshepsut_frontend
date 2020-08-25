@@ -12,7 +12,7 @@ export default [
     },    
     {
         question: "What architectural marvel is she best known for?",
-        answers: ['Giza', 'Valley of Kings', 'Deir el-Bahri', 'Temple of Karnak'],
+        answers: ['Pyramids of Giza', 'Valley of Kings', 'Deir el-Bahri\'s Djeser Djeseru', 'Temple of Karnak'],
         correct: 2
     },    
     {
