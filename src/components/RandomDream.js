@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 const RandomDream =(props)=> {
     
     const allRooms = useSelector(state => state.allRooms)
-    const room=allRooms[1]
+    const room=allRooms[2]
 
     const completeDream = () => {
         props.closeDream()
@@ -38,7 +38,7 @@ const RandomDream =(props)=> {
         end: { 
             transition: 
             { 
-                 staggerChildren: 3
+                 staggerChildren: 1.75
             } 
         }
       }
@@ -53,6 +53,18 @@ const RandomDream =(props)=> {
             x: 0,
             opacity: 1,
         },
+      }
+
+      const buttonAnimate = {
+          invisible: {
+              opacity: 0,
+          },
+          visible: {
+          opacity: 1,
+          transition: {
+            delay: 5,
+            duration: 5,
+          }}
       }
 
         return ( 
@@ -72,18 +84,18 @@ const RandomDream =(props)=> {
                             initial={ "start" }
                             animate={ "end" }>
                             {chats.map((chat, i) => 
-                                    <motion.div className="ghost-response" key={i} variants={ textVariants }
+                                    <motion.p className="ghost-response" key={i} variants={ textVariants }
                                     >
-                                    {chat.response}</motion.div>
+                                    {chat.response}</motion.p>
                             )}
                         </motion.div>
                         </>
                      : null }
                 </div>
             </div>
-            <div>
-                <button onClick={completeDream} className="go-back-btn">Go back to exploring...</button>
-            </div>
+            <motion.div variants={buttonAnimate} initial={"invisible"} animate={"visible"}>
+                <button onClick={completeDream} className="go-back-btn" >Go back to exploring...</button>
+            </motion.div>
             </>
          );
 }

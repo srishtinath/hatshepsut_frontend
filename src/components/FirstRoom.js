@@ -25,6 +25,7 @@ function FirstRoom(props) {
     const [clickCount, setClickCount] = useState(0)
     const [showDream, setDream] = useState(false)
     const [handleZoom, setZoom] = useState(false)
+    const [allowShowOasis, setOasisShow] = useState(false)
     const [showOasis, setOasis] = useState(false)
 
     const dispatch = useDispatch()
@@ -60,10 +61,10 @@ function FirstRoom(props) {
     }, [clickCount])
     
     useEffect(()=> {
-        if (allRooms.indexOf(currentRoom) === 2 && chatHistory.includes("I would love for you to lead the way, Miss Hassan.")) {
-            setOasis(true)
+        if (allRooms.indexOf(currentRoom) === 1 && chatHistory.includes("I would love for you to lead the way, Miss Hassan.")) {
+            setOasisShow(true)
         } else {
-            setOasis(false)
+            setOasisShow(false)
         }
         
     }, [chatHistory, currentRoom])
@@ -173,7 +174,7 @@ function FirstRoom(props) {
     }, [handleZoom])
 
     useEffect(() => {
-        if (userRooms.length === 1){
+        if (userRooms.length === 2){
             setDream(true)
         } else {
             setDream(false)
@@ -190,7 +191,7 @@ function FirstRoom(props) {
             }, 
             body: JSON.stringify({
                 user_id: currentUser.id,
-                room_id: allRooms[1].id
+                room_id: allRooms[2].id
             })
         }).then(r => r.json())
         .then((userRoomObj) => {
@@ -295,6 +296,8 @@ function FirstRoom(props) {
                     </div>
                 :null}
 
+                {allowShowOasis ? 
+                
                 <div className="oasis-box" onClick={animateOasis}>
                     { showOasis ? 
                         <motion.img
@@ -304,6 +307,7 @@ function FirstRoom(props) {
                         : null
                     }
                 </div>
+                : null}
 
                 <div className="room-content-div">
                     { currentRoom.locations.map(loc => {
