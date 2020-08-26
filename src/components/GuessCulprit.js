@@ -108,7 +108,7 @@ class GuessCulprit extends Component {
                         
                         <div className="char-description">
                         </div>
-                        <div className="set-char">
+                        <div className="guess-char">
                         {characterGuesses.map(character => 
                         <div key={character.name} className="guess-char-img-div">
                             <img 

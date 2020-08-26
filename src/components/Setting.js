@@ -36,7 +36,7 @@ class Setting extends Component {
           };
 
         const allCharacters = this.props.allCharacters
-        let displayCharacters = allCharacters.filter(char => char.display === true)
+        const displayCharacters = allCharacters.filter(char => char.display === true)
         return ( 
             <div className="setting">
                 <Slider {...settings}>
@@ -101,9 +101,9 @@ class Setting extends Component {
                 <div className="slide4">
                     <div className="slide4-slidecontent">
                         <h2>The next morning... </h2>
-                            <Zoom forever={true} duration={3000}>
-                                <img src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1596066219/Hatshepsut/GrimReaper_hyw0vt.png" alt="grim-reaper" className="grim-reaper" />
-                            </Zoom>
+                        <Zoom forever={true} duration={3000}>
+                            <img src="https://res.cloudinary.com/dqtw2xfuf/image/upload/v1596066219/Hatshepsut/GrimReaper_hyw0vt.png" alt="grim-reaper" className="grim-reaper" />
+                        </Zoom>
                         <Slide top cascade duration={6000}>
                         <ul>
                             <li>Atif, the Egyptian guide who had been helping you translate some of the symbols you found and serving as a liaison with the locals, woke you up frantically.</li>
