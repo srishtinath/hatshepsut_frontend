@@ -19,7 +19,7 @@ class Item extends Component {
 
     handleAddToNotepad = (itemId) => {
         console.log(this.props.cluelistId)
-        fetch(`http://localhost:3000/item_clue_lists/`, {
+        fetch(`https://hatshepsut.herokuapp.com//item_clue_lists/`, {
             method: "POST",
             headers: {
                 "content-type":"application/json",

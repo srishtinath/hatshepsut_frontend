@@ -15,23 +15,21 @@ function Answers(props) {
     }, [props.answers])
     
     const checkAnswer = (e) => {        
-        if(!isAnswered) {
-            let elem = e.currentTarget;
-            let { correct, increaseScore } = props;
-            let answer = Number(elem.dataset.id);
-            let updatedClassNames = classNames;
+        let elem = e.target;
+        let { correct, increaseScore } = props;
+        let answer = Number(elem.dataset.id);
+        let updatedClassNames = classNames;
 
-            if(answer === correct){
-                updatedClassNames[answer] = 'right';
-                increaseScore();
-            }
-            else {
-                updatedClassNames[answer] = 'wrong';
-            }
-            
-            setClassNames(updatedClassNames)
-            props.showButton();
+        if(answer === correct){
+            updatedClassNames[answer] = 'right';
+            increaseScore();
         }
+        else {
+            updatedClassNames[answer] = 'wrong';
+        }
+        
+        setClassNames(updatedClassNames)
+        props.showButton();
     }
     
     const { answers } = props;        

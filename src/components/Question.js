@@ -45,6 +45,8 @@ const Question = (props) => {
         showButton={handleShowButton} 
         increaseScore={handleIncreaseScore}/>
 
+        {/* send props isAnswered to answers?? */}
+
         <div id="submit">
             {showButton ? 
             <button className="fancy-btn" onClick={nextQuestion} >{nr>=(total-1) ? 'Finish quiz' : 'Next question'}</button> 

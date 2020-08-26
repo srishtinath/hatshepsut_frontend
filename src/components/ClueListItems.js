@@ -5,16 +5,18 @@ import { removeItemFromClueList } from '../actions/cluelist'
 import { useHistory } from "react-router-dom";
 
 
-export const ClueListItems = () => {
+export const ClueListItems = (props) => {
 let history = useHistory();
 
 
 const guessCulprit = (e) => {
     history.push('/guess')
+    props.closeMenu()
 }
 
 const renderHome = (e) => {
     history.push('/home')
+    props.closeMenu()
 }
 
 const variants = {
@@ -29,7 +31,7 @@ const variants = {
 let entryId = useSelector(state => state.cluelistId)
 const dispatch = useDispatch()
 const handleRemoveFromNotepad = (item) => {
-        fetch(`http://localhost:3000/clue_lists/${entryId}/deleteItem/${item.id}`, {
+        fetch(`https://hatshepsut.herokuapp.com//clue_lists/${entryId}/deleteItem/${item.id}`, {
             method: "DELETE",
             headers: {
                 "content-type":"application/json",

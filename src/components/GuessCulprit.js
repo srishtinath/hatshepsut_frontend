@@ -68,7 +68,7 @@ class GuessCulprit extends Component {
             showForm: true
         })
 
-        fetch(`http://localhost:3000/users/wrongGuess/${this.props.currentUser.id}`)
+        fetch(`https://hatshepsut.herokuapp.com//users/wrongGuess/${this.props.currentUser.id}`)
         .then(r => r.json())
         .then(message => {
             console.log(message)

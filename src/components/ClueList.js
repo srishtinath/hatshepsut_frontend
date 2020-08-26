@@ -34,6 +34,9 @@ function ClueList(props) {
     const [isOpen, toggleOpen] = useCycle(false, true);
     const containerRef = useRef(null);
 
+    const closeMenu = () => {
+        toggleOpen(false)
+    }
         return ( 
 
             <motion.nav
@@ -48,7 +51,7 @@ function ClueList(props) {
                 ref={containerRef}
                 variants={sidebar}
                 className="cluelist-container">
-                    <ClueListItems />
+                    <ClueListItems closeMenu={closeMenu}/>
                   </motion.div>
             </motion.nav>
 );
