@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Welccome = () => {
+const Welcome = () => {
     var settings = {
         dots: false,
         infinite: true,
@@ -45,4 +45,4 @@ const Welccome = () => {
             );
 }
  
-export default Welccome;
+export default Welcome;

@@ -1,11 +1,7 @@
 import React from 'react';
 import {motion} from 'framer-motion'
-import { useSelector } from 'react-redux'
 
-const CharacterIntros = () => {
-
-    const allCharacters = useSelector(state => state.allCharacters)
-    let displayCharacters = allCharacters.filter(char => char.display === true)
+const CharacterIntros = (props) => {
 
     const showDescription = (e, name, description) => {
         let descriptionBox = document.getElementsByClassName("char-description")[0]
@@ -24,7 +20,7 @@ const CharacterIntros = () => {
             </div>
 
             <div className="set-char">
-        {displayCharacters.map(character => 
+                {props.characters.map(character => 
                 <motion.div key={character.id}className="set-char-img-div">
                     <img 
                     id={character.id} 

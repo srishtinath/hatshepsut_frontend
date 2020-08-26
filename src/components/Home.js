@@ -41,11 +41,12 @@ class Home extends Component {
                 <>
                 <div className="home-content">
                     <Zoom>
-                        <p>Welcome {this.props.currentUser.name}!</p>
+                        <h2>Welcome {this.props.currentUser.name}!</h2>
                     </Zoom>
-                    <button onClick={this.seeIntroduction}>Re-read the introduction</button>
-                    <button onClick={this.continueStory}>Continue where you left off...</button>
-                    <button onClick={this.logoutUser}>Logout</button>
+                        <button onClick={this.seeIntroduction}>Re-read the introduction</button>
+                        <button onClick={this.continueStory}>Continue where you left off</button>
+                        <button onClick={this.guessCulpritfunction}>Guess the culprit</button>
+                        <button onClick={this.logoutUser}>Logout</button>
                     <p></p>
                     <Hatshepsut />
                 </div>
@@ -53,6 +54,10 @@ class Home extends Component {
             </>
             )
         } 
+    }
+
+    guessCulpritfunction = (e) => {
+        this.props.history.push('/guess')
     }
 
     logoutUser = (e) => {

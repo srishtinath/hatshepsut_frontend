@@ -21,6 +21,8 @@ class Setting extends Component {
         this.props.history.push('/home/room')
     }
 
+    
+
     render() { 
         var settings = {
             dots: false,
@@ -32,6 +34,9 @@ class Setting extends Component {
             useTransform: true
             // slidesToScroll: 1
           };
+
+        const allCharacters = this.props.allCharacters
+        let displayCharacters = allCharacters.filter(char => char.display === true)
         return ( 
             <div className="setting">
                 <Slider {...settings}>
@@ -56,7 +61,7 @@ class Setting extends Component {
                     <div className="slide2-content">
                     <h2>Meet your fellow travellers</h2>
                         <div className="slide2-div">
-                            <CharacterIntros />
+                            <CharacterIntros characters={displayCharacters}/>
                         </div>
                     </div>
                 </div>

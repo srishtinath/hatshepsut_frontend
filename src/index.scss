@@ -1046,11 +1046,37 @@ button:hover {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
-  height: 500px;
+  height: 715px;
   padding: 1%;
-  margin: 1%;
+  color: white;
+  text-align: center;
+  
 }
 
 .right-text {
   color: white;
+}
+
+.guess-characters {
+  width: 100px;
+}
+
+.culprit-selected {
+  filter: drop-shadow(9px 9px 9px rgba(0,0,0,0.6));
+}
+
+.guess-char-img-div {
+  height: 90%;
+}
+
+.guess-char-img {
+  position: relative;
+  top: 15%;
+  padding-top: 3%;
+  height: 95%;
+  transition: transform .5s ease;
+}
+
+.guess-char-img:hover {
+  transform: scale(1.15) translateY(100px);
 }

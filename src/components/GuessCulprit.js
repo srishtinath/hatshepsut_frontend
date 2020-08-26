@@ -4,8 +4,10 @@ import {connect} from 'react-redux'
 
 import RightAnswer from './RightAnswer'
 import WrongAnswer from './WrongAnswer'
+import characterGuesses from './characterGuesses'
 
 import {removeUserRoom} from '../actions/room'
+import CharacterIntros from './CharacterIntros';
 
 class GuessCulprit extends Component {
     
@@ -21,34 +23,35 @@ class GuessCulprit extends Component {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        this.setState({
-            showForm: false,
-            choice: ""
-        })
-        if (this.state.choice !== "Riccardo Bonardi" && this.state.numberOfGuesses < 2){
+        if(this.state.choice){
             this.setState({
-                numberOfGuesses: this.state.numberOfGuesses + 1
+                showForm: false,
+                choice: ""
             })
-        } else if (this.state.numberOfGuesses === 2){
-            if (window.confirm("Are you sure you want to submit? This is your last guess.")){
-                if(this.state.choice !== "Riccardo Bonardi"){
-                    this.resetGame()
-                    this.props.history.push('/home')
+            if (this.state.choice !== "Riccardo Bonardi" && this.state.numberOfGuesses < 2){
+                this.setState({
+                    numberOfGuesses: this.state.numberOfGuesses + 1
+                })
+            } else if (this.state.numberOfGuesses === 2){
+                if (window.confirm("Are you sure you want to submit? This is your last guess.")){
+                    if(this.state.choice !== "Riccardo Bonardi"){
+                        this.resetGame()
+                        this.props.history.push('/home')
+                    } else {
+                        this.setState({
+                            showWrong: false
+                        })
+                    }
                 } else {
                     this.setState({
-                        showWrong: false
+                        showForm: true
                     })
                 }
             } else {
                 this.setState({
-                    showForm: true
+                    showWrong: false
                 })
             }
-        } else {
-            this.setState({
-                showWrong: false
-            })
         }
     }
 
@@ -77,31 +80,54 @@ class GuessCulprit extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({ choice: e.target.value});
+        this.setState({ 
+            choice: e.target.alt}, (() => {
+                let descriptionBox = document.getElementsByClassName("selected")[0]
+                descriptionBox.innerHTML = `<p>Selected: ${this.state.choice}</p>`
+            }));
+
+    }
+
+    showDescription = (e, name, description) => {
+        let descriptionBox = document.getElementsByClassName("char-description")[0]
+        descriptionBox.innerHTML = `<h2>${name}</h2>`
+    }
+
+    hideDescription = (e) => {
+        let descriptionBox = document.getElementsByClassName("char-description")[0]
+        descriptionBox.innerText = ""
     }
 
     render() { 
-        let characterChoices = ["Atif Mostafa", "Lord Kit Sharp", "Lady Amelia Sharp", "Gael Vergara", "Isra Hassan", "Riccardo Bonardi", "No one", "Queen Hatshepsut", "Masud Deeb"]
         return ( 
-            <div className="home-content">
-            {this.state.showForm ? 
             <>
-                <form onSubmit={this.handleSubmit}>
+            {this.state.showForm ? 
+                <div className="home-content">
                     <label><h2>So... who do you think did it?</h2> <p>You have 3 chances to guess correctly. If you're wrong... you have to start your journey all over again.</p></label>
-                            {characterChoices.map(character => 
-                                <p key={character.id}>
-                                <input name="character" 
-                                type="radio" 
-                                value={character} 
-                                onChange={this.handleChange} 
-                                checked={this.state.choice === character}/>
-                                <label>{character}</label>
-                                </p>
-                                )}
-                    <button type="submit"> Guess</button>
-                </form>
+                    <div className="char-container">
+                        
+                        <div className="char-description">
+                        </div>
+                        <div className="set-char">
+                        {characterGuesses.map(character => 
+                        <div key={character.name} className="guess-char-img-div">
+                            <img 
+                            src={character.image_url} 
+                            alt={character.name} 
+                            className={ this.state.choice !== character.name? "guess-char-img": "guess-char-img culprit-selected"}
+                            onClick={this.handleChange}
+                            onMouseEnter={(e) => this.showDescription(e, character.name)}
+                            onMouseLeave={this.hideDescription} 
+                            />
+                        </div>
+                        )} 
+                        </div>
+                        <div className="selected">
+                        </div>
+                    </div>
+                <button onClick={this.handleSubmit}>Guess</button>
                 <button onClick={this.goHome}>Go back home cuz you're probably wrong</button>
-                </>
+                </div>
                 : 
                 <>
                     { this.state.showWrong ? 
@@ -111,7 +137,8 @@ class GuessCulprit extends Component {
                     }
             </>
             }
-            </div>
+            </>
+
          );
     }
 }

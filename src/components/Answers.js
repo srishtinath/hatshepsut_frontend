@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 function Answers(props) {
     
-    const [isAnswered, setIsAnswered] = useState(false)
     const [classNames, setClassNames] = useState(['', '', '', ''])
         
     useEffect(() => {
-        setIsAnswered(props.isAnswered)
         setClassNames(['', '', '', ''])
     }, [])
         
