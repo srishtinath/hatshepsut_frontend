@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "07018014fc6c00d579ebd127debb6d66",
+    "revision": "10f0cabe08ea2bc350c49f18839df9ef",
     "url": "/hatshepsut_frontend/index.html"
   },
   {
-    "revision": "8fb172bd749004704f6d",
+    "revision": "86619b18f7d61de3cd20",
     "url": "/hatshepsut_frontend/static/css/2.9b633cd0.chunk.css"
   },
   {
-    "revision": "711443f6c29051df52e1",
-    "url": "/hatshepsut_frontend/static/css/main.b2f999cd.chunk.css"
+    "revision": "416a7ec06c75310393a4",
+    "url": "/hatshepsut_frontend/static/css/main.1b8ee330.chunk.css"
   },
   {
-    "revision": "8fb172bd749004704f6d",
-    "url": "/hatshepsut_frontend/static/js/2.93d507b9.chunk.js"
+    "revision": "86619b18f7d61de3cd20",
+    "url": "/hatshepsut_frontend/static/js/2.3ae914d6.chunk.js"
   },
   {
     "revision": "3e5ac10e7701c88cc1476acc3139961e",
-    "url": "/hatshepsut_frontend/static/js/2.93d507b9.chunk.js.LICENSE.txt"
+    "url": "/hatshepsut_frontend/static/js/2.3ae914d6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "711443f6c29051df52e1",
-    "url": "/hatshepsut_frontend/static/js/main.144ac6f8.chunk.js"
+    "revision": "416a7ec06c75310393a4",
+    "url": "/hatshepsut_frontend/static/js/main.e561e0bb.chunk.js"
   },
   {
     "revision": "1678923fe968138a7c45",
