@@ -8,16 +8,21 @@ const Items = () => {
     const currentLocation = useSelector(state => state.currentLocation)
     const items = currentLocation.items
    
+    console.log(items.length > 1)
         return ( 
             <>
             {/* <p align="center">{currentLocation.name}</p> */}
-            {items ? 
+            {items.length > 0 ? 
             <div className="item-container">
             {items.map(item => 
                 < Item item = {item} key={item.id}/>
                 )}
             </div>
-            : null}
+            :
+            <div className="item-container">
+                <p align="center">Looks like there are no clues here!</p>
+            </div> 
+            }
             </>
          );
 }

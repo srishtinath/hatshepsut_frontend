@@ -48,6 +48,7 @@ class Home extends Component {
                         <button onClick={this.guessCulpritfunction}>Guess the culprit</button>
                         <button onClick={this.logoutUser}>Logout</button>
                     <p></p>
+                    <p>Make sure you're playing on your desktop, with your screen full size.</p>
                     <Hatshepsut />
                 </div>
                 

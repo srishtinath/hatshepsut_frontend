@@ -54,14 +54,17 @@ export default function Game(props, {fieldWidth=6, fieldHeight=3}) {
 
 	// showcase
 	useEffect(() => {
-		setTimeout(() => {
-			let index = 0;
-			for (const card of cards) {
-				setTimeout(() => setCardIsFlipped(card.id, true), index++ * 100);
-			}
-			setTimeout(() => setCanFlip(true), cards.length * 100);
-		}, 3000);
-		setGameWon(false)
+		if (cards){
+			setTimeout(() => {
+				let index = 0;
+				for (const card of cards) {
+					setTimeout(() => setCardIsFlipped(card.id, true), index++ * 100);
+				}
+				setTimeout(() => setCanFlip(true), cards.length * 100);
+			}, 3000);
+			setGameWon(false)
+
+		}
 	}, []);
 
 
