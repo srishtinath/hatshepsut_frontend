@@ -10,12 +10,12 @@ let history = useHistory();
 
 
 const guessCulprit = (e) => {
-    history.push('/guess')
+    history.push('/hatshepsut_frontend/guess')
     props.closeMenu()
 }
 
 const renderHome = (e) => {
-    history.push('/home')
+    history.push('/hatshepsut_frontend/home')
     props.closeMenu()
 }
 

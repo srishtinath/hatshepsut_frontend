@@ -22,7 +22,7 @@ class App extends Component {
 
   componentDidMount(){
     if (localStorage.token){
-      fetch("https://hatshepsut.herokuapp.com//users/stay_logged_in", {
+      fetch("https://hatshepsut.herokuapp.com/users/stay_logged_in", {
         headers: {
           "Authorization": localStorage.token
         }
@@ -30,17 +30,17 @@ class App extends Component {
       .then(r => r.json())
       .then(this.handleLoginResponse)
     }
-      fetch("https://hatshepsut.herokuapp.com//characters")
+      fetch("https://hatshepsut.herokuapp.com/characters")
       .then(r=> r.json())
       .then(charactersFetched => this.props.setAllCharacters(charactersFetched))
       
-      fetch("https://hatshepsut.herokuapp.com//rooms")
+      fetch("https://hatshepsut.herokuapp.com/rooms")
       .then(r=> r.json())
       .then(roomsFetched => this.props.setAllRooms(roomsFetched))
 }
   handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
-    fetch("https://hatshepsut.herokuapp.com//users/login", {
+    fetch("https://hatshepsut.herokuapp.com/users/login", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -53,7 +53,7 @@ class App extends Component {
 
   handleRegisterSubmit = (userInfo) => {
     console.log("Register form has been submitted")
-    fetch("https://hatshepsut.herokuapp.com//users", {
+    fetch("https://hatshepsut.herokuapp.com/users", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -74,7 +74,7 @@ class App extends Component {
       this.setState({
         token: resp.token
       }, this.handleInitialInfo(resp.user))
-    this.props.history.push('/home')
+    this.props.history.push('/hatshepsut_frontend/home')
   }
 }
 
@@ -88,7 +88,7 @@ class App extends Component {
       this.setState({
         token: resp.token
       }, this.handleInitialInfo(resp.user))
-    this.props.history.push('/home/setting')
+    this.props.history.push('/hatshepsut_frontend/home/setting')
   }
 }
 
@@ -101,9 +101,9 @@ class App extends Component {
   }
 
   renderForm = (routerProps) => {
-    if (routerProps.location.pathname === "/login"){
+    if (routerProps.location.pathname === "/hatshepsut_frontend/login"){
       return <LoginForm formName="Login" handleSubmit={this.handleLoginSubmit}/>
-    } else if (routerProps.location.pathname === "/register"){
+    } else if (routerProps.location.pathname === "/hatshepsut_frontend/register"){
       return <LoginForm formName="Register" handleSubmit={this.handleRegisterSubmit}/>
     } else {
       return <LoginForm formName="Login" handleSubmit={this.handleLoginSubmit}/>
@@ -116,14 +116,14 @@ class App extends Component {
           <Home logoutUser={this.logoutUser}/>
     )
     } else {
-        this.props.history.push("/login")
+        this.props.history.push("/hatshepsut_frontend/login")
     }
   }
 
   logoutUser = () => {
     localStorage.token = ""
     localStorage.cluelistId = ""
-    this.props.history.push('/welcome')
+    this.props.history.push('/hatshepsut_frontend/welcome')
     this.setState({
       token: ""
     })
@@ -142,11 +142,11 @@ class App extends Component {
            <>
            <div className="body-content">
           <Switch>
-              <Route path="/welcome" render={this.renderWelcome} />
-              <Route path="/home" render={this.renderHome}/>
-              <Route path="/login" render={this.renderForm} />
-              <Route path="/register" render={this.renderForm} />
-              <Route path="/guess" render={this.renderGuess} />
+              <Route path="/hatshepsut_frontend/welcome" render={this.renderWelcome} />
+              <Route path="/hatshepsut_frontend/home" render={this.renderHome}/>
+              <Route path="/hatshepsut_frontend/login" render={this.renderForm} />
+              <Route path="/hatshepsut_frontend/register" render={this.renderForm} />
+              <Route path="/hatshepsut_frontend/guess" render={this.renderGuess} />
               <Route render={this.renderWelcome} />
           </Switch>
           </div>

@@ -58,7 +58,7 @@ class Home extends Component {
     }
 
     guessCulpritfunction = (e) => {
-        this.props.history.push('/guess')
+        this.props.history.push('/hatshepsut_frontend/guess')
     }
 
     logoutUser = (e) => {
@@ -66,11 +66,11 @@ class Home extends Component {
       }
 
     seeIntroduction = (e) => {
-        this.props.history.push('home/setting')
+        this.props.history.push('/hatshepsut_frontend/home/setting')
     }
 
     continueStory = (e) => {
-        this.props.history.push('home/rooms')
+        this.props.history.push('/hatshepsut_frontend/home/rooms')
     }
 
     renderRooms = () => {

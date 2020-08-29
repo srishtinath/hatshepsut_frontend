@@ -13,11 +13,11 @@ let userRooms = useSelector(state => state.userRooms)
 
     const goToRoom = (roomObj) => {
         dispatch(setCurrentRoom(roomObj))
-        history.push('/home/room')
+        history.push('/hatshepsut_frontend/home/room')
     } 
 
     const guessCulprit = (e) => {
-        history.push('/guess')
+        history.push('/hatshepsut_frontend/guess')
     }
 
     const list = {

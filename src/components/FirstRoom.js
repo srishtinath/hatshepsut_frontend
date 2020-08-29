@@ -83,7 +83,7 @@ function FirstRoom(props) {
             setNextRoom()
         }
         if (e.target.innerText === "Guess the culprit!"){
-            history.push('/guess')
+            history.push('/hatshepsut_frontend/guess')
         }
         props.resetClickCount()
     }

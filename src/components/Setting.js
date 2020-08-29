@@ -18,7 +18,7 @@ class Setting extends Component {
 
     handleAdventure = () => {
         this.props.setCurrentRoom(this.props.allRooms[0])
-        this.props.history.push('/home/room')
+        this.props.history.push('/hatshepsut_frontend/home/room')
     }
 
     

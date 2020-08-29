@@ -19,7 +19,7 @@ class GuessCulprit extends Component {
         }
 
     goHome = (e) => {
-        this.props.history.push('/home')
+        this.props.history.push('/hatshepsut_frontend/home')
     }
 
     handleSubmit = (e) => {
@@ -36,7 +36,7 @@ class GuessCulprit extends Component {
                 if (window.confirm("Are you sure you want to submit? This is your last guess.")){
                     if(this.state.choice !== "Riccardo Bonardi"){
                         this.resetGame()
-                        this.props.history.push('/home')
+                        this.props.history.push('/hatshepsut_frontend/home')
                     } else {
                         this.setState({
                             showWrong: false
