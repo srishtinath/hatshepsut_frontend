@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "10f0cabe08ea2bc350c49f18839df9ef",
+    "revision": "5dd373c792ba2f50175c9da9edf591cb",
     "url": "/hatshepsut_frontend/index.html"
   },
   {
