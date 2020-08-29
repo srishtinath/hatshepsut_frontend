@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5dd373c792ba2f50175c9da9edf591cb",
+    "revision": "315d804714d52a31615ea9b5d1ca6cd6",
     "url": "/hatshepsut_frontend/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/hatshepsut_frontend/static/css/2.9b633cd0.chunk.css"
   },
   {
-    "revision": "416a7ec06c75310393a4",
+    "revision": "a18e848a3d7eb2509cf8",
     "url": "/hatshepsut_frontend/static/css/main.1b8ee330.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/hatshepsut_frontend/static/js/2.3ae914d6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "416a7ec06c75310393a4",
-    "url": "/hatshepsut_frontend/static/js/main.e561e0bb.chunk.js"
+    "revision": "a18e848a3d7eb2509cf8",
+    "url": "/hatshepsut_frontend/static/js/main.5eadd41e.chunk.js"
   },
   {
     "revision": "1678923fe968138a7c45",
